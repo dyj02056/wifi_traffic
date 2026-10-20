@@ -98,12 +98,15 @@ button:hover { background: var(--border); }
   border-radius: var(--radius); font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
 
 /* ── weight-panel ── */
-.weight-panel .rule { display: grid; grid-template-columns: 20px 1fr 44px; gap: var(--space-1) var(--space-2);
-  align-items: center; padding: var(--space-2) 0; border-bottom: 1px dashed var(--border); }
+.weight-panel .rule { display: grid; grid-template-columns: 20px 1fr auto; gap: var(--space-1) var(--space-2);
+  align-items: center; padding: var(--space-3) 0; border-bottom: 1px dashed var(--border); }
+.weight-panel .rule .slider-wrap { grid-column: 1 / 4; padding: 2px 10px 0; }
 .weight-panel .rule .name { font-weight: 600; }
-.weight-panel .rule .one-liner { grid-column: 2 / 4; color: var(--text-muted); font-size: 12px; }
+.weight-panel .rule .one-liner { grid-column: 1 / 4; color: var(--text-muted); font-size: 12px; }
 .weight-panel .rule input[type="range"] { grid-column: 2 / 3; width: 100%; }
-.weight-panel .rule output { text-align: right; font-variant-numeric: tabular-nums; }
+.weight-panel .rule output { text-align: right; font-variant-numeric: tabular-nums; font-weight: 800; font-size: 16px;
+  color: var(--accent); min-width: 44px; }
+.weight-panel .rule output small { font-size: 11px; font-weight: 600; margin-left: 1px; color: var(--text-muted); }
 .weight-panel .rule.off { opacity: .45; }
 .notice { padding: var(--space-2) var(--space-3); border-radius: 6px; margin: var(--space-2) 0; font-size: 13px; }
 .notice.warn { background: var(--warn-bg); color: var(--warn-text); }
@@ -304,11 +307,17 @@ ul.tips li { margin-bottom: 4px; }
 .badge.static { background: #374151; color: #fff; }
 
 /* Radix 슬라이더 (키보드 조작 가능, plan.md §9.4) */
-.slider-root { position: relative; display: flex; align-items: center; height: 20px; touch-action: none; user-select: none; }
-.slider-track { position: relative; flex: 1; height: 4px; background: var(--surface-2); border-radius: 2px; }
-.slider-range { position: absolute; height: 100%; background: var(--accent); border-radius: 2px; }
-.slider-thumb { display: block; width: 16px; height: 16px; background: var(--surface); border: 2px solid var(--accent);
-  border-radius: 50%; }
+.slider-root { position: relative; display: flex; align-items: center; width: 100%; height: 28px; cursor: pointer;
+  touch-action: none; user-select: none; }
+.slider-track { position: relative; flex: 1; height: 6px; background: var(--border); border-radius: 3px; }
+.slider-range { position: absolute; height: 100%; background: var(--accent); border-radius: 3px; }
+.slider-default { position: absolute; top: -4px; width: 2px; height: 14px; margin-left: -1px; background: var(--text-muted);
+  border-radius: 1px; opacity: .6; }
+.slider-thumb { display: block; width: 20px; height: 20px; background: var(--surface); border: 3px solid var(--accent);
+  border-radius: 50%; box-shadow: 0 1px 4px rgba(0,0,0,.25); cursor: grab; }
+.slider-thumb:active { cursor: grabbing; }
+.slider-scale { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-muted);
+  font-variant-numeric: tabular-nums; margin-top: -2px; }
 .slider-thumb:focus-visible { outline: 3px solid rgba(36, 89, 214, .35); }
 .slider-root[data-disabled] { opacity: .4; }
 

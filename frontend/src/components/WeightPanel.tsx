@@ -18,13 +18,21 @@ export function WeightPanel({ rules }: { rules: RulesDoc }) {
             <label htmlFor={`sel-${r.id}`} className="name">
               {r.id} {r.name} {r.is_assumption && <span className="badge assumption" title="가정 기반 규칙">가정</span>}
             </label>
-            <span />
-            <Slider.Root className="slider-root" min={0} max={2 * r.max_points} step={1} value={[weights[i]]}
-              onValueChange={([v]) => setWeight(i, v)} disabled={!selected[i]} aria-label={`${r.id} 가중치`}>
-              <Slider.Track className="slider-track"><Slider.Range className="slider-range" /></Slider.Track>
-              <Slider.Thumb className="slider-thumb" aria-label={`${r.id} 가중치`} />
-            </Slider.Root>
-            <output>{weights[i]}</output>
+            <output htmlFor={`w-${r.id}`}>{weights[i]}<small>점</small></output>
+            {/* 왼쪽 끝 0 ~ 오른쪽 끝 2×기본값, 눈금은 기본값 위치 */}
+            <div className="slider-wrap">
+              <Slider.Root id={`w-${r.id}`} className="slider-root" min={0} max={2 * r.max_points} step={1} value={[weights[i]]}
+                onValueChange={([v]) => setWeight(i, v)} disabled={!selected[i]} aria-label={`${r.id} 가중치`}>
+                <Slider.Track className="slider-track">
+                  <Slider.Range className="slider-range" />
+                  <span className="slider-default" style={{ left: "50%" }} aria-hidden="true" />
+                </Slider.Track>
+                <Slider.Thumb className="slider-thumb" aria-label={`${r.id} 가중치`} />
+              </Slider.Root>
+              <div className="slider-scale" aria-hidden="true">
+                <span>0</span><span>기본 {r.max_points}</span><span>{2 * r.max_points}</span>
+              </div>
+            </div>
             <div className="one-liner">{r.one_liner} (기본 {r.max_points}점)</div>
           </div>
         ))}
