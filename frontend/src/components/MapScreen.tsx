@@ -125,9 +125,12 @@ export function MapScreen() {
   for (const s of scores.values()) if (s.score != null && s.grade) { counts[s.grade] = (counts[s.grade] ?? 0) + 1; sum += s.score; n += 1; }
 
   // 추천 TOP 3: 지금 지도 화면 안에서 점수가 가장 낮은 곳 (지도가 없으면 지역 전체)
+  // 같은 이름(한 건물의 공유기 여러 대)은 하나만 — 강남구민체육관 3대가 TOP 3를 다 차지하던 문제
+  const seenNames = new Set<string>();
   const recommend = (pts ?? [])
     .filter((p) => { const s = scores.get(p.key); return s?.score != null && st.gradeFilter.has(s.grade!) && (!inView || inView(p.lat, p.lng)); })
     .sort((a, b) => scores.get(a.key)!.score! - scores.get(b.key)!.score! || (a.key < b.key ? -1 : 1))
+    .filter((p) => { const n = p.name.trim(); if (seenNames.has(n)) return false; seenNames.add(n); return true; })
     .slice(0, 3);
 
   const onGps = () => {

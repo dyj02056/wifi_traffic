@@ -91,6 +91,7 @@ function renderRecommend() {
       return s?.score != null && state.gradeFilter.has(s.grade) && mapView.contains(p.lat, p.lng);
     })
     .sort((a, b) => scoreOf(a.key) - scoreOf(b.key) || a.name.localeCompare(b.name, "ko"))
+    .filter(function (p) { const n = p.name.trim(); return !this.has(n) && this.add(n); }, new Set())   // 같은 이름(한 건물 여러 대)은 하나만
     .slice(0, 3);
   if (!top.length) {
     list.innerHTML = `<li class="empty">지도 화면 안에 표시된 지점이 없습니다. 지도를 움직여 보세요.</li>`;
