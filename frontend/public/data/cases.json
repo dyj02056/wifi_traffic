@@ -1,4 +1,71 @@
 {
-  "cases": [],
+  "cases": [
+    {
+      "id": "hotel-wifi-fake-update",
+      "title": "호텔·컨퍼런스장 와이파이 접속 화면에서 가짜 업데이트로 악성코드 유포",
+      "source": {
+        "url": "https://www.theregister.com/security/2026/08/03/russias-svr-borks-public-wi-fis-for-digital-surveillance/5282399",
+        "name": "The Register (원 보고 Microsoft)",
+        "dataset_id": null,
+        "published_at": "2026-08-03",
+        "retrieved_at": "2026-10-20"
+      },
+      "summary": "러시아 정보기관과 연결된 해킹 조직이 호텔이나 컨퍼런스장의 와이파이 접속 화면을 장악했어요. 접속한 사람에게 '운영체제 업데이트가 필요하다'는 식의 가짜 안내를 띄워 악성코드를 깔게 했고, 이걸로 비밀번호와 로그인 정보를 빼 갔어요. 마이크로소프트가 공개한 내용으로, 공용 와이파이에서는 업데이트를 받지 말고 가능하면 개인 핫스팟을 쓰라고 권했어요.",
+      "principle": "와이파이 접속 화면(캡티브 포털) 장비를 장악해 접속자에게 가짜 업데이트·로그인 화면을 띄우는 방식",
+      "related_rules": [
+        "R1"
+      ]
+    },
+    {
+      "id": "eol-router-botnet",
+      "title": "지원이 끝난 공유기 4,300여 대가 봇넷에 감염",
+      "source": {
+        "url": "https://www.malwarebytes.com/blog/news/2026/06/thousands-of-d-link-routers-under-control-of-arystinger-botnet",
+        "name": "Malwarebytes",
+        "dataset_id": null,
+        "published_at": "2026-06-22",
+        "retrieved_at": "2026-10-20"
+      },
+      "summary": "제조사 지원이 끝나 보안 패치가 더는 나오지 않는 D-Link 공유기들이 'AryStinger'라는 봇넷에 감염됐어요. 공격자는 13년 전에 이미 알려진 취약점을 그대로 이용했고, 감염된 공유기는 최소 4,300대로 계속 늘고 있다고 해요. 이렇게 넘어간 장비는 다른 공격의 발판이 되거나, 지나가는 트래픽을 엿보고 가짜 사이트로 보내는 데 쓰일 수 있어서 오래된 장비는 바꾸는 게 가장 확실하다고 해요.",
+      "principle": "제조사 보안 업데이트가 끊긴 오래된 무선 장비의 알려진 취약점을 노리는 공격",
+      "related_rules": [
+        "R4"
+      ]
+    },
+    {
+      "id": "airport-evil-twin",
+      "title": "공항·기내에서 같은 이름의 가짜 와이파이로 계정 정보 수집",
+      "source": {
+        "url": "https://www.afp.gov.au/news-centre/media-release/wa-man-jailed-stealing-intimate-material-and-using-evil-twin-wifi",
+        "name": "호주 연방경찰(AFP) 보도자료",
+        "dataset_id": null,
+        "published_at": "2025-11-28",
+        "retrieved_at": "2026-10-20"
+      },
+      "summary": "호주에서 한 남성이 공항과 국내선 비행기 안에서 진짜 무료 와이파이와 똑같은 이름의 가짜 와이파이를 띄웠어요. 휴대폰이 익숙한 이름을 보고 자동으로 연결되면 이메일이나 SNS 로그인을 요구하는 가짜 화면이 떴고, 여기에 입력한 계정 정보로 다른 사람들의 사적인 사진과 영상을 빼냈어요. 항공사 직원의 신고로 붙잡혔고, 2025년 11월 징역 7년 4개월을 선고받았어요.",
+      "principle": "정상 와이파이와 같은 이름의 가짜 AP(이블 트윈)를 띄워 접속을 유도하고 가짜 로그인 화면으로 정보를 수집",
+      "related_rules": [
+        "R1",
+        "R5"
+      ]
+    },
+    {
+      "id": "nearest-neighbor-wifi",
+      "title": "길 건너 이웃 기관의 와이파이를 거쳐 목표 기관 무선망에 침투",
+      "source": {
+        "url": "https://www.volexity.com/blog/2024/11/22/the-nearest-neighbor-attack-how-a-russian-apt-weaponized-nearby-wi-fi-networks-for-covert-access/",
+        "name": "Volexity",
+        "dataset_id": null,
+        "published_at": "2024-11-22",
+        "retrieved_at": "2026-10-20"
+      },
+      "summary": "러시아 해킹 조직이 직접 들어가기 어려운 목표 기관 대신, 길 건너 가까운 건물에 있는 다른 기관들을 먼저 해킹했어요. 그 기관의 컴퓨터에 달린 무선 장치로 목표 기관의 사내 와이파이에 접속했는데, 와이파이에는 추가 인증 없이 아이디와 비밀번호만 있으면 들어갈 수 있었어요. 보안 업체 Volexity는 신호가 닿는 '이웃'을 발판으로 삼았다고 해서 이 방식을 '가장 가까운 이웃 공격'이라고 불렀어요.",
+      "principle": "무선 신호가 닿는 가까운 곳의 장비를 발판으로 삼아 목표 와이파이에 접속하는 근거리 무선 침투",
+      "related_rules": [
+        "R3",
+        "R5"
+      ]
+    }
+  ],
   "label": "같은 원리 사례 — 국내 공공와이파이 사건 아님"
 }

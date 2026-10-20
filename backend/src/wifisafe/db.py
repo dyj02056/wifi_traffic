@@ -189,7 +189,7 @@ def set_user_region(conn, user_id: int, sido: str, sigungu: str | None, region_i
 
 # ── 장소 검색 (장소명·주소·설치장소상세) ─────────────────────────
 def _like_tokens(q: str) -> list[str]:
-    esc = lambda t: t.replace("\\", "\\\\").replace("%", "\%").replace("_", "\_")   # noqa: E731
+    esc = lambda t: t.replace("\\", "\\\\").replace("%", r"\%").replace("_", r"\_")   # noqa: E731
     return [f"%{esc(t)}%" for t in q.split() if t][:6]
 
 

@@ -54,12 +54,13 @@
 ## M5 부가 — 코드 준비 완료(validate_guro·fetch_background는 실제 파일·엔드포인트 확인 필요, cases.yaml 작성 필요)
 
 ## 마감 체크리스트 (발표 2026-10-21 16:00 KST)
-- [ ] 커밋(feat/decisions-and-frontend) → main 병합 → GitHub 푸시 (사용자 확인 후)
+- [x] 커밋(feat/decisions-and-frontend) → main 병합 → GitHub 푸시
 - [ ] Vercel 배포: backend API(환경변수 DATABASE_URL·SESSION_SECRET·GOOGLE_CLIENT_ID·CORS_ORIGINS), frontend(NEXT_PUBLIC_*)
 - [ ] GitHub Secret `DATABASE_URL`(매일 수집 Actions)
 - [ ] 카카오(JS SDK 도메인)·구글(승인된 자바스크립트 원본)·네이버(서비스 URL·Callback)에 배포 주소 등록
 - [ ] 배포 주소에서 시연 시나리오 1회 + API 끈 상태 정적 백업 확인
-- [ ] 사례 카드 요약 4건(cases.yaml drafts → cases) — 지금 cases.json 0건
+- [x] 사례 카드 요약 4건 — Claude 초안 반영(#40), 발표 전 사용자 검토
 - [ ] 발표자료 갱신(requests #35 목록)
-- [ ] (시간 남으면) 마커 묶어 보이기(19번), 광주·전남 잘못된 '신규 설치' 이력 9,546건 삭제
+- [x] 광주·전남 잘못된 '신규 설치' 이력 9,546건 삭제(2026-10-21 사용자 허락)
+- [ ] (시간 남으면) 마커 묶어 보이기(19번)
 
