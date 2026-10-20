@@ -34,7 +34,13 @@ export function showPoints(points, colorOf, bbox) {
     const [w, s, e, n] = bbox;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const bounds = L.latLngBounds([s, w], [n, e]).pad(0.05);
-    if (reduce) map.fitBounds(bounds);
+    const size = map.getSize();
+    // 지도 영역 크기가 0이면(백그라운드 탭에서 열림 등) flyToBounds가 0으로 나눠 NaN 오류를 낸다.
+    // 중심만 옮겨 두고, 크기가 생기면(resize) 그때 영역에 맞춘다.
+    if (!size.x || !size.y) {
+      map.setView(bounds.getCenter(), map.getZoom(), { animate: false });
+      map.once("resize", () => map.fitBounds(bounds));
+    } else if (reduce) map.fitBounds(bounds);
     else map.flyToBounds(bounds, { duration: 1.2 });
   }
 }

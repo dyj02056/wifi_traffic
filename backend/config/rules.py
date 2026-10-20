@@ -40,12 +40,13 @@ RULE_IDS = tuple(r.id for r in RULES)
 DEFAULT_WEIGHTS = tuple(r.max_points for r in RULES)
 
 # (min, max, label, emoji, color) — min ≤ score < max
-GRADES = ((0, 30, "낮음", "🟢", "#2e9e5b"),
-          (30, 60, "주의", "🟡", "#e0a800"),
-          (60, 101, "높음", "🔴", "#d64545"))
+GRADES = ((0, 30, "낮음", "🟢", "#16a34a"),
+          (30, 60, "주의", "🟡", "#f59e0b"),
+          (60, 101, "높음", "🔴", "#e5383b"))
 
 PARAMS = {
     "R1_UNKNOWN_RATIO": 0.5,   # 가정
+    "R1_REGION_COVERAGE_MIN": 0.9,  # 지역의 SSID 있는 행 중 확정 라벨 비율이 이 이상이면 '임시(무효)' 해제 (requests #23)
     "R2_UNMAPPED_RATIO": 0.5,  # 가정, facility_map.csv 미등록 값
     "R4_FULL_YEARS": 8,        # 가정
     "R4_MISSING_RATIO": 0.5,   # 가정, '결측' flag

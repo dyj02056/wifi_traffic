@@ -9,6 +9,7 @@ import pandas as pd
 from config.rules import DEFAULT_WEIGHTS, DISCLAIMER, GRADES, PARAMS, RULES, SENSITIVITY_B_OVERRIDES, RULE_IDS
 from wifisafe import changes as CH
 from wifisafe import sensitivity as SE
+from wifisafe.geo import view_bbox
 from wifisafe.io import contract_version, now_iso, write_json
 from wifisafe.safety_tips import tips_for
 from wifisafe.scoring import compute_score, round2
@@ -58,15 +59,16 @@ def meta_json(*, is_mock: bool, r1_confirmed: bool, app_mode: str, data_referenc
     }
 
 
-def regions_json(clean: pd.DataFrame, available: set[str], default_region_id: str) -> dict:
+def regions_json(clean: pd.DataFrame, available: set[str], default_region_id: str,
+                 r1_status: dict[str, tuple[str, float | None]]) -> dict:
     regions = []
     for rid, g in clean.groupby("region_id", sort=True):
+        st, cov = r1_status[rid]
         regions.append({
             "region_id": rid, "sido_code": rid[:2], "sido": g["sido"].iloc[0], "sigungu": g["sigungu"].iloc[0],
-            "count": int(len(g)), "available": rid in available,
+            "count": int(len(g)), "available": rid in available, "r1_status": st, "r1_coverage": cov,
             "center": {"lat": round(float(g["lat"].mean()), 6), "lng": round(float(g["lng"].mean()), 6)},
-            "bbox": [round(float(g["lng"].min()), 6), round(float(g["lat"].min()), 6),
-                     round(float(g["lng"].max()), 6), round(float(g["lat"].max()), 6)],
+            "bbox": view_bbox(g["lat"], g["lng"]),   # 처음 화면 범위: 이상 좌표 빼고 중심부 (#32, #38)
         })
     sido = (clean.groupby(["sido_code", "sido"]).size().reset_index(name="count").sort_values("sido_code"))
     return {
@@ -195,22 +197,31 @@ def golden_json(sample_r: list[list[float]], generated_from: str) -> dict:
     }
 
 
-def write_bundle(out_dir: Path, *, meta: dict, regions: dict, scored: pd.DataFrame, region_ids: list[str],
-                 changes: pd.DataFrame, snapshots: list[str], background: dict, cases: dict,
-                 explanations: dict | None = None) -> None:
-    write_json(out_dir / "meta.json", meta)
-    write_json(out_dir / "rules.json", rules_json())
-    write_json(out_dir / "regions.json", regions)
+COMPACT_FOLDERS = ("points", "detail")
+
+
+def bundle_docs(*, meta: dict, regions: dict, scored: pd.DataFrame, region_ids: list[str],
+                changes: pd.DataFrame, snapshots: list[str], background: dict, cases: dict,
+                explanations: dict | None = None):
+    """번들 문서를 (상대경로, JSON) 순서대로 낸다. 파일(write_bundle)·DB(db.put_docs) 저장이 같은 문서를 쓴다.
+    지역 수가 많아도 메모리에 전부 올리지 않도록 generator로 만든다."""
+    yield "meta.json", meta
+    yield "rules.json", rules_json()
+    yield "regions.json", regions
     key_index = {}
     for rid in region_ids:
         pj = points_json(rid, scored)
-        write_json(out_dir / "points" / f"{rid}.json", pj, compact=True)
-        write_json(out_dir / "detail" / f"{rid}.json", detail_json(rid, scored, (explanations or {}).get(rid)),
-                   compact=True)
-        write_json(out_dir / "changes" / f"{rid}.json", changes_json(rid, changes, snapshots))
-        write_json(out_dir / "sensitivity" / f"{rid}.json", sensitivity_json(rid, scored))
+        yield f"points/{rid}.json", pj
+        yield f"detail/{rid}.json", detail_json(rid, scored, (explanations or {}).get(rid))
+        yield f"changes/{rid}.json", changes_json(rid, changes, snapshots)
+        yield f"sensitivity/{rid}.json", sensitivity_json(rid, scored)
         for p in pj["points"]:
             key_index[p["key"]] = rid
-    write_json(out_dir / "key_index.json", key_index)
-    write_json(out_dir / "background.json", background)
-    write_json(out_dir / "cases.json", cases)
+    yield "key_index.json", key_index
+    yield "background.json", background
+    yield "cases.json", cases
+
+
+def write_bundle(out_dir: Path, **kwargs) -> None:
+    for rel, doc in bundle_docs(**kwargs):
+        write_json(out_dir / rel, doc, compact=rel.split("/")[0] in COMPACT_FOLDERS)

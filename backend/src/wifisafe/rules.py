@@ -16,6 +16,17 @@ from config.rules import PARAMS
 
 LABEL_RATIO = {"open": 1.0, "secure": 0.0}
 MISSING_TOKENS = {"", "미상", "기타", "없음", "-", "nan", "none", "null"}
+# 정부(과기정통부·NIA) 공공와이파이의 일반접속 SSID 'Public WiFi Free'만 적힌 칸. 같은 공유기가 보안접속
+# 'Public WiFi Secure'를 함께 송출하는데 지자체마다 SSID 칸에 둘 다 적거나 Free만 적어서(전국 Free만 20,597행 / 둘 다 2,159행)
+# 개방형으로 단정하지 않고 불명(가정 0.5)으로 본다 (docs/requests.md #47)
+_FREE_ONLY_NORM = re.compile(r"[\s_\-\.]+")
+
+
+def gov_free_only(ssid: pd.Series) -> pd.Series:
+    n = ssid.fillna("").astype(str).str.lower().str.replace(_FREE_ONLY_NORM, "", regex=True)
+    return n.str.contains("publicwififree", regex=False) & ~n.str.contains("secure", regex=False)
+
+
 TEL_RE = re.compile(r"^(0\d{1,2}\d{3,4}\d{4}|1\d{3}\d{4})$")
 
 
@@ -36,12 +47,15 @@ def r1_secure_access(df: pd.DataFrame, t: RuleTables):
     empty = df["ssid"].fillna("").astype(str).str.strip().eq("")
     label = df["ssid"].map(t.ssid_labels).where(~empty)
     ratio = label.map(LABEL_RATIO).fillna(PARAMS["R1_UNKNOWN_RATIO"]).astype(float)
+    free_only = gov_free_only(df["ssid"]) & label.eq("unknown")
     reason = np.select(
-        [empty, label.eq("open"), label.eq("secure"), label.eq("unknown")],
+        [empty, label.eq("open"), label.eq("secure"), free_only, label.eq("unknown")],
         ["SSID 정보 없음(가정 비율 적용)", "SSID가 개방형 목록에 있음", "SSID가 보안접속 목록에 있음",
+         "정부 공공와이파이 일반접속(Free) SSID만 기재 — 보안접속(Secure) 함께 송출 여부 확인 불가(가정 비율 적용)",
          "SSID 분류 불명(가정 비율 적용)"],
         "SSID가 라벨 목록에 없음(가정 비율 적용)")
-    flag = np.select([empty, label.isna(), label.eq("unknown")], ["R1_ssid_missing", "R1_unlabeled", "R1_unknown"], "")
+    flag = np.select([empty, label.isna(), free_only, label.eq("unknown")],
+                     ["R1_ssid_missing", "R1_unlabeled", "R1_free_only", "R1_unknown"], "")
     return ratio, pd.Series(reason, index=df.index), pd.Series(flag, index=df.index)
 
 

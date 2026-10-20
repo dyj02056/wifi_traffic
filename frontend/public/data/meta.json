@@ -1,0 +1,39 @@
+{
+  "is_mock": false,
+  "sources": [
+    {
+      "id": "D1",
+      "url": "https://www.data.go.kr/data/15013116/standard.do",
+      "name": "전국무료와이파이표준데이터",
+      "dataset_id": "15013116",
+      "retrieved_at": "2026-10-21"
+    },
+    {
+      "id": "D3",
+      "url": "https://www.data.go.kr/data/15053887/fileData.do",
+      "name": "경찰청_연도별 사이버 범죄 통계 현황",
+      "dataset_id": "15053887",
+      "retrieved_at": "2026-10-20"
+    },
+    {
+      "id": "D5",
+      "url": "https://www.data.go.kr/data/15140309/fileData.do",
+      "name": "한국인터넷진흥원_국내 민간 분야 침해사고 신고 건수",
+      "dataset_id": "15140309",
+      "retrieved_at": "2026-10-20"
+    }
+  ],
+  "app_mode": "dev",
+  "disclaimer": "이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.",
+  "generated_at": "2026-10-21T00:52:43+09:00",
+  "r1_confirmed": true,
+  "snapshot_count": 2,
+  "contract_version": "1.1.0",
+  "regions_in_bundle": [
+    "41-goyang",
+    "11-seocho",
+    "11-guro"
+  ],
+  "data_reference_date": "2026-09-30",
+  "snapshot_collected_at": "2026-10-21"
+}

@@ -115,3 +115,32 @@ def test_r1_empty_ssid_is_unknown_with_flag():
     ratio, reason, flag = R.r1_secure_access(frame(ssid=["", "OPEN"]), T)
     assert ratio.tolist() == [PARAMS["R1_UNKNOWN_RATIO"], 1.0]
     assert flag.tolist() == ["R1_ssid_missing", ""]
+
+
+def test_r1_region_status_coverage_threshold():
+    from wifisafe.engine import enforce_r1_region_gate, r1_region_status
+    # a: 10행 중 9행 확정(90%) → confirmed, b: 10행 중 8행(80%) → provisional, c: SSID 전부 빈 값 → no_ssid
+    # 빈 SSID 행은 분모에서 빠진다(a의 빈 행 2개)
+    df = pd.DataFrame({"region_id": ["a"] * 12 + ["b"] * 10 + ["c"] * 3,
+                       "ssid": ["OK"] * 9 + ["NEW"] + ["", None] + ["OK"] * 8 + ["NEW"] * 2 + ["", " ", None]})
+    st = r1_region_status(df, {"OK"})
+    assert st == {"a": ("confirmed", 0.9), "b": ("provisional", 0.8), "c": ("no_ssid", None)}
+    enforce_r1_region_gate("final", st, ["a", "c"])          # provisional 지역이 없으면 통과
+    enforce_r1_region_gate("dev", st, ["b"])                 # dev는 막지 않음
+    with pytest.raises(SystemExit, match="b"):
+        enforce_r1_region_gate("final", st, ["a", "b"])
+
+
+def test_gov_free_only_is_unknown_with_own_flag():
+    """정부 공공와이파이 Free만 적힌 칸 → 불명(0.5) + R1_free_only, 둘 다 적힌 칸은 그대로 secure (requests #47)"""
+    import pandas as pd
+    from wifisafe.rules import gov_free_only, r1_secure_access, RuleTables
+    s = pd.Series(["Public_WiFi_Free", "PUBLIC  WIFI FREE", "Public WiFi Free, Public WiFi Secure", "DJ_Public_WiFi", ""])
+    assert gov_free_only(s).tolist() == [True, True, False, False, False]
+    t = RuleTables(ssid_labels={"Public_WiFi_Free": "unknown", "Public WiFi Free, Public WiFi Secure": "secure",
+                                "DJ_Public_WiFi": "open"}, facility_map={}, outdoor_keywords=())
+    df = pd.DataFrame({"ssid": ["Public_WiFi_Free", "Public WiFi Free, Public WiFi Secure", "DJ_Public_WiFi"]})
+    ratio, reason, flag = r1_secure_access(df, t)
+    assert ratio.tolist() == [0.5, 0.0, 1.0]
+    assert flag.tolist() == ["R1_free_only", "", ""]
+    assert "Secure" in reason.iloc[0]

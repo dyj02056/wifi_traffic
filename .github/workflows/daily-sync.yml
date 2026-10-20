@@ -1,0 +1,38 @@
+# 매일 LOCALDATA 전국 무료와이파이 원본 → 정제·채점 → Neon (docs/requests.md #15·#17)
+# 필요한 Secret: DATABASE_URL (Neon 연결 문자열). 원본이 전날과 같으면 아무것도 바꾸지 않고 끝난다.
+name: daily-sync
+
+on:
+  schedule:
+    - cron: "0 20 * * *"   # UTC 20:00 = KST 05:00
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "원본이 같아도 다시 처리"
+        type: boolean
+        default: false
+
+concurrency:
+  group: daily-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements-pipeline.txt
+      - run: pip install -r requirements-pipeline.txt
+      - name: daily_sync
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          APP_MODE: dev
+        run: python pipeline/daily_sync.py ${{ inputs.force && '--force' || '' }}

@@ -1,12 +1,8 @@
-pandas==3.0.6
-pyarrow==26.0.0
-scikit-learn==1.9.1
+# API(Vercel 서버리스) 의존성 — 가볍게 유지(함수 크기 250MB 제한). pandas 등은 requirements-pipeline.txt
 pydantic==2.14.1
 PyYAML==6.0.3
-jsonschema==4.26.0
 python-dotenv==1.2.4
 fastapi==0.150.0
-uvicorn==0.54.0
 anthropic==1.15.0
-pytest==9.1.1
 httpx==0.28.1
+psycopg[binary]==3.3.6

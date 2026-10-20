@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 
 from wifisafe import guardrails
 from wifisafe.io import now_iso
@@ -21,7 +22,63 @@ SYSTEM_PROMPT = """너는 공공와이파이 지점의 위험요인 점수를 �
 - 점수가 높은 항목 1~2개의 이유를 근거값과 함께 말하고, 마지막 문장은 행동 하나를 권한다.
 - 설명문만 출력한다. 머리말·따옴표·목록 기호를 붙이지 않는다."""
 
-TEMPLATE = "{place}의 위험요인 점수는 {score}점({grade})입니다. 가장 큰 요인은 {top1_name}({top1_evidence})입니다. {tip}."
+TEMPLATE = "{place} 와이파이의 위험요인 점수는 {score}점으로 '{grade}' 단계입니다. {factors} {tip}."
+ASSUMED = "(정보가 없어 추정)"
+
+# 시설구분 → 쉬운 말 (config/facility_map.csv와 같은 분류)
+FACILITY_PLAIN = {
+    "교통시설": "정류장·역사처럼 많은 사람이 짧게 머물며 오가는 곳",
+    "관광": "관광지·공원처럼 외지인이 잠깐 접속하는 곳",
+    "편의시설": "여러 사람이 잠깐씩 오가는 편의시설",
+    "기타": "여러 유형이 섞인 생활 공간",
+    "지역문화시설": "도서관·마을회관처럼 주민이 주로 쓰는 시설",
+    "관공서": "민원실·보건소처럼 정해진 용무로 찾는 곳",
+    "서민·복지시설": "경로당처럼 정해진 이용자가 머무는 시설",
+    "교육시설": "등록된 이용자가 주로 쓰는 교육시설",
+}
+_NUM = r"(\d+(?:\.\d+)?)"
+
+
+def _plain(b: dict) -> str:
+    """규칙 하나의 근거(reason)를 쉬운 명사구로. 숫자는 reason에 있는 것만 그대로 옮긴다."""
+    rid, reason = b["id"], b["reason"]
+    assumed = "가정 비율 적용" in reason or ("없음" in reason and rid in ("R4", "R8"))
+    if rid == "R1":
+        text = ("비밀번호 없이 연결되는 개방형 와이파이" if "개방형" in reason
+                else "보안접속을 함께 제공하는지 확인되지 않은 정부 공공와이파이" if "Free" in reason
+                else "보안 방식을 확인할 수 없는 와이파이")
+    elif rid == "R2":
+        m = re.search(r"시설구분 '([^']+)'", reason)
+        ft = m.group(1) if m else ""
+        text = FACILITY_PLAIN.get(ft, f"'{ft}'(으)로 분류된 시설" if ft else "시설 유형을 알 수 없는 곳")
+    elif rid == "R3":
+        m = re.search(r"실외 키워드 '([^']+)'", reason)
+        text = f"실외('{m.group(1)}')에 설치된 장비" if m else "실외에 설치된 장비"
+    elif rid == "R4":
+        m = re.search(r"약 " + _NUM + "년", reason)
+        text = f"설치한 지 약 {m.group(1)}년 된 장비" if m else "설치 시기를 알 수 없는 장비"
+    elif rid == "R5":
+        m = re.search(r"반경 " + _NUM + r"m 안 개방형 AP " + _NUM + "개", reason)
+        text = (f"반경 {m.group(1)}m 안에 개방형 와이파이가 {m.group(2)}개 있는 곳" if m
+                else "주변에 개방형 와이파이가 많은 곳")
+    elif rid == "R6":
+        text = "제공사·관리기관 정보가 비어 있는 와이파이"
+    elif rid == "R7":
+        text = "관리기관 전화번호가 올바르지 않은 와이파이" if "형식" in reason else "관리기관 전화번호가 없는 와이파이"
+    elif rid == "R8":
+        m = re.search(r"기준일자 후 " + _NUM + "일", reason)
+        text = f"공개 데이터 기준일에서 {m.group(1)}일이 지난 정보" if m else "데이터 기준일자가 없는 정보"
+    else:
+        text = b["name"]
+    return text + (ASSUMED if assumed else "")
+
+
+def _factors_sentence(breakdown: list[dict], max_items: int = 2) -> str:
+    top = [b for b in sorted(breakdown, key=lambda b: -b["points"]) if b["points"] > 0][:max_items]
+    if not top:
+        return "눈에 띄는 위험요인은 없습니다."
+    parts = [_plain(b) for b in top]
+    return "이곳은 " + "이고, ".join(parts) + "입니다."
 
 
 def _fmt_score(score: float) -> str:
@@ -50,9 +107,8 @@ def allowed_numbers_for(payload: dict) -> set[float]:
 
 
 def template_explanation(detail: dict) -> dict:
-    top = max(detail["breakdown"], key=lambda b: b["points"])
     text = TEMPLATE.format(place=detail["name"], score=_fmt_score(detail["score"]), grade=detail["grade"],
-                           top1_name=top["name"], top1_evidence=top["reason"],
+                           factors=_factors_sentence(detail["breakdown"]),
                            tip=detail["safety_tips"][0].rstrip("."))
     return {"text": text, "source": "template", "model": None, "generated_at": now_iso()}
 

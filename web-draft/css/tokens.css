@@ -1,9 +1,9 @@
 /* 디자인 토큰 — Next.js(frontend/src/styles/tokens.css)와 같은 값을 쓴다.
    등급 색은 rules.json grades가 진실 공급원이다. main.js가 로드 후 --grade-* 값을 rules.json으로 덮어쓴다. */
 :root {
-  --grade-low: #2e9e5b;      /* 낮음 🟢 */
-  --grade-mid: #e0a800;      /* 주의 🟡 */
-  --grade-high: #d64545;     /* 높음 🔴 */
+  --grade-low: #16a34a;      /* 낮음 🟢 */
+  --grade-mid: #f59e0b;      /* 주의 🟡 */
+  --grade-high: #e5383b;     /* 높음 🔴 */
   --grade-none: #9aa3ad;     /* 계산 중지 */
   --added: #1f9d55;
   --removed: #6b7280;

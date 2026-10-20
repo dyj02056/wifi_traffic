@@ -1,0 +1,32 @@
+{
+  "default_region_id": "99-gasang",
+  "sido": [
+    {
+      "sido_code": "99",
+      "sido": "샘플시",
+      "count": 40
+    }
+  ],
+  "regions": [
+    {
+      "region_id": "99-gasang",
+      "sido_code": "99",
+      "sido": "샘플시",
+      "sigungu": "가상구",
+      "count": 40,
+      "available": true,
+      "r1_status": "provisional",
+      "r1_coverage": 0.0,
+      "center": {
+        "lat": 37.506065,
+        "lng": 126.957366
+      },
+      "bbox": [
+        126.949409,
+        37.499421,
+        126.965188,
+        37.512451
+      ]
+    }
+  ]
+}

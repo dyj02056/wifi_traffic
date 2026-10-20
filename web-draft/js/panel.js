@@ -112,6 +112,8 @@ const FLAG_LABELS = {
   R1_ssid_missing: "SSID 정보 없음(가정 비율)", R1_unlabeled: "SSID 라벨 없음(가정 비율)", R1_unknown: "SSID 분류 불명(가정 비율)", R2_unmapped: "시설구분 미등록(가정 비율)",
   R4_missing: "설치연월 결측(가정 비율)", R4_year_only: "설치연도만 있음", R5_boundary: "시군구 경계 근처 — 밀집도 과소평가 가능",
   R7_invalid_tel: "전화번호 형식 불일치", R8_missing: "데이터기준일자 결측",
+  R1_free_only: "정부 공공와이파이 일반접속(Free) SSID만 기재 — 보안접속(Secure) 함께 송출 여부 확인 불가(가정)",
+  COORD_suspect: "좌표 이상 의심 — 지역 지도 범위 계산에서 제외(점수에는 영향 없음)",
 };
 
 export function renderPointSheet(el, { detail, rules, state, current, gradeMeta, disclaimer }) {
@@ -140,7 +142,7 @@ export function renderPointSheet(el, { detail, rules, state, current, gradeMeta,
       <div class="reason">현재 가중치 기준 · 기본 가중치 기준 ${fmt(detail.score)}점(${esc(detail.grade)})</div></div>
     <section class="panel breakdown"><h3>위험요인별 점수 (R1~R8)</h3>${rows}</section>
     <section class="panel"><h3>설명</h3><div class="explanation">${esc(detail.explanation.text)}
-      <div class="src">${detail.explanation.source === "ai" ? "AI 생성(근거값만 인용·검증 통과)" : "템플릿 설명"}</div></div></section>
+      <div class="src">${detail.explanation.source === "ai" ? "AI 생성(근거값만 인용·검증 통과)" : "근거값 기반 자동 설명"}</div></div></section>
     <section class="panel"><h3>안전하게 쓰는 법</h3>
       <ul class="tips">${detail.safety_tips.map((t, i) => `<li><label><input type="checkbox" id="tip-${i}"> ${esc(t)}</label></li>`).join("")}</ul></section>
     <section class="panel"><h3>신고·문의</h3>

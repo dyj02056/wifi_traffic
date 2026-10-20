@@ -1,7 +1,7 @@
 # R3(실외) 키워드와 금지 표현. 코드에 문자열을 박지 않고 여기서만 관리한다.
 # 2026-10-20 census(place_detail_census.csv) 기반 후보 적용. 근거·매칭 행 수: config/r3_keyword_candidates.csv
-# 사용자가 검토 후 확정하면 r3_status를 confirmed로 바꾼다.
-r3_status: draft
+# 2026-10-20 사용자 검토 후 확정(requests #27). 시장실·감시실은 실외 키워드 오분류 확인 후 실내 예외어로 추가.
+r3_status: confirmed
 r3_outdoor_keywords:
   - 정류장
   - 정류소
@@ -43,6 +43,8 @@ r3_indoor_override_keywords:
   - "사무실"
   - "민원실"
   - "대합실"
+  - "감시실"
+  - "시장실"
 
 # 화면·AI 출력 어디에도 나오면 안 되는 표현 (plan.md §0-7)
 forbidden_phrases:

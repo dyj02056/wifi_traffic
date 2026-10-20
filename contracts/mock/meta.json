@@ -1,5 +1,5 @@
 {
-  "contract_version": "1.0.0",
+  "contract_version": "1.1.0",
   "disclaimer": "이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.",
   "is_mock": true,
   "r1_confirmed": false,
@@ -7,7 +7,7 @@
   "data_reference_date": "2026-10-18",
   "snapshot_collected_at": "2026-10-20",
   "snapshot_count": 2,
-  "generated_at": "2026-10-20T15:53:38+09:00",
+  "generated_at": "2026-10-20T20:40:21+09:00",
   "regions_in_bundle": [
     "99-gasang"
   ],

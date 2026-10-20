@@ -6,8 +6,10 @@ import json
 import os
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-import pandas as pd
+if TYPE_CHECKING:   # API(Vercel)는 pandas 없이 이 모듈을 import한다 — pandas는 쓰는 함수 안에서 import
+    import pandas as pd
 
 BACKEND_DIR = Path(__file__).resolve().parents[2]
 REPO_DIR = BACKEND_DIR.parent
@@ -54,6 +56,7 @@ def detect_encoding(path: Path) -> str:
 
 
 def read_csv_any(path: Path) -> tuple[pd.DataFrame, str]:
+    import pandas as pd
     enc = detect_encoding(path)
     df = pd.read_csv(path, encoding=enc, dtype=str, keep_default_na=False)
     df.columns = [str(c).strip() for c in df.columns]
@@ -61,6 +64,7 @@ def read_csv_any(path: Path) -> tuple[pd.DataFrame, str]:
 
 
 def read_config_csv(name: str) -> pd.DataFrame:
+    import pandas as pd
     return pd.read_csv(CONFIG_DIR / name, dtype=str, keep_default_na=False, encoding="utf-8-sig")
 
 

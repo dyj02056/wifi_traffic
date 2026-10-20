@@ -48,13 +48,20 @@ grade = grades에서 min ≤ score < max (반올림된 score로)
 ## 프론트엔드 표시 규칙
 
 - `meta.disclaimer`를 모든 화면 상단에 고정 표시
-- `meta.is_mock=true` → "샘플 데이터" 배지, `meta.r1_confirmed=false` → "임시(무효)" 워터마크
+- `meta.is_mock=true` → "샘플 데이터" 배지
+- **"임시(무효)"는 지역별로 판단한다(1.1.0~)**: 보고 있는 지역의 `regions[].r1_status`가
+  - `provisional` → "임시(무효) — SSID 라벨 미확정" 배지 + 지도 워터마크
+  - `no_ssid` → "SSID 정보 없음 — 보안접속 항목(R1)은 가정값" 배지만(워터마크 없음)
+  - `confirmed` → 둘 다 없음
+  - `r1_coverage` = 그 지역 SSID 있는 행 중 확정 라벨 비율, 기준은 `rules.params.R1_REGION_COVERAGE_MIN`(0.9)
+  - `meta.r1_confirmed`는 "번들의 모든 지역이 provisional이 아님"이라는 요약값(이전 계약 호환용)
 - `rules[].is_assumption=true` → "가정" 배지
 - `background.included_in_score=false` → "이 통계는 지점 점수에 반영하지 않습니다" 고정
 - `cases.label` 그대로 표시. 출처(`source`)가 없는 항목은 스키마상 존재할 수 없음
-- `points[].flags` 값: `R1_ssid_missing R1_unlabeled R1_unknown R2_unmapped R4_missing R4_year_only R5_boundary R7_invalid_tel R8_missing`
+- `points[].flags` 값: `R1_ssid_missing R1_unlabeled R1_unknown R1_free_only R2_unmapped R4_missing R4_year_only R5_boundary R7_invalid_tel R8_missing COORD_suspect`
   (flag는 표시용 문자열이며 앞으로 추가될 수 있다. 모르는 flag는 원문 그대로 보여주면 된다)
-- 기본 시연 지역은 `regions.json`의 `default_region_id`를 읽는다. `11-guro`를 코드에 고정하지 말 것(시연 지역 변경 검토 중)
+- `regions[].bbox`는 지역을 처음 열 때 `setBounds`/`fitBounds`로 맞출 '처음 화면 범위'다(일직선 이상 좌표·멀리 떨어진 소수 지점 제외, requests #38). 지점은 범위 밖이어도 모두 그린다
+- 기본 시연 지역은 `regions.json`의 `default_region_id`를 읽는다. `11-guro`·`41-goyang`을 코드에 고정하지 말 것(현재 기본 고양시, requests #34)
 
 ## golden_scores.json 형식
 

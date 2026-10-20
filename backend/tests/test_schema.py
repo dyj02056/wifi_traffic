@@ -25,16 +25,28 @@ def test_header_mismatch_errors():
     validate_header(list(COLUMN_MAP) + ["관리번호"])
 
 
-def test_pending_sido_rows_excluded_with_warning():
+def test_pending_sido_rows_excluded_with_warning(monkeypatch):
     import warnings
     from make_mock import fake_rows
-    from wifisafe.engine import clean_frame
+    from wifisafe import engine
+    monkeypatch.setattr(engine, "PENDING_SIDO", {"가상특별시"})
     raw = fake_rows(6, seed=1)
-    raw["설치시도명"] = ["서울특별시"] * 4 + ["전남광주통합특별시"] * 2
+    raw["설치시도명"] = ["서울특별시"] * 4 + ["가상특별시"] * 2
     raw["설치시군구명"] = "구로구"
     with warnings.catch_warnings(record=True) as w:
         warnings.simplefilter("always")
-        df, report = clean_frame(raw)
+        df, report = engine.clean_frame(raw)
     assert len(df) == 4 and set(df["region_id"]) == {"11-guro"}
-    assert report["excluded_pending_sido"] == {"전남광주통합특별시": 2}
-    assert any("전남광주통합특별시" in str(x.message) for x in w)
+    assert report["excluded_pending_sido"] == {"가상특별시": 2}
+    assert any("가상특별시" in str(x.message) for x in w)
+
+
+def test_jeonnam_gwangju_special_city_code():
+    """행안부 법정동코드 2026-07-01: 전남광주통합특별시 = 12 (requests #37)"""
+    from make_mock import fake_rows
+    from wifisafe.engine import clean_frame
+    raw = fake_rows(2, seed=1)
+    raw["설치시도명"] = "전남광주통합특별시"
+    raw["설치시군구명"] = ["광산구", "여수시"]
+    df, report = clean_frame(raw)
+    assert set(df["region_id"].str[:2]) == {"12"} and len(df) == 2

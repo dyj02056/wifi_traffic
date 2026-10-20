@@ -10,7 +10,7 @@
     "contract_version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
     "disclaimer": {"const": "이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다."},
     "is_mock": {"type": "boolean", "description": "true면 프론트엔드는 '샘플 데이터' 배지를 띄운다"},
-    "r1_confirmed": {"type": "boolean", "description": "false면 프론트엔드는 '임시(무효)' 워터마크를 띄운다"},
+    "r1_confirmed": {"type": "boolean", "description": "번들의 모든 지역이 provisional이 아니면 true (요약값). 화면 표시는 regions[].r1_status로 지역별 판단(1.1.0~)"},
     "app_mode": {"enum": ["dev", "final", "mock"]},
     "data_reference_date": {"anyOf": [{"$ref": "_common.schema.json#/$defs/date"}, {"type": "null"}],
                             "description": "원본 데이터기준일자(최댓값)"},
