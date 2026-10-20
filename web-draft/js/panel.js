@@ -109,7 +109,7 @@ const EVIDENCE_LABELS = {
   address: "주소", open_ap_within_radius: "반경 내 개방형 AP",
 };
 const FLAG_LABELS = {
-  R1_unlabeled: "SSID 라벨 없음(가정 비율)", R1_unknown: "SSID 분류 불명(가정 비율)", R2_unmapped: "시설구분 미등록(가정 비율)",
+  R1_ssid_missing: "SSID 정보 없음(가정 비율)", R1_unlabeled: "SSID 라벨 없음(가정 비율)", R1_unknown: "SSID 분류 불명(가정 비율)", R2_unmapped: "시설구분 미등록(가정 비율)",
   R4_missing: "설치연월 결측(가정 비율)", R4_year_only: "설치연도만 있음", R5_boundary: "시군구 경계 근처 — 밀집도 과소평가 가능",
   R7_invalid_tel: "전화번호 형식 불일치", R8_missing: "데이터기준일자 결측",
 };

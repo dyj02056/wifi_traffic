@@ -52,7 +52,9 @@ grade = grades에서 min ≤ score < max (반올림된 score로)
 - `rules[].is_assumption=true` → "가정" 배지
 - `background.included_in_score=false` → "이 통계는 지점 점수에 반영하지 않습니다" 고정
 - `cases.label` 그대로 표시. 출처(`source`)가 없는 항목은 스키마상 존재할 수 없음
-- `points[].flags` 값: `R1_unlabeled R1_unknown R2_unmapped R4_missing R4_year_only R5_boundary R7_invalid_tel R8_missing`
+- `points[].flags` 값: `R1_ssid_missing R1_unlabeled R1_unknown R2_unmapped R4_missing R4_year_only R5_boundary R7_invalid_tel R8_missing`
+  (flag는 표시용 문자열이며 앞으로 추가될 수 있다. 모르는 flag는 원문 그대로 보여주면 된다)
+- 기본 시연 지역은 `regions.json`의 `default_region_id`를 읽는다. `11-guro`를 코드에 고정하지 말 것(시연 지역 변경 검토 중)
 
 ## golden_scores.json 형식
 
