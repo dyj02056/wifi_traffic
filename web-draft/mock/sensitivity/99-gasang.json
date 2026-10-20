@@ -1,0 +1,478 @@
+{
+  "region_id": "99-gasang",
+  "scenario_a": {
+    "label": "기준 A(기본 가중치)",
+    "weights": [
+      30,
+      20,
+      10,
+      15,
+      10,
+      5,
+      5,
+      5
+    ]
+  },
+  "scenario_b": {
+    "label": "기준 B(R1=15)",
+    "weights": [
+      15,
+      20,
+      10,
+      15,
+      10,
+      5,
+      5,
+      5
+    ]
+  },
+  "summary": {
+    "count": 40,
+    "top_n": 20,
+    "top_overlap": 20,
+    "spearman": 0.9955,
+    "grade_moves": 2
+  },
+  "rows": [
+    {
+      "key": "93664e38ef",
+      "place_name": "[샘플] 가상지점 19",
+      "rank_A": 1,
+      "rank_B": 1,
+      "delta": 0,
+      "score_A": 95.0,
+      "score_B": 94.12,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "054327709f",
+      "place_name": "[샘플] 가상지점 31",
+      "rank_A": 2,
+      "rank_B": 2,
+      "delta": 0,
+      "score_A": 94.32,
+      "score_B": 93.32,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "cbb5d585cb",
+      "place_name": "[샘플] 가상지점 43",
+      "rank_A": 3,
+      "rank_B": 3,
+      "delta": 0,
+      "score_A": 90.87,
+      "score_B": 89.26,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "a9a586f7d7",
+      "place_name": "[샘플] 가상지점 13",
+      "rank_A": 4,
+      "rank_B": 4,
+      "delta": 0,
+      "score_A": 90.5,
+      "score_B": 88.82,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "35ed93d564",
+      "place_name": "[샘플] 가상지점 39",
+      "rank_A": 5,
+      "rank_B": 5,
+      "delta": 0,
+      "score_A": 87.5,
+      "score_B": 85.29,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "acdb9e02a1",
+      "place_name": "[샘플] 가상지점 33",
+      "rank_A": 6,
+      "rank_B": 6,
+      "delta": 0,
+      "score_A": 87.5,
+      "score_B": 85.29,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "5f1ab810a4",
+      "place_name": "[샘플] 가상지점 21",
+      "rank_A": 7,
+      "rank_B": 7,
+      "delta": 0,
+      "score_A": 86.5,
+      "score_B": 84.12,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "94356c3f99",
+      "place_name": "[샘플] 가상지점 38",
+      "rank_A": 8,
+      "rank_B": 8,
+      "delta": 0,
+      "score_A": 86.5,
+      "score_B": 84.12,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "355a5b09da",
+      "place_name": "[샘플] 가상지점 25",
+      "rank_A": 9,
+      "rank_B": 9,
+      "delta": 0,
+      "score_A": 85.0,
+      "score_B": 82.35,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "c27a580bc7",
+      "place_name": "[샘플] 가상지점 37",
+      "rank_A": 10,
+      "rank_B": 10,
+      "delta": 0,
+      "score_A": 84.66,
+      "score_B": 81.95,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "ebb4ce04e6",
+      "place_name": "[샘플] 가상지점 08",
+      "rank_A": 11,
+      "rank_B": 11,
+      "delta": 0,
+      "score_A": 82.7,
+      "score_B": 79.64,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "0a34c83bd0",
+      "place_name": "[샘플] 가상지점 27",
+      "rank_A": 12,
+      "rank_B": 12,
+      "delta": 0,
+      "score_A": 82.5,
+      "score_B": 79.41,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "4a6088cd7a",
+      "place_name": "[샘플] 가상지점 07",
+      "rank_A": 13,
+      "rank_B": 13,
+      "delta": 0,
+      "score_A": 80.76,
+      "score_B": 77.36,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "5875db3d4b",
+      "place_name": "[샘플] 가상지점 26",
+      "rank_A": 14,
+      "rank_B": 14,
+      "delta": 0,
+      "score_A": 79.72,
+      "score_B": 76.15,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "a15b216567",
+      "place_name": "[샘플] 가상지점 32",
+      "rank_A": 15,
+      "rank_B": 15,
+      "delta": 0,
+      "score_A": 77.0,
+      "score_B": 72.94,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "b949db632f",
+      "place_name": "[샘플] 가상지점 15",
+      "rank_A": 16,
+      "rank_B": 16,
+      "delta": 0,
+      "score_A": 75.72,
+      "score_B": 71.44,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "6b06ae41ba",
+      "place_name": "[샘플] 가상지점 14",
+      "rank_A": 17,
+      "rank_B": 17,
+      "delta": 0,
+      "score_A": 74.88,
+      "score_B": 70.45,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "13953fb654",
+      "place_name": "[샘플] 가상지점 09",
+      "rank_A": 18,
+      "rank_B": 18,
+      "delta": 0,
+      "score_A": 74.04,
+      "score_B": 69.46,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "a18dfb73c7",
+      "place_name": "[샘플] 가상지점 20",
+      "rank_A": 19,
+      "rank_B": 19,
+      "delta": 0,
+      "score_A": 68.97,
+      "score_B": 63.5,
+      "grade_A": "높음",
+      "grade_B": "높음"
+    },
+    {
+      "key": "d362982114",
+      "place_name": "[샘플] 가상지점 30",
+      "rank_A": 20,
+      "rank_B": 20,
+      "delta": 0,
+      "score_A": 59.85,
+      "score_B": 61.59,
+      "grade_A": "주의",
+      "grade_B": "높음"
+    },
+    {
+      "key": "4b46f33625",
+      "place_name": "[샘플] 가상지점 42",
+      "rank_A": 21,
+      "rank_B": 21,
+      "delta": 0,
+      "score_A": 58.5,
+      "score_B": 60.0,
+      "grade_A": "주의",
+      "grade_B": "높음"
+    },
+    {
+      "key": "8758b755c4",
+      "place_name": "[샘플] 가상지점 35",
+      "rank_A": 22,
+      "rank_B": 22,
+      "delta": 0,
+      "score_A": 55.0,
+      "score_B": 55.88,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "efdc9c9a1f",
+      "place_name": "[샘플] 가상지점 12",
+      "rank_A": 23,
+      "rank_B": 23,
+      "delta": 0,
+      "score_A": 54.88,
+      "score_B": 55.74,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "a3a7912495",
+      "place_name": "[샘플] 가상지점 24",
+      "rank_A": 24,
+      "rank_B": 24,
+      "delta": 0,
+      "score_A": 54.0,
+      "score_B": 54.71,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "5fa8e2df5d",
+      "place_name": "[샘플] 가상지점 36",
+      "rank_A": 25,
+      "rank_B": 25,
+      "delta": 0,
+      "score_A": 53.91,
+      "score_B": 54.6,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "945d9564b8",
+      "place_name": "[샘플] 가상지점 18",
+      "rank_A": 26,
+      "rank_B": 26,
+      "delta": 0,
+      "score_A": 50.31,
+      "score_B": 50.37,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "042b137e19",
+      "place_name": "[샘플] 가상지점 05",
+      "rank_A": 27,
+      "rank_B": 27,
+      "delta": 0,
+      "score_A": 50.16,
+      "score_B": 50.19,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "0f544d70f0",
+      "place_name": "[샘플] 가상지점 41",
+      "rank_A": 28,
+      "rank_B": 28,
+      "delta": 0,
+      "score_A": 46.0,
+      "score_B": 45.29,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "99b1b07866",
+      "place_name": "[샘플] 가상지점 17",
+      "rank_A": 29,
+      "rank_B": 29,
+      "delta": 0,
+      "score_A": 45.26,
+      "score_B": 44.42,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "4e96a9e8ae",
+      "place_name": "[샘플] 가상지점 29",
+      "rank_A": 30,
+      "rank_B": 32,
+      "delta": -2,
+      "score_A": 36.38,
+      "score_B": 33.97,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "77b789f732",
+      "place_name": "[샘플] 가상지점 11",
+      "rank_A": 31,
+      "rank_B": 33,
+      "delta": -2,
+      "score_A": 35.57,
+      "score_B": 33.02,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "9d3f9279b5",
+      "place_name": "[샘플] 가상지점 06",
+      "rank_A": 32,
+      "rank_B": 34,
+      "delta": -2,
+      "score_A": 35.57,
+      "score_B": 33.02,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "b5dc78626d",
+      "place_name": "[샘플] 가상지점 23",
+      "rank_A": 33,
+      "rank_B": 35,
+      "delta": -2,
+      "score_A": 34.16,
+      "score_B": 31.36,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "1038f973d0",
+      "place_name": "[샘플] 가상지점 34",
+      "rank_A": 34,
+      "rank_B": 30,
+      "delta": 4,
+      "score_A": 31.0,
+      "score_B": 36.47,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "87b6d2342e",
+      "place_name": "[샘플] 가상지점 16",
+      "rank_A": 35,
+      "rank_B": 31,
+      "delta": 4,
+      "score_A": 31.0,
+      "score_B": 36.47,
+      "grade_A": "주의",
+      "grade_B": "주의"
+    },
+    {
+      "key": "06d51d4ea5",
+      "place_name": "[샘플] 가상지점 40",
+      "rank_A": 36,
+      "rank_B": 36,
+      "delta": 0,
+      "score_A": 23.5,
+      "score_B": 27.65,
+      "grade_A": "낮음",
+      "grade_B": "낮음"
+    },
+    {
+      "key": "8608f1b323",
+      "place_name": "[샘플] 가상지점 10",
+      "rank_A": 37,
+      "rank_B": 37,
+      "delta": 0,
+      "score_A": 23.5,
+      "score_B": 27.65,
+      "grade_A": "낮음",
+      "grade_B": "낮음"
+    },
+    {
+      "key": "5e6fb3251e",
+      "place_name": "[샘플] 가상지점 22",
+      "rank_A": 38,
+      "rank_B": 38,
+      "delta": 0,
+      "score_A": 22.0,
+      "score_B": 25.88,
+      "grade_A": "낮음",
+      "grade_B": "낮음"
+    },
+    {
+      "key": "0d2214a334",
+      "place_name": "[샘플] 가상지점 28",
+      "rank_A": 39,
+      "rank_B": 39,
+      "delta": 0,
+      "score_A": 20.35,
+      "score_B": 23.94,
+      "grade_A": "낮음",
+      "grade_B": "낮음"
+    },
+    {
+      "key": "feab90f495",
+      "place_name": "[샘플] 가상지점 04",
+      "rank_A": 40,
+      "rank_B": 40,
+      "delta": 0,
+      "score_A": 18.44,
+      "score_B": 21.7,
+      "grade_A": "낮음",
+      "grade_B": "낮음"
+    }
+  ]
+}

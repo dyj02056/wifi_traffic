@@ -1,0 +1,39 @@
+﻿keyword,type,reason,rows_national,rows_guro,cancelled_by_indoor,examples,status
+정류장,outdoor,plan 초안,6368,0,19,버스정류장 / 버스정류장 쉘터 / 정류장 내,candidate
+정류소,outdoor,plan 초안,135,0,0,버스정류소 천정 / 버스정류소상부 / 버스정류소 상부,candidate
+공원,outdoor,plan 초안,5200,20,83,공원 / 공원 내 / 공원내,candidate
+광장,outdoor,plan 초안,356,3,14,광장 / 시청노을광장 / 송파구 위례광장로 210,candidate
+거리,outdoor,plan 초안,1312,6,2,주요거리 / 거리 / 구리전통시장_전통시장저잣거리,candidate
+시장,outdoor,plan 초안,1862,17,169,시장내 / 전통시장 / 시장,candidate
+실외,outdoor,plan 초안,307,0,6,실외 / 1F_화장실외벽_PD / 실외전시관 외벽(방수함),candidate
+야외,outdoor,plan 초안,173,0,6,저류지 야외 / 방문자센터 야외 / 숲문화학교 야외,candidate
+옥외,outdoor,"원본 표기 ""옥외""(2,312회)",2324,2,56,옥외 / 옥외1 / 정류장(옥외),candidate
+승강장,outdoor,버스승강장,415,0,3,버스승강장 / 승강장 / 경주역 택시승강장,candidate
+쉘터,outdoor,정류장 쉘터,361,0,0,버스정류장 쉘터 / 정류장쉘터 / 버스정류장 쉘터내,candidate
+가로등,outdoor,가로등주·스마트가로등주,947,78,9,가로등주 / 가로등 / 인근 가로등설치(맞은편 방향),candidate
+폴대,outdoor,CCTV 폴대 등 기둥 설치,1184,0,50,외부 CCTV폴대 / cctv 폴대 / CCTV폴대상단,candidate
+CCTV,outdoor,CCTV폴·CCTV pole,4531,364,65,CCTV폴 / CCTV 폴 / CCTV POLE,candidate
+스마트폴,outdoor,스마트폴,27,3,0,스마트폴 / 용산구 스마트폴 / 서울특별시 서초구 바우뫼로33길 (양재1동 66-4)스마트폴_CCTV관리번호P20042_1,candidate
+통신주,outdoor,전신주류,198,3,0,왕가탕후루 옆 통신주 / 경주예술의전당 건너 통신주 / 경주읍성 앞 통신주(로뎀피아노 앞),candidate
+IP주,outdoor,구로 IP주,151,4,0,IP주 / IP주 지향1개 / 전기차충전소인근 IP주,candidate
+강관주,outdoor,구로 강관주,8,2,0,강관주(한결같이김돈나라바로앞) / 서측 KT 강관주 - 남 / 동측 KT 강관주 - 동,candidate
+방범,outdoor,방범용 폴,1227,0,0,방범용 CCTV / 전동오리보트 뒤 방범cctv / 방범용CCTV폴,candidate
+하천,outdoor,하천변,149,0,6,CCTV 3. 공원(하천)관리-상일2동-002_1 / CCTV 3. 공원(하천)관리-상일1동-022_1 / CCTV 3. 공원(하천)관리-상일1동-001_1,candidate
+안양천,outdoor,구로 하천,38,11,0,안양천 / 안양천 벚꽃길(황토길) / 안양천로 1131,candidate
+해수욕장,outdoor,채점 초안,136,0,4,대천해수욕장 / 전촌솔밭해수욕장 관리센터 / 광안리해수욕장입구,candidate
+둘레길,outdoor,채점 초안,10,0,0,안양천 둘레길 #1 / 도림천 둘레길 / 안양천 둘레길#3,candidate
+운동장,outdoor,채점 초안,168,1,14,운동장길 1 (삼락동) / 사천종합운동장 / 삼천포종합운동장,candidate
+케이블카,outdoor,관광 실외 시설,50,0,0,바다케이블카 / 케이블카 매표소 인근 화장실 외벽 / 금오산케이블카(구미남통4FW 중계기) 옥상,candidate
+옥상,outdoor,건물 옥상,555,1,45,옥상 / 관리사무소 옥상 / 치매안심센터 옥상,candidate
+외벽,outdoor,건물 외벽,288,0,25,건물 외벽 / 오류고아라해변 관리센터 외벽 / 외벽,candidate
+아케이드,outdoor,시장 아케이드,42,13,0,아케이드 기둥 / 비양수산 앞 아케이드 위 / 한라수산 아케이드 위,candidate
+옥내,indoor_override,"원본 표기 ""옥내""",3165,98,,옥내1 / 옥내 / 옥내 시설,candidate
+실내,indoor_override,"원본 표기 ""실내""",1587,1,,실내 / 경로당 실내 / 진료소 실내,candidate
+내부,indoor_override,건물 내부,2492,6,,내부 / 경로당 내부 / 경로당 내부 TV 옆,candidate
+건물내,indoor_override,건물내,678,6,,건물내 / 건물내부 / 자원순환센터 건물내부,candidate
+건물 내,indoor_override,건물 내,610,0,,건물 내 / 건물 내외부 / 건물 내부,candidate
+로비,indoor_override,로비,907,14,,로비 / 1층 로비 / 2층 로비,candidate
+복도,indoor_override,복도,1681,41,,복도 / 2층 복도 / 1층 복도,candidate
+사무실,indoor_override,사무실,1162,6,,사무실 / 1층 사무실 / 2층 사무실,candidate
+민원실,indoor_override,민원실,2389,16,,민원실 / 1층 민원실 / 관공서 민원실,candidate
+대합실,indoor_override,대합실,93,0,,대합실 / 1층 대합실 / 1층 대합실 14번기둥,candidate

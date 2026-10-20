@@ -1,0 +1,1932 @@
+{
+  "generated_at": "2026-10-20T15:35:07+09:00",
+  "generated_from": "mock",
+  "tolerance": 0.01,
+  "formula": {
+    "score": "score = round2(100 × Σ_{i∈S}(w_i × r_i) / Σ_{i∈S} w_i)",
+    "rounding": "round2(x) = floor(x × 100 + 0.5 + 1e-9) / 100  (Python round()·toFixed 사용 금지)",
+    "grade": "grades에서 min ≤ score < max 인 항목 (반올림된 score로 판정)",
+    "errors": "|S| < MIN_SELECTED_RULES → TOO_FEW_RULES (먼저 검사), Σ_{i∈S} w_i ≤ 0 → ZERO_WEIGHT; 둘 다 점수·등급 없음",
+    "low_maxsum_basis": "Σ_{i∈S} w_i(현재 슬라이더 가중치) < LOW_MAXSUM_WARN 이면 LOW_MAXSUM 경고, 계산은 함"
+  },
+  "grades": [
+    {
+      "min": 0,
+      "max": 30,
+      "label": "낮음",
+      "emoji": "🟢",
+      "color": "#2e9e5b"
+    },
+    {
+      "min": 30,
+      "max": 60,
+      "label": "주의",
+      "emoji": "🟡",
+      "color": "#e0a800"
+    },
+    {
+      "min": 60,
+      "max": 101,
+      "label": "높음",
+      "emoji": "🔴",
+      "color": "#d64545"
+    }
+  ],
+  "params": {
+    "MIN_SELECTED_RULES": 2,
+    "LOW_MAXSUM_WARN": 30
+  },
+  "cases": [
+    {
+      "id": "plan-example-default",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 75.25,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "plan-example-r1-15",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        15.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 70.88,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "all-zero",
+      "r": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 0.0,
+      "expected_grade": "낮음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "all-one",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 100.0,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "boundary-29.99",
+      "r": [
+        0.9997,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 29.99,
+      "expected_grade": "낮음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "boundary-30",
+      "r": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 30.0,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "boundary-59.99",
+      "r": [
+        1.0,
+        1.0,
+        0.0,
+        0.666,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 59.99,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "boundary-60",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 60.0,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "half-up-rounding",
+      "r": [
+        0.33333,
+        0.5,
+        0.125,
+        0.0625,
+        0.2,
+        0.7,
+        0.1,
+        0.9
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 32.69,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "partial-r1-r5",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "expected_score": 85.0,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "partial-r1-r2-r3",
+      "r": [
+        1.0,
+        0.5,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "expected_score": 66.67,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "partial-low-maxsum-warn",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 66.67,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": [
+        "LOW_MAXSUM"
+      ]
+    },
+    {
+      "id": "partial-maxsum-exactly-30",
+      "r": [
+        0.0,
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false
+      ],
+      "expected_score": 100.0,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "too-few-one-selected",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "expected_score": null,
+      "expected_grade": null,
+      "expected_error": "TOO_FEW_RULES",
+      "expected_warnings": []
+    },
+    {
+      "id": "too-few-none-selected",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "expected_score": null,
+      "expected_grade": null,
+      "expected_error": "TOO_FEW_RULES",
+      "expected_warnings": []
+    },
+    {
+      "id": "zero-weight-all",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": null,
+      "expected_grade": null,
+      "expected_error": "ZERO_WEIGHT",
+      "expected_warnings": []
+    },
+    {
+      "id": "zero-weight-selected",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        0.0,
+        0.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "expected_score": null,
+      "expected_grade": null,
+      "expected_error": "ZERO_WEIGHT",
+      "expected_warnings": []
+    },
+    {
+      "id": "one-weight-zero",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        0.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 64.64,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "double-weights",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.75,
+        0.4,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        60.0,
+        40.0,
+        20.0,
+        30.0,
+        20.0,
+        10.0,
+        10.0,
+        10.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 75.25,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "fractional-weights",
+      "r": [
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1.0,
+        0.5,
+        0.25,
+        0.75
+      ],
+      "weights": [
+        7.5,
+        12.5,
+        3.0,
+        22.0,
+        1.5,
+        9.0,
+        0.5,
+        18.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 61.52,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "r1-only-max-r2",
+      "r": [
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        0.0,
+        40.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "selected": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "expected_score": 100.0,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-0-default",
+      "r": [
+        0.0,
+        0.25,
+        0.0,
+        0.1629,
+        0.6,
+        0.5,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 18.44,
+      "expected_grade": "낮음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-0-random",
+      "r": [
+        0.0,
+        0.25,
+        0.0,
+        0.1629,
+        0.6,
+        0.5,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        30.0,
+        15.0,
+        5.0,
+        30.0,
+        0.0,
+        30.0,
+        1.0,
+        2.5
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 21.93,
+      "expected_grade": "낮음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-1-default",
+      "r": [
+        0.5,
+        0.25,
+        0.0,
+        0.9442,
+        0.6,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 50.16,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-1-random",
+      "r": [
+        0.5,
+        0.25,
+        0.0,
+        0.9442,
+        0.6,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        0.0,
+        2.5,
+        1.0,
+        10.0,
+        30.0,
+        20.0,
+        10.0,
+        5.0
+      ],
+      "selected": [
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false
+      ],
+      "expected_score": 53.46,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-2-default",
+      "r": [
+        0.5,
+        0.5,
+        0.0,
+        0.2047,
+        0.0,
+        0.5,
+        1.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 35.57,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-2-random",
+      "r": [
+        0.5,
+        0.5,
+        0.0,
+        0.2047,
+        0.0,
+        0.5,
+        1.0,
+        0.0
+      ],
+      "weights": [
+        60.0,
+        0.0,
+        45.0,
+        5.0,
+        30.0,
+        5.0,
+        30.0,
+        15.0
+      ],
+      "selected": [
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 43.81,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-3-default",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.1838,
+        0.8,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 80.76,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-3-random",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        0.1838,
+        0.8,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        5.0,
+        0.0,
+        45.0,
+        20.0,
+        45.0,
+        45.0,
+        20.0,
+        60.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true
+      ],
+      "expected_score": 94.86,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-4-default",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.9131,
+        0.4,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 82.7,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-4-random",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.9131,
+        0.4,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        5.0,
+        5.0,
+        0.0,
+        0.0,
+        45.0,
+        5.0,
+        1.0
+      ],
+      "selected": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "expected_score": 89.58,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-5-default",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.4025,
+        0.8,
+        0.5,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 74.04,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-5-random",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.4025,
+        0.8,
+        0.5,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        2.5,
+        30.0,
+        45.0,
+        30.0,
+        60.0,
+        2.5,
+        10.0,
+        0.0
+      ],
+      "selected": [
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 72.08,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-6-default",
+      "r": [
+        0.0,
+        0.25,
+        0.0,
+        0.5,
+        0.6,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 23.5,
+      "expected_grade": "낮음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-6-random",
+      "r": [
+        0.0,
+        0.25,
+        0.0,
+        0.5,
+        0.6,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        15.0,
+        5.0,
+        30.0,
+        1.0,
+        10.0,
+        30.0,
+        30.0,
+        1.0
+      ],
+      "selected": [
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 9.07,
+      "expected_grade": "낮음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-7-default",
+      "r": [
+        0.5,
+        0.25,
+        0.0,
+        0.2047,
+        1.0,
+        0.5,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 35.57,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-7-random",
+      "r": [
+        0.5,
+        0.25,
+        0.0,
+        0.2047,
+        1.0,
+        0.5,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        0.0,
+        20.0,
+        10.0,
+        30.0,
+        30.0,
+        20.0,
+        0.0,
+        20.0
+      ],
+      "selected": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true
+      ],
+      "expected_score": 46.14,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-8-default",
+      "r": [
+        0.5,
+        0.5,
+        0.0,
+        0.8919,
+        0.4,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 54.88,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-8-random",
+      "r": [
+        0.5,
+        0.5,
+        0.0,
+        0.8919,
+        0.4,
+        0.5,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        5.0,
+        0.0,
+        5.0,
+        5.0,
+        15.0,
+        15.0,
+        45.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true
+      ],
+      "expected_score": 46.67,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-9-default",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.8,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 90.5,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-9-random",
+      "r": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        0.8,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        30.0,
+        2.5,
+        15.0,
+        30.0,
+        15.0,
+        0.0,
+        5.0,
+        30.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false
+      ],
+      "expected_score": 88.15,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-10-default",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.3919,
+        0.4,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 74.88,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-10-random",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.3919,
+        0.4,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        45.0,
+        2.5,
+        20.0,
+        20.0,
+        2.5,
+        2.5,
+        1.0,
+        1.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 93.79,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-11-default",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.3816,
+        1.0,
+        0.5,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 75.72,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-11-random",
+      "r": [
+        1.0,
+        0.75,
+        1.0,
+        0.3816,
+        1.0,
+        0.5,
+        0.0,
+        0.5
+      ],
+      "weights": [
+        1.0,
+        1.0,
+        10.0,
+        0.0,
+        15.0,
+        1.0,
+        2.5,
+        0.0
+      ],
+      "selected": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false
+      ],
+      "expected_score": 86.49,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": [
+        "LOW_MAXSUM"
+      ]
+    },
+    {
+      "id": "mock-sample-12-default",
+      "r": [
+        0.0,
+        0.25,
+        0.0,
+        1.0,
+        0.6,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 31.0,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-12-random",
+      "r": [
+        0.0,
+        0.25,
+        0.0,
+        1.0,
+        0.6,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "weights": [
+        5.0,
+        5.0,
+        15.0,
+        1.0,
+        20.0,
+        10.0,
+        1.0,
+        20.0
+      ],
+      "selected": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "expected_score": 46.63,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-13-default",
+      "r": [
+        0.5,
+        0.25,
+        0.0,
+        0.6838,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 45.26,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-13-random",
+      "r": [
+        0.5,
+        0.25,
+        0.0,
+        0.6838,
+        1.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "weights": [
+        15.0,
+        60.0,
+        60.0,
+        10.0,
+        20.0,
+        60.0,
+        20.0,
+        5.0
+      ],
+      "selected": [
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 17.31,
+      "expected_grade": "낮음",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-14-default",
+      "r": [
+        0.5,
+        0.5,
+        0.0,
+        0.6208,
+        0.6,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        30.0,
+        20.0,
+        10.0,
+        15.0,
+        10.0,
+        5.0,
+        5.0,
+        5.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "expected_score": 50.31,
+      "expected_grade": "주의",
+      "expected_error": null,
+      "expected_warnings": []
+    },
+    {
+      "id": "mock-sample-14-random",
+      "r": [
+        0.5,
+        0.5,
+        0.0,
+        0.6208,
+        0.6,
+        0.0,
+        1.0,
+        1.0
+      ],
+      "weights": [
+        10.0,
+        2.5,
+        2.5,
+        2.5,
+        1.0,
+        20.0,
+        45.0,
+        20.0
+      ],
+      "selected": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        false
+      ],
+      "expected_score": 84.1,
+      "expected_grade": "높음",
+      "expected_error": null,
+      "expected_warnings": []
+    }
+  ]
+}

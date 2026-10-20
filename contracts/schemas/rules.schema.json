@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/rules.schema.json",
+  "title": "rules.json — R1~R8 메타데이터, 등급 경계, 파라미터",
+  "type": "object",
+  "required": ["rules", "grades", "params", "formula"],
+  "properties": {
+    "rules": {
+      "type": "array", "minItems": 8, "maxItems": 8,
+      "description": "배열 순서 = points[].r 배열 순서(R1~R8 고정)",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "max_points", "is_assumption", "source_fields", "one_liner"],
+        "properties": {
+          "id": {"$ref": "_common.schema.json#/$defs/rule_id"},
+          "name": {"type": "string"},
+          "max_points": {"type": "number", "minimum": 0},
+          "is_assumption": {"type": "boolean"},
+          "source_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "one_liner": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "grades": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["min", "max", "label", "emoji", "color"],
+        "properties": {
+          "min": {"type": "number"},
+          "max": {"type": "number"},
+          "label": {"$ref": "_common.schema.json#/$defs/grade_label"},
+          "emoji": {"type": "string"},
+          "color": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "params": {
+      "type": "object",
+      "required": ["MIN_SELECTED_RULES", "LOW_MAXSUM_WARN"],
+      "additionalProperties": {"type": "number"}
+    },
+    "formula": {
+      "type": "object",
+      "required": ["score", "rounding", "grade", "errors", "low_maxsum_basis"],
+      "properties": {
+        "score": {"type": "string"},
+        "rounding": {"type": "string"},
+        "grade": {"type": "string"},
+        "errors": {"type": "string"},
+        "low_maxsum_basis": {"type": "string"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

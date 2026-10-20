@@ -1,0 +1,8 @@
+{
+  "name": "wifi-safety-web-draft",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node tests/score.test.mjs"
+  }
+}

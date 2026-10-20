@@ -1,0 +1,57 @@
+# 데이터 소스 목록 (plan.md §5). 목록 밖 소스를 추가하려면 docs/requests.md에 사유를 쓰고 리드 승인을 받는다.
+# API 엔드포인트는 활용신청 후 data.go.kr Swagger 화면에서 복사해 넣는다. 추측 URL 금지.
+sources:
+  D1:
+    name: 전국무료와이파이표준데이터
+    dataset_id: "15013116"
+    url: https://www.data.go.kr/data/15013116/standard.do
+    access: csv_manual
+  D2:
+    name: 서울특별시 구로구_공공와이파이 서비스 위치 정보
+    dataset_id: "15147901"
+    url: https://www.data.go.kr/data/15147901/fileData.do
+    access: csv_manual
+    file: data/external/guro_wifi.csv
+    retrieved_at: null          # import_downloads.py가 .meta.json에 기록
+  D3:
+    name: 경찰청_연도별 사이버 범죄 통계 현황
+    dataset_id: "15053887"
+    url: https://www.data.go.kr/data/15053887/fileData.do   # 2026-10-20 페이지 확인
+    access: csv_manual           # 파일데이터는 로그인 없이 CSV 다운로드 가능 → downloads/ + import_downloads.py
+    endpoint: ""                # (선택) API로 받을 때만: Swagger의 Request URL
+    file: data/external/police_cyber.csv
+    retrieved_at: null
+  D4:
+    name: 한국인터넷진흥원_국내 민간 분야 기업 업종별 침해사고 신고 건수
+    dataset_id: "15155733"
+    url: https://www.data.go.kr/data/15155733/fileData.do   # 2026-10-20 페이지 확인
+    access: csv_manual           # 파일데이터는 로그인 없이 CSV 다운로드 가능 → downloads/ + import_downloads.py
+    endpoint: ""                # TODO(확인필요)
+    file: data/external/kisa_industry.csv
+    retrieved_at: null
+  D5:
+    name: 한국인터넷진흥원_국내 민간 분야 침해사고 신고 건수
+    dataset_id: "15140309"
+    url: https://www.data.go.kr/data/15140309/fileData.do   # 2026-10-20 페이지 확인
+    access: csv_manual           # 파일데이터는 로그인 없이 CSV 다운로드 가능 → downloads/ + import_downloads.py
+    endpoint: ""                # TODO(확인필요), 선택
+    file: data/external/kisa_private.csv
+    retrieved_at: null
+  D6:
+    name: 뉴스 기반 사례 카드
+    dataset_id: null
+    url: data/cases.yaml
+    access: manual
+
+# 배경 패널 차트 정의. CSV 컬럼명은 실제 파일을 보고 채운다(추측 금지).
+# 정의가 비어 있으면 background.json의 datasets는 빈 배열이 되고 /context는 '준비 중'을 보여준다.
+background_charts: []
+# 예시 형식 (실제 컬럼 확인 후 주석 해제)
+# - id: police_cyber_by_year
+#   source: D3
+#   title: 연도별 사이버범죄 발생 건수
+#   unit: 건
+#   label_column: "연도"          # TODO(확인필요)
+#   value_column: "발생건수"      # TODO(확인필요)
+#   group_column: null
+#   note: 전국 통계이며 와이파이 지점과 직접 연결되지 않습니다

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>공공와이파이 안전 지도 — 정적 초안</title>
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <!-- DisclaimerBar: 모든 화면 상단 고정 (scripts/check_disclaimer.py가 검사) -->
+  <div class="disclaimer-bar" role="note" data-disclaimer>※ 이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.</div>
+  <nav class="top-nav">
+    <span class="brand">공공와이파이 안전 지도</span>
+    <span id="badge-mock" class="badge mock" hidden>샘플 데이터</span>
+    <span id="badge-provisional" class="badge provisional" hidden>임시(무효) — SSID 라벨 미확정</span>
+    <a href="index.html" aria-current="page">지도</a>
+    <a href="rules.html">채점 기준</a>
+    <a href="about.html">데이터와 한계</a>
+  </nav>
+  <div id="fatal" class="notice error" hidden></div>
+
+  <main class="app">
+    <aside class="sidebar">
+      <section class="panel region-picker">
+        <h2>지역 선택</h2>
+        <label class="field" for="sido">시도</label>
+        <select id="sido"></select>
+        <label class="field" for="sigungu" style="margin-top:8px">시군구</label>
+        <select id="sigungu"></select>
+        <label class="field" for="search" style="margin-top:8px">장소명 검색</label>
+        <input id="search" type="search" list="search-list" placeholder="장소명을 입력하세요">
+        <datalist id="search-list"></datalist>
+        <p class="field" id="data-date"></p>
+      </section>
+
+      <section class="panel">
+        <h2>위험요인 선택·가중치 <button id="reset-weights" type="button">기본값으로</button></h2>
+        <div id="score-notice"></div>
+        <div id="weight-panel" class="weight-panel"></div>
+      </section>
+
+      <section class="panel layer-toggle">
+        <h2>배경 레이어</h2>
+        <label><input type="checkbox" id="layer-changes"> 최근 추가·삭제 지점</label>
+        <p class="field" id="changes-info"></p>
+      </section>
+
+      <section class="panel">
+        <h2>등급 필터</h2>
+        <div id="grade-filter" class="grade-filter"></div>
+      </section>
+    </aside>
+
+    <div class="map-wrap">
+      <div id="map" aria-label="공공와이파이 지점 지도"></div>
+      <div id="summary" class="summary" aria-live="polite"></div>
+      <div id="watermark" class="watermark" hidden><span>임시(무효)</span></div>
+      <div id="score-blocked" class="map-overlay" hidden><div></div></div>
+    </div>
+
+    <aside class="right-col">
+      <section class="rank-table">
+        <h2>순위 변동 (현재 기준 상위 20)</h2>
+        <p class="field overlap"></p>
+        <table>
+          <thead><tr><th class="num">순위</th><th>장소</th><th class="num">점수</th><th class="num">기본</th><th class="num">변동</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+      <section class="point-sheet" aria-live="polite"></section>
+    </aside>
+  </main>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

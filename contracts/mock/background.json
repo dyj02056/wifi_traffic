@@ -1,0 +1,36 @@
+{
+  "included_in_score": false,
+  "notice": "이 통계는 지점 점수에 반영하지 않습니다",
+  "datasets": [
+    {
+      "id": "mock-series",
+      "title": "[샘플] 가상 통계 — 화면 배치 확인용",
+      "unit": "건",
+      "note": "가상 값입니다. 발표에 쓰지 마세요.",
+      "source": {
+        "name": "가상 데이터",
+        "dataset_id": null,
+        "url": "contracts/mock",
+        "published_at": null,
+        "retrieved_at": "2026-10-20"
+      },
+      "series": [
+        {
+          "label": "가상 1",
+          "value": 10,
+          "group": null
+        },
+        {
+          "label": "가상 2",
+          "value": 14,
+          "group": null
+        },
+        {
+          "label": "가상 3",
+          "value": 9,
+          "group": null
+        }
+      ]
+    }
+  ]
+}

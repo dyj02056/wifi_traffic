@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/meta.schema.json",
+  "title": "meta.json — 면책 문구·데이터 기준일·R1 확정 여부·계약 버전",
+  "type": "object",
+  "required": ["contract_version", "disclaimer", "is_mock", "r1_confirmed", "app_mode",
+               "data_reference_date", "snapshot_collected_at", "snapshot_count", "generated_at",
+               "regions_in_bundle", "sources"],
+  "properties": {
+    "contract_version": {"type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$"},
+    "disclaimer": {"const": "이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다."},
+    "is_mock": {"type": "boolean", "description": "true면 프론트엔드는 '샘플 데이터' 배지를 띄운다"},
+    "r1_confirmed": {"type": "boolean", "description": "false면 프론트엔드는 '임시(무효)' 워터마크를 띄운다"},
+    "app_mode": {"enum": ["dev", "final", "mock"]},
+    "data_reference_date": {"anyOf": [{"$ref": "_common.schema.json#/$defs/date"}, {"type": "null"}],
+                            "description": "원본 데이터기준일자(최댓값)"},
+    "snapshot_collected_at": {"anyOf": [{"$ref": "_common.schema.json#/$defs/date"}, {"type": "null"}]},
+    "snapshot_count": {"type": "integer", "minimum": 0},
+    "generated_at": {"type": "string", "description": "ISO 8601 번들 생성 시각"},
+    "regions_in_bundle": {"type": "array", "items": {"$ref": "_common.schema.json#/$defs/region_id"}},
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "dataset_id", "url", "retrieved_at"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "dataset_id": {"type": ["string", "null"]},
+          "url": {"type": "string"},
+          "retrieved_at": {"anyOf": [{"$ref": "_common.schema.json#/$defs/date"}, {"type": "null"}]}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

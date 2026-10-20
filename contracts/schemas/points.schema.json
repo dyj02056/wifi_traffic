@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/points.schema.json",
+  "title": "points/{region_id}.json — 지도용 경량 지점 목록",
+  "type": "object",
+  "required": ["region_id", "count", "points"],
+  "properties": {
+    "region_id": {"$ref": "_common.schema.json#/$defs/region_id"},
+    "count": {"type": "integer", "minimum": 0},
+    "points": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "name", "lat", "lng", "r", "score", "grade", "flags"],
+        "properties": {
+          "key": {"$ref": "_common.schema.json#/$defs/point_key"},
+          "name": {"type": "string"},
+          "lat": {"$ref": "_common.schema.json#/$defs/lat"},
+          "lng": {"$ref": "_common.schema.json#/$defs/lng"},
+          "r": {"$ref": "_common.schema.json#/$defs/r_vector"},
+          "score": {"type": "number", "minimum": 0, "maximum": 100, "description": "기본 가중치 기준"},
+          "grade": {"$ref": "_common.schema.json#/$defs/grade_label"},
+          "flags": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

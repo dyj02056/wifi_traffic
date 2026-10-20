@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/detail.schema.json",
+  "title": "detail/{region_id}.json — { key: 지점 상세 } 맵",
+  "type": "object",
+  "propertyNames": {"$ref": "_common.schema.json#/$defs/point_key"},
+  "additionalProperties": {"$ref": "#/$defs/detail"},
+  "$defs": {
+    "detail": {
+      "type": "object",
+      "required": ["key", "region_id", "name", "score", "grade", "evidence", "breakdown", "explanation",
+                   "safety_tips", "report_contact", "flags"],
+      "properties": {
+        "key": {"$ref": "_common.schema.json#/$defs/point_key"},
+        "region_id": {"$ref": "_common.schema.json#/$defs/region_id"},
+        "name": {"type": "string"},
+        "score": {"type": "number", "minimum": 0, "maximum": 100},
+        "grade": {"$ref": "_common.schema.json#/$defs/grade_label"},
+        "evidence": {
+          "type": "object",
+          "required": ["ssid", "facility_type", "place_detail", "install_ym", "provider", "manager",
+                       "manager_tel", "data_date", "address", "open_ap_within_radius"],
+          "properties": {
+            "ssid": {"type": ["string", "null"]},
+            "facility_type": {"type": ["string", "null"]},
+            "place_detail": {"type": ["string", "null"]},
+            "install_ym": {"type": ["string", "null"], "description": "YYYY-MM"},
+            "provider": {"type": ["string", "null"]},
+            "manager": {"type": ["string", "null"]},
+            "manager_tel": {"type": ["string", "null"]},
+            "data_date": {"type": ["string", "null"]},
+            "address": {"type": ["string", "null"]},
+            "open_ap_within_radius": {"type": ["integer", "null"], "description": "R5: 반경 내 개방형 AP 수(자신 제외)"}
+          },
+          "additionalProperties": false
+        },
+        "breakdown": {
+          "type": "array", "minItems": 8, "maxItems": 8,
+          "items": {
+            "type": "object",
+            "required": ["id", "name", "ratio", "points", "max_points", "is_assumption", "reason"],
+            "properties": {
+              "id": {"$ref": "_common.schema.json#/$defs/rule_id"},
+              "name": {"type": "string"},
+              "ratio": {"$ref": "_common.schema.json#/$defs/ratio"},
+              "points": {"type": "number", "minimum": 0, "description": "기본 가중치 기준 ratio × max_points"},
+              "max_points": {"type": "number", "minimum": 0},
+              "is_assumption": {"type": "boolean"},
+              "reason": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        },
+        "explanation": {
+          "type": "object",
+          "required": ["text", "source", "model", "generated_at"],
+          "properties": {
+            "text": {"type": "string"},
+            "source": {"enum": ["ai", "template"]},
+            "model": {"type": ["string", "null"]},
+            "generated_at": {"type": "string"}
+          },
+          "additionalProperties": false
+        },
+        "safety_tips": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+        "report_contact": {
+          "type": "object",
+          "required": ["manager", "tel"],
+          "properties": {"manager": {"type": ["string", "null"]}, "tel": {"type": ["string", "null"]}},
+          "additionalProperties": false
+        },
+        "flags": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    }
+  }
+}

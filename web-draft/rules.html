@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>채점 기준 — 공공와이파이 안전 지도</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+  <div class="disclaimer-bar" role="note" data-disclaimer>※ 이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.</div>
+  <nav class="top-nav">
+    <span class="brand">공공와이파이 안전 지도</span>
+    <span id="badge-mock" class="badge mock" hidden>샘플 데이터</span>
+    <a href="index.html">지도</a>
+    <a href="rules.html" aria-current="page">채점 기준</a>
+    <a href="about.html">데이터와 한계</a>
+  </nav>
+  <main class="doc">
+    <h1>채점 기준표</h1>
+    <p>점수가 높을수록 위험요인이 많다는 뜻입니다. 이 표는 rules.json에서 자동으로 만들어집니다.</p>
+    <table id="rules-table">
+      <thead><tr><th>ID</th><th>위험요인</th><th>만점</th><th>근거 필드</th><th>가정</th><th>1줄 설명</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <h2>등급 기준</h2>
+    <table id="grades-table"><thead><tr><th>등급</th><th>점수 구간</th><th>색</th></tr></thead><tbody></tbody></table>
+    <h2>계산 공식</h2>
+    <ul id="formula"></ul>
+  </main>
+  <script type="module">
+    import * as api from "./js/api.js";
+    import { esc } from "./js/panel.js";
+    const meta = await api.init();
+    document.querySelector("#badge-mock").hidden = !meta.is_mock;
+    const rules = await api.getRules();
+    document.querySelector("#rules-table tbody").innerHTML = rules.rules.map((r) => `<tr>
+      <td>${esc(r.id)}</td><td>${esc(r.name)}</td><td>${r.max_points}</td><td>${r.source_fields.map(esc).join(", ")}</td>
+      <td>${r.is_assumption ? '<span class="badge assumption">가정</span>' : "—"}</td><td>${esc(r.one_liner)}</td></tr>`).join("")
+      + `<tr><th colspan="2">합계</th><th>${rules.rules.reduce((a, r) => a + r.max_points, 0)}</th><td colspan="3"></td></tr>`;
+    document.querySelector("#grades-table tbody").innerHTML = rules.grades.map((g) => `<tr>
+      <td>${g.emoji} ${esc(g.label)}</td><td>${g.min} 이상 ${g.max > 100 ? "100 이하" : g.max + " 미만"}</td>
+      <td><span class="dot" style="background:${g.color}"></span>${g.color}</td></tr>`).join("");
+    document.querySelector("#formula").innerHTML = Object.values(rules.formula).map((f) => `<li><code>${esc(f)}</code></li>`).join("")
+      + `<li>선택 규칙이 ${rules.params.MIN_SELECTED_RULES}개 미만이면 계산하지 않습니다. 선택한 가중치 합이 ${rules.params.LOW_MAXSUM_WARN} 미만이면 경고합니다.</li>`;
+  </script>
+</body>
+</html>

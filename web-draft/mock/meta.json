@@ -1,0 +1,23 @@
+{
+  "contract_version": "1.0.0",
+  "disclaimer": "이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.",
+  "is_mock": true,
+  "r1_confirmed": false,
+  "app_mode": "mock",
+  "data_reference_date": "2026-10-18",
+  "snapshot_collected_at": "2026-10-20",
+  "snapshot_count": 2,
+  "generated_at": "2026-10-20T15:35:07+09:00",
+  "regions_in_bundle": [
+    "99-gasang"
+  ],
+  "sources": [
+    {
+      "id": "MOCK",
+      "name": "가상 데이터(발표 사용 금지)",
+      "dataset_id": null,
+      "url": "contracts/mock",
+      "retrieved_at": null
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/key_index.schema.json",
+  "title": "key_index.json — 지점 key → region_id 맵 (번들에 포함된 지역만)",
+  "type": "object",
+  "propertyNames": {"$ref": "_common.schema.json#/$defs/point_key"},
+  "additionalProperties": {"$ref": "_common.schema.json#/$defs/region_id"}
+}

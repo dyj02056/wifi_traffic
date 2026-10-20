@@ -1,0 +1,12 @@
+pandas==3.0.6
+pyarrow==26.0.0
+scikit-learn==1.9.1
+pydantic==2.14.1
+PyYAML==6.0.3
+jsonschema==4.26.0
+python-dotenv==1.2.4
+fastapi==0.150.0
+uvicorn==0.54.0
+anthropic==1.15.0
+pytest==9.1.1
+httpx==0.28.1

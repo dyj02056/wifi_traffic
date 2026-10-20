@@ -1,0 +1,14 @@
+# validate_guro.py 설정 — 구로구 공공와이파이(15147901) 'wifi접속환경'으로 R1 판정 검증 (plan.md §8.3-5)
+# TODO(확인필요): data/external/guro_wifi.csv 를 받은 뒤 실제 컬럼명과 값으로 채운다. 추측 금지.
+status: draft
+columns:
+  access_env: ""     # 예: wifi접속환경 컬럼의 실제 헤더명
+  ssid: ""           # SSID 컬럼 헤더명(없으면 빈 값 → 좌표로만 매칭)
+  lat: ""
+  lng: ""
+# wifi접속환경 실제 값 → open | secure | ignore
+access_env_map: {}
+# D1 지점과 매칭할 최대 거리(m)
+match_radius_m: 30
+d1_sido: 서울특별시
+d1_sigungu: 구로구

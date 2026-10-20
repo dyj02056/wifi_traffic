@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/sensitivity.schema.json",
+  "title": "sensitivity/{region_id}.json — 기준 A(기본) vs 기준 B(R1=15) 순위 변화",
+  "type": "object",
+  "required": ["region_id", "scenario_a", "scenario_b", "summary", "rows"],
+  "properties": {
+    "region_id": {"$ref": "_common.schema.json#/$defs/region_id"},
+    "scenario_a": {"$ref": "#/$defs/scenario"},
+    "scenario_b": {"$ref": "#/$defs/scenario"},
+    "summary": {
+      "type": "object",
+      "required": ["count", "top_n", "top_overlap", "spearman", "grade_moves"],
+      "properties": {
+        "count": {"type": "integer", "minimum": 0},
+        "top_n": {"type": "integer", "minimum": 1},
+        "top_overlap": {"type": "integer", "minimum": 0},
+        "spearman": {"type": ["number", "null"], "minimum": -1, "maximum": 1},
+        "grade_moves": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "rows": {
+      "type": "array",
+      "description": "rank_A 오름차순",
+      "items": {
+        "type": "object",
+        "required": ["key", "place_name", "rank_A", "rank_B", "delta", "score_A", "score_B", "grade_A", "grade_B"],
+        "properties": {
+          "key": {"$ref": "_common.schema.json#/$defs/point_key"},
+          "place_name": {"type": ["string", "null"]},
+          "rank_A": {"type": "integer", "minimum": 1},
+          "rank_B": {"type": "integer", "minimum": 1},
+          "delta": {"type": "integer", "description": "rank_A - rank_B (양수 = 기준 B에서 순위 상승)"},
+          "score_A": {"type": "number"},
+          "score_B": {"type": "number"},
+          "grade_A": {"$ref": "_common.schema.json#/$defs/grade_label"},
+          "grade_B": {"$ref": "_common.schema.json#/$defs/grade_label"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "scenario": {
+      "type": "object",
+      "required": ["label", "weights"],
+      "properties": {
+        "label": {"type": "string"},
+        "weights": {"type": "array", "items": {"type": "number", "minimum": 0}, "minItems": 8, "maxItems": 8}
+      },
+      "additionalProperties": false
+    }
+  }
+}

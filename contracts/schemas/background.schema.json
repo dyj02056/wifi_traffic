@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/background.schema.json",
+  "title": "background.json — 배경 통계 (점수 미반영)",
+  "type": "object",
+  "required": ["included_in_score", "notice", "datasets"],
+  "properties": {
+    "included_in_score": {"const": false},
+    "notice": {"const": "이 통계는 지점 점수에 반영하지 않습니다"},
+    "datasets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "unit", "note", "source", "series"],
+        "properties": {
+          "id": {"type": "string"},
+          "title": {"type": "string"},
+          "unit": {"type": "string"},
+          "note": {"type": ["string", "null"]},
+          "source": {"$ref": "_common.schema.json#/$defs/source_ref"},
+          "series": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["label", "value"],
+              "properties": {
+                "label": {"type": "string"},
+                "value": {"type": "number"},
+                "group": {"type": ["string", "null"]}
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://wifisafe.local/schemas/changes.schema.json",
+  "title": "changes/{region_id}.json — 스냅샷 비교 추가·삭제 지점",
+  "type": "object",
+  "required": ["region_id", "snapshots", "collection_count", "changes"],
+  "properties": {
+    "region_id": {"$ref": "_common.schema.json#/$defs/region_id"},
+    "snapshots": {"type": "array", "items": {"$ref": "_common.schema.json#/$defs/date"},
+                  "description": "비교에 쓴 수집일 목록(오름차순). 발표 표기: 'N회 수집, 기간 X~Y'"},
+    "collection_count": {"type": "integer", "minimum": 0},
+    "changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "change", "snapshot_from", "snapshot_to", "place_name", "ssid", "lat", "lng"],
+        "properties": {
+          "key": {"$ref": "_common.schema.json#/$defs/point_key"},
+          "change": {"enum": ["added", "removed"]},
+          "snapshot_from": {"$ref": "_common.schema.json#/$defs/date"},
+          "snapshot_to": {"$ref": "_common.schema.json#/$defs/date"},
+          "place_name": {"type": ["string", "null"]},
+          "ssid": {"type": ["string", "null"]},
+          "lat": {"$ref": "_common.schema.json#/$defs/lat"},
+          "lng": {"$ref": "_common.schema.json#/$defs/lng"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,70 @@
+{
+  "region_id": "99-gasang",
+  "snapshots": [
+    "2026-10-13",
+    "2026-10-20"
+  ],
+  "collection_count": 2,
+  "changes": [
+    {
+      "key": "0f544d70f0",
+      "change": "added",
+      "snapshot_from": "2026-10-13",
+      "snapshot_to": "2026-10-20",
+      "place_name": "[샘플] 가상지점 41",
+      "ssid": "MOCK_Unknown",
+      "lat": 37.500547,
+      "lng": 126.950717
+    },
+    {
+      "key": "4b46f33625",
+      "change": "added",
+      "snapshot_from": "2026-10-13",
+      "snapshot_to": "2026-10-20",
+      "place_name": "[샘플] 가상지점 42",
+      "ssid": "MOCK_Unlabeled",
+      "lat": 37.503702,
+      "lng": 126.95454
+    },
+    {
+      "key": "cbb5d585cb",
+      "change": "added",
+      "snapshot_from": "2026-10-13",
+      "snapshot_to": "2026-10-20",
+      "place_name": "[샘플] 가상지점 43",
+      "ssid": "MOCK_Free_WiFi",
+      "lat": 37.508053,
+      "lng": 126.959912
+    },
+    {
+      "key": "1d50cb03bc",
+      "change": "removed",
+      "snapshot_from": "2026-10-13",
+      "snapshot_to": "2026-10-20",
+      "place_name": "[샘플] 가상지점 01",
+      "ssid": "MOCK_Free_WiFi",
+      "lat": 37.499561,
+      "lng": 126.950556
+    },
+    {
+      "key": "26d9b3d57c",
+      "change": "removed",
+      "snapshot_from": "2026-10-13",
+      "snapshot_to": "2026-10-20",
+      "place_name": "[샘플] 가상지점 02",
+      "ssid": "MOCK_Free_WiFi",
+      "lat": 37.504182,
+      "lng": 126.955462
+    },
+    {
+      "key": "3fc7d17d13",
+      "change": "removed",
+      "snapshot_from": "2026-10-13",
+      "snapshot_to": "2026-10-20",
+      "place_name": "[샘플] 가상지점 03",
+      "ssid": "MOCK_Public_Open",
+      "lat": 37.508235,
+      "lng": 126.959626
+    }
+  ]
+}
