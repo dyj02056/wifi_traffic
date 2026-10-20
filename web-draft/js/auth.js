@@ -1,14 +1,9 @@
-// 인트로 화면의 회원가입·로그인·비회원 이용 (정적 초안용).
-// 서버가 없으므로 계정은 이 브라우저의 localStorage에만 저장된다. 비밀번호는 salt + SHA-256 해시로만 보관.
-// 실제 서비스에서는 backend 인증 API로 바꿔야 한다.
+// 인트로 화면의 구글·네이버 로그인과 비회원 이용 (정적 초안용). 아이디·비밀번호 가입은 두지 않는다(requests #19).
+// 서버가 없으므로 회원 정보(제공자·표시이름·사는 지역)는 이 브라우저의 localStorage에만 저장된다.
+// 실제 서비스에서는 backend 인증 API + Neon 회원 테이블로 바꿔야 한다.
 
 const USERS_KEY = "wt_users";
 const SESSION_KEY = "wt_session";
-
-export const SIDO_LIST = [
-  "서울특별시", "부산광역시", "대구광역시", "인천광역시", "광주광역시", "대전광역시", "울산광역시", "세종특별자치시",
-  "경기도", "강원특별자치도", "충청북도", "충청남도", "전북특별자치도", "전라남도", "경상북도", "경상남도", "제주특별자치도",
-];
 
 function load(key, fallback) {
   try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
@@ -17,41 +12,25 @@ function save(key, value) {
   try { localStorage.setItem(key, JSON.stringify(value)); return true; } catch { return false; }
 }
 
-async function hash(password, salt) {
-  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(`${salt}:${password}`));
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
-}
-
-const ID_RE = /^[a-zA-Z0-9_]{4,20}$/;
-
-export async function signup({ id, password, sido, sigungu }) {
-  id = id.trim();
-  if (!ID_RE.test(id)) throw new Error("아이디는 영문·숫자·밑줄 4~20자로 입력하세요.");
-  if (password.length < 6) throw new Error("비밀번호는 6자 이상이어야 합니다.");
-  if (!sido) throw new Error("사는 지역(시도)을 선택하세요.");
-  const users = load(USERS_KEY, {});
-  if (users[id.toLowerCase()]) throw new Error("이미 사용 중인 아이디입니다.");
-  const salt = crypto.getRandomValues(new Uint32Array(2)).join("");
-  users[id.toLowerCase()] = { id, salt, hash: await hash(password, salt), sido, sigungu: sigungu.trim(), created_at: new Date().toISOString() };
-  if (!save(USERS_KEY, users)) throw new Error("이 브라우저에서는 저장소를 쓸 수 없어 가입할 수 없습니다.");
-}
-
-export async function login(id, password) {
-  const user = load(USERS_KEY, {})[id.trim().toLowerCase()];
-  if (!user || (await hash(password, user.salt)) !== user.hash) throw new Error("아이디 또는 비밀번호가 올바르지 않습니다.");
-  save(SESSION_KEY, { type: "member", id: user.id, sido: user.sido, sigungu: user.sigungu });
-}
-
-// 구글·네이버 연동 로그인. profile = { provider: "google"|"naver", sub, name, email }
+// 구글·네이버 연동 로그인. profile = { provider: "google"|"naver"|"dev", sub, name, email }
 // 이미 연동된 계정이면 바로 로그인하고 true, 처음이면 지역 입력이 필요하므로 false (pending에 보관).
 const PENDING_KEY = "wt_social_pending";
-const PROVIDER_LABEL = { google: "구글", naver: "네이버" };
+const PROVIDER_LABEL = { google: "구글", naver: "네이버", dev: "개발용" };
+
+// 개발용 가짜 로그인은 로컬 개발 주소에서만 보여 준다. 배포 주소에서는 버튼이 생기지 않는다.
+export const devLoginAvailable = () => ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
+export const DEV_PROFILE = { provider: "dev", sub: "local-dev", name: "개발자", email: null };
+
+function startSession(user) {
+  save(SESSION_KEY, { type: "member", id: user.id, provider: user.provider, sido: user.sido, sigungu: user.sigungu,
+    region_id: user.region_id ?? null });
+}
 
 export function socialLogin(profile) {
-  const key = `${profile.provider}:${profile.sub}`;
-  const user = load(USERS_KEY, {})[key];
+  if (profile.provider === "dev" && !devLoginAvailable()) throw new Error("개발용 로그인은 로컬에서만 쓸 수 있습니다.");
+  const user = load(USERS_KEY, {})[`${profile.provider}:${profile.sub}`];
   if (user) {
-    save(SESSION_KEY, { type: "member", id: user.id, provider: user.provider, sido: user.sido, sigungu: user.sigungu });
+    startSession(user);
     return true;
   }
   save(PENDING_KEY, profile);
@@ -66,13 +45,14 @@ export function cancelSocialSignup() {
   try { localStorage.removeItem(PENDING_KEY); } catch { /* 무시 */ }
 }
 
-export function completeSocialSignup({ sido, sigungu }) {
+// region = regions.json의 시군구 하나({region_id, sido, sigungu}) 또는 시도만 고른 경우 {region_id: null, sido, sigungu: ""}
+export function completeSocialSignup({ region_id = null, sido, sigungu = "" }) {
   const p = pendingSocial();
   if (!p) throw new Error("연동 정보가 없습니다. 다시 로그인해 주세요.");
   if (!sido) throw new Error("사는 지역(시도)을 선택하세요.");
   const users = load(USERS_KEY, {});
   const id = p.name || p.email || `${PROVIDER_LABEL[p.provider]} 사용자`;
-  users[`${p.provider}:${p.sub}`] = { id, provider: p.provider, email: p.email ?? null, sido, sigungu: sigungu.trim(),
+  users[`${p.provider}:${p.sub}`] = { id, provider: p.provider, email: p.email ?? null, sido, sigungu, region_id,
     created_at: new Date().toISOString() };
   if (!save(USERS_KEY, users)) throw new Error("이 브라우저에서는 저장소를 쓸 수 없어 가입할 수 없습니다.");
   try { localStorage.removeItem(PENDING_KEY); } catch { /* 무시 */ }

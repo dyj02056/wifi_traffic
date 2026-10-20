@@ -45,7 +45,25 @@ sources:
 
 # 배경 패널 차트 정의. CSV 컬럼명은 실제 파일을 보고 채운다(추측 금지).
 # 정의가 비어 있으면 background.json의 datasets는 빈 배열이 되고 /context는 '준비 중'을 보여준다.
-background_charts: []
+# 2026-10-20 실제 파일 컬럼 확인 후 작성(requests #30). 읽기 옵션은 wifisafe/background.py chart_series 참고.
+background_charts:
+  - id: police_hacking_by_year
+    source: D3
+    title: 연도별 해킹 발생 건수 (유형별)
+    unit: 건
+    row_filter: {구분: 발생건수}
+    label_column: 연도
+    value_columns: [해킹_계정도용, 해킹_단순침입, 해킹_자료유출, 해킹_자료훼손]
+    group_names: {해킹_계정도용: 계정도용, 해킹_단순침입: 단순침입, 해킹_자료유출: 자료유출, 해킹_자료훼손: 자료훼손}
+    sort_by_label: true
+    note: 경찰청 전국 통계이며 와이파이 지점과 직접 연결되지 않습니다
+  - id: kisa_private_incidents_by_year
+    source: D5
+    title: 연도별 민간 분야 침해사고 신고 건수
+    unit: 건
+    row_filter: {구분: 신고 건수}
+    wide_columns: '\d{4}년'          # 상반기·하반기 칸은 빼고 연도 합계 칸만
+    note: 한국인터넷진흥원 전국 통계이며 와이파이 지점과 직접 연결되지 않습니다
 # 예시 형식 (실제 컬럼 확인 후 주석 해제)
 # - id: police_cyber_by_year
 #   source: D3

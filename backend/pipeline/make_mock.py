@@ -14,7 +14,7 @@ import pandas as pd
 
 from wifisafe import bundle as B
 from wifisafe.changes import diff_snapshots
-from wifisafe.engine import clean_frame, score_frame
+from wifisafe.engine import clean_frame, r1_region_status, score_frame
 from wifisafe.io import GOLDEN_PATH, MOCK_DIR, validate_bundle, write_json
 from wifisafe.rules import RuleTables
 from wifisafe.schema import COLUMN_MAP, ID_COLUMN
@@ -100,7 +100,8 @@ def main():
         "source": {"name": "가상 출처", "dataset_id": None, "url": "contracts/mock", "published_at": SNAP_1,
                    "retrieved_at": SNAP_2},
     }]}
-    regions = B.regions_json(c2, {rid}, rid)
+    # mock은 사람이 확정한 라벨이 없으므로 확정 SSID 없음 → 모든 지역 provisional
+    regions = B.regions_json(c2, {rid}, rid, r1_region_status(c2, set()))
     B.write_bundle(MOCK_DIR, meta=meta, regions=regions, scored=scored, region_ids=[rid], changes=changes,
                    snapshots=[SNAP_1, SNAP_2], background=background, cases=cases)
     errors = validate_bundle(MOCK_DIR)

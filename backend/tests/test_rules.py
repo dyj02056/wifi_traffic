@@ -115,3 +115,17 @@ def test_r1_empty_ssid_is_unknown_with_flag():
     ratio, reason, flag = R.r1_secure_access(frame(ssid=["", "OPEN"]), T)
     assert ratio.tolist() == [PARAMS["R1_UNKNOWN_RATIO"], 1.0]
     assert flag.tolist() == ["R1_ssid_missing", ""]
+
+
+def test_r1_region_status_coverage_threshold():
+    from wifisafe.engine import enforce_r1_region_gate, r1_region_status
+    # a: 10행 중 9행 확정(90%) → confirmed, b: 10행 중 8행(80%) → provisional, c: SSID 전부 빈 값 → no_ssid
+    # 빈 SSID 행은 분모에서 빠진다(a의 빈 행 2개)
+    df = pd.DataFrame({"region_id": ["a"] * 12 + ["b"] * 10 + ["c"] * 3,
+                       "ssid": ["OK"] * 9 + ["NEW"] + ["", None] + ["OK"] * 8 + ["NEW"] * 2 + ["", " ", None]})
+    st = r1_region_status(df, {"OK"})
+    assert st == {"a": ("confirmed", 0.9), "b": ("provisional", 0.8), "c": ("no_ssid", None)}
+    enforce_r1_region_gate("final", st, ["a", "c"])          # provisional 지역이 없으면 통과
+    enforce_r1_region_gate("dev", st, ["b"])                 # dev는 막지 않음
+    with pytest.raises(SystemExit, match="b"):
+        enforce_r1_region_gate("final", st, ["a", "b"])

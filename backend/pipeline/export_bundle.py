@@ -18,7 +18,7 @@ from wifisafe import bundle as B
 from wifisafe.background import build_background
 from wifisafe.cases import load_cases
 from wifisafe.changes import CHANGE_COLS
-from wifisafe.engine import enforce_r1_gate, load_tables
+from wifisafe.engine import confirmed_ssids, enforce_r1_gate, enforce_r1_region_gate, load_tables, r1_region_status
 from wifisafe.io import (CONFIG_DIR, DIST_DATA_DIR, GOLDEN_PATH, INTERIM_DIR, PROCESSED_DIR, app_mode, read_json,
                          read_yaml, validate_bundle, write_json)
 
@@ -41,6 +41,10 @@ def main():
         hint = known[known["sido"] == "서울특별시"]["sigungu"].to_dict() if "sido" in known else {}
         raise SystemExit(f"없는 region_id: {unknown}. 예시(서울): {dict(list(hint.items())[:30])}")
     default = args.default or region_ids[0]
+    r1_status = r1_region_status(scored, confirmed_ssids())
+    enforce_r1_region_gate(mode, r1_status, region_ids)
+    # 화면은 지역별 r1_status를 쓴다. meta.r1_confirmed는 "번들의 모든 지역이 임시(무효)가 아님"(이전 계약 호환용)
+    bundle_r1_confirmed = all(r1_status[r][0] != "provisional" for r in region_ids)
 
     snap = read_json(INTERIM_DIR / "clean_report.json")["snapshot"]
     dates = snapshot_dates()
@@ -68,10 +72,10 @@ def main():
                             "retrieved_at": ds["source"]["retrieved_at"]})
     cases = load_cases()
 
-    meta = B.meta_json(is_mock=False, r1_confirmed=status["r1_confirmed"], app_mode=mode,
+    meta = B.meta_json(is_mock=False, r1_confirmed=bundle_r1_confirmed, app_mode=mode,
                        data_reference_date=scored["data_date_norm"].dropna().max(), snapshot_collected_at=snap,
                        snapshot_count=len(dates), regions_in_bundle=region_ids, sources=sources)
-    regions = B.regions_json(scored, set(region_ids), default)
+    regions = B.regions_json(scored, set(region_ids), default, r1_status)
 
     if DIST_DATA_DIR.exists():
         shutil.rmtree(DIST_DATA_DIR)
@@ -81,16 +85,18 @@ def main():
     if errors:
         raise SystemExit("번들 스키마 검증 실패:\n  " + "\n  ".join(errors[:30]))
 
-    print(f"[export_bundle] {DIST_DATA_DIR}  APP_MODE={mode}  r1_confirmed={status['r1_confirmed']}  스키마 검증 통과")
+    print(f"[export_bundle] {DIST_DATA_DIR}  APP_MODE={mode}  r1_confirmed={bundle_r1_confirmed}  스키마 검증 통과")
     for rid in region_ids:
         sub = scored[scored["region_id"] == rid]
         n_exp = len(explanations.get(rid, {}))
-        print(f"  {rid}: 지점 {len(sub):,}개, 사전 생성 설명 {n_exp}개(나머지 템플릿), 등급 {sub['grade'].value_counts().to_dict()}")
+        st, cov = r1_status[rid]
+        print(f"  {rid}: 지점 {len(sub):,}개, R1 {st}" + (f"(확정 {cov:.1%})" if cov is not None else "")
+              + f", 사전 생성 설명 {n_exp}개(나머지 템플릿), 등급 {sub['grade'].value_counts().to_dict()}")
     print(f"  스냅샷 {len(dates)}회, 배경 통계 {len(background['datasets'])}종, 사례 카드 {len(cases['cases'])}건")
     for w in bg_warn:
         print(f"  ⚠ 배경: {w}")
-    if not status["r1_confirmed"]:
-        print("  ⚠ 개발용 번들(meta.r1_confirmed=false) — 화면에 '임시(무효)' 워터마크가 표시됩니다")
+    if not bundle_r1_confirmed:
+        print("  ⚠ SSID 라벨 확정 비율이 기준 미만인 지역이 있음 — 그 지역을 고르면 '임시(무효)' 워터마크가 표시됩니다")
 
     if not args.no_golden:
         sample = (scored[scored["region_id"].isin(region_ids)].sort_values("key")

@@ -44,30 +44,8 @@
         <button type="button" id="guest" class="ghost">비회원으로 바로 이용하기</button>
         <p class="guest-note">비회원은 지도를 볼 수 있지만 리뷰·평가·이벤트에는 참여할 수 없습니다.</p>
 
-        <details class="id-login">
-          <summary>아이디로 로그인 / 회원가입</summary>
-          <div class="tabs" role="tablist">
-            <button type="button" role="tab" id="tab-login" aria-selected="true" aria-controls="form-login">로그인</button>
-            <button type="button" role="tab" id="tab-signup" aria-selected="false" aria-controls="form-signup">회원가입</button>
-          </div>
-          <form id="form-login" role="tabpanel" aria-labelledby="tab-login" novalidate>
-            <label>아이디<input name="id" autocomplete="username" required></label>
-            <label>비밀번호<input name="password" type="password" autocomplete="current-password" required></label>
-            <p class="msg" role="alert"></p>
-            <button type="submit" class="primary">로그인</button>
-          </form>
-          <form id="form-signup" role="tabpanel" aria-labelledby="tab-signup" novalidate hidden>
-            <label>아이디 <small>영문·숫자·밑줄 4~20자</small><input name="id" autocomplete="username" required></label>
-            <label>비밀번호 <small>6자 이상</small><input name="password" type="password" autocomplete="new-password" required></label>
-            <label>비밀번호 확인<input name="password2" type="password" autocomplete="new-password" required></label>
-            <div class="row">
-              <label>사는 지역 (시도)<select name="sido" required></select></label>
-              <label>시군구<input name="sigungu" placeholder="예: 구로구 (선택)"></label>
-            </div>
-            <p class="msg" role="alert"></p>
-            <button type="submit" class="primary">회원가입</button>
-          </form>
-        </details>
+        <!-- 로컬 개발 주소에서만 보인다(구글·네이버 클라이언트 ID 없이 회원 흐름 시험용) -->
+        <button type="button" id="dev-login" class="dev-login" hidden>개발용 로그인 (로컬 전용)</button>
       </div>
 
       <!-- 구글·네이버로 처음 들어온 사람: 사는 지역만 받고 가입 완료 -->
@@ -76,7 +54,7 @@
         <p class="welcome"></p>
         <div class="row">
           <label>사는 지역 (시도)<select name="sido" required></select></label>
-          <label>시군구<input name="sigungu" placeholder="예: 구로구 (선택)"></label>
+          <label>시군구<select name="sigungu"></select></label>
         </div>
         <p class="msg" role="alert"></p>
         <button type="submit" class="primary">가입 완료하고 시작하기</button>
@@ -86,15 +64,37 @@
   </main>
 
   <script type="module">
-    import { SIDO_LIST, signup, login, loginGuest, socialLogin, pendingSocial, completeSocialSignup, cancelSocialSignup } from "./js/auth.js";
+    import { loginGuest, socialLogin, pendingSocial, completeSocialSignup, cancelSocialSignup, devLoginAvailable, DEV_PROFILE } from "./js/auth.js";
     import { googleConfigured, naverConfigured, setupGoogle, setupNaver } from "./js/social.js";
+    import * as api from "./js/api.js";
 
     const goMap = () => location.replace("index.html" + location.search);
     const $ = (s) => document.querySelector(s);
-    const fLogin = $("#form-login"), fSignup = $("#form-signup"), fRegion = $("#step-region");
-    const sidoOptions = `<option value="">선택하세요</option>` + SIDO_LIST.map((s) => `<option>${s}</option>`).join("");
-    fSignup.sido.innerHTML = sidoOptions;
-    fRegion.sido.innerHTML = sidoOptions;
+    const fRegion = $("#step-region");
+    const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+
+    // 시도·시군구는 지도 화면과 같은 regions.json 목록에서 고른다(글자가 달라 내 지역을 못 찾는 일 방지).
+    // 데이터가 아직 없는 시군구(available=false)도 고를 수 있게 둔다 — 데이터가 생기면 그때부터 바로 열린다.
+    let regions = [];
+    async function loadRegionOptions() {
+      try {
+        await api.init();
+        regions = (await api.getRegions()).regions;
+      } catch (e) {
+        console.warn("지역 목록을 불러오지 못했습니다:", e.message);
+      }
+      const sidos = [...new Map(regions.map((r) => [r.sido_code, r.sido])).entries()].sort((a, b) => a[0].localeCompare(b[0]));
+      fRegion.sido.innerHTML = `<option value="">선택하세요</option>` + sidos.map(([c, n]) => `<option value="${c}">${esc(n)}</option>`).join("");
+      fillSigungu();
+    }
+    function fillSigungu() {
+      const list = regions.filter((r) => r.sido_code === fRegion.sido.value).sort((a, b) => a.sigungu.localeCompare(b.sigungu, "ko"));
+      fRegion.sigungu.innerHTML = `<option value="">${fRegion.sido.value ? "선택 안 함" : "시도를 먼저 고르세요"}</option>`
+        + list.map((r) => `<option value="${r.region_id}">${esc(r.sigungu)}</option>`).join("");
+      fRegion.sigungu.disabled = !list.length;
+    }
+    fRegion.sido.addEventListener("change", fillSigungu);
+    const regionsReady = loadRegionOptions();
 
     const setMsg = (el, text, ok = false) => {
       const m = el.matches(".msg") ? el : el.querySelector(".msg");
@@ -104,23 +104,29 @@
     const socialMsg = $("#social-msg");
 
     // ── 구글·네이버 ──
-    const LABEL = { google: "구글", naver: "네이버" };
-    function showRegionStep(profile) {
+    const LABEL = { google: "구글", naver: "네이버", dev: "개발용" };
+    async function showRegionStep(profile) {
       $("#step-main").hidden = true;
       fRegion.hidden = false;
       fRegion.querySelector(".welcome").textContent =
         `${LABEL[profile.provider]} 계정${profile.name ? ` (${profile.name})` : ""}으로 처음 오셨네요. 사는 지역을 알려 주시면 내 동네 지도부터 보여 드려요.`;
+      await regionsReady;
       fRegion.sido.focus();
     }
     function onProfile(profile) {
-      if (socialLogin(profile)) goMap(); else showRegionStep(profile);
+      try {
+        if (socialLogin(profile)) goMap(); else showRegionStep(profile);
+      } catch (err) { onError(err); }
     }
     const onError = (e) => setMsg(socialMsg, e.message);
 
     fRegion.addEventListener("submit", (e) => {
       e.preventDefault();
+      const sidoCode = fRegion.sido.value;
+      const picked = regions.find((r) => r.region_id === fRegion.sigungu.value);
+      const sido = regions.find((r) => r.sido_code === sidoCode)?.sido ?? "";
       try {
-        completeSocialSignup({ sido: fRegion.sido.value, sigungu: fRegion.sigungu.value });
+        completeSocialSignup({ region_id: picked?.region_id ?? null, sido, sigungu: picked?.sigungu ?? "" });
         goMap();
       } catch (err) { setMsg(fRegion, err.message); }
     });
@@ -149,40 +155,12 @@
       naverBtn.addEventListener("click", notReady("네이버", "Naver"));
     }
 
-    // ── 아이디 로그인 / 회원가입 ──
-    function showTab(which) {
-      const isLogin = which === "login";
-      $("#tab-login").setAttribute("aria-selected", isLogin);
-      $("#tab-signup").setAttribute("aria-selected", !isLogin);
-      fLogin.hidden = !isLogin;
-      fSignup.hidden = isLogin;
-      (isLogin ? fLogin : fSignup).id.focus();
+    // ── 개발용 로그인 (로컬 전용) ──
+    if (devLoginAvailable()) {
+      const devBtn = $("#dev-login");
+      devBtn.hidden = false;
+      devBtn.addEventListener("click", () => onProfile(DEV_PROFILE));
     }
-    $("#tab-login").addEventListener("click", () => showTab("login"));
-    $("#tab-signup").addEventListener("click", () => showTab("signup"));
-
-    fLogin.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      try {
-        await login(fLogin.id.value, fLogin.password.value);
-        goMap();
-      } catch (err) { setMsg(fLogin, err.message); }
-    });
-
-    fSignup.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      if (fSignup.password.value !== fSignup.password2.value) return setMsg(fSignup, "비밀번호 확인이 일치하지 않습니다.");
-      try {
-        await signup({ id: fSignup.id.value, password: fSignup.password.value, sido: fSignup.sido.value, sigungu: fSignup.sigungu.value });
-        const id = fSignup.id.value;
-        fSignup.reset();
-        setMsg(fSignup, "");
-        showTab("login");
-        fLogin.id.value = id;
-        fLogin.password.focus();
-        setMsg(fLogin, "가입이 완료되었습니다. 로그인해 주세요.", true);
-      } catch (err) { setMsg(fSignup, err.message); }
-    });
 
     $("#guest").addEventListener("click", () => { loginGuest(); goMap(); });
   </script>

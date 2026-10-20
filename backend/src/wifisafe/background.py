@@ -28,13 +28,7 @@ def build_background() -> tuple[dict, list[str]]:
             warnings.append(f"{chart['id']}: {chart['source']} retrieved_at 없음 → 출처 날짜 없는 통계는 렌더링하지 않음")
             continue
         df, _ = read_csv_any(path)
-        for c in (chart["label_column"], chart["value_column"]):
-            if c not in df.columns:
-                raise SystemExit(f"{chart['id']}: 컬럼 '{c}' 없음. 실제 컬럼: {list(df.columns)}")
-        gcol = chart.get("group_column")
-        values = pd.to_numeric(df[chart["value_column"]].str.replace(",", ""), errors="coerce")
-        series = [{"label": str(lbl), "value": float(v), "group": (str(df[gcol].iloc[i]) if gcol else None)}
-                  for i, (lbl, v) in enumerate(zip(df[chart["label_column"]], values)) if pd.notna(v)]
+        series = chart_series(df, chart)
         datasets.append({
             "id": chart["id"], "title": chart["title"], "unit": chart.get("unit", ""),
             "note": chart.get("note"),
@@ -43,3 +37,51 @@ def build_background() -> tuple[dict, list[str]]:
             "series": series,
         })
     return {"included_in_score": False, "notice": NOTICE, "datasets": datasets}, warnings
+
+
+def _num(s: pd.Series) -> pd.Series:
+    return pd.to_numeric(s.astype(str).str.replace(",", "").str.strip(), errors="coerce")
+
+
+def chart_series(df: pd.DataFrame, chart: dict) -> list[dict]:
+    """차트 정의 하나 → series. 원본 값은 바꾸지 않고 읽는 방식만 고른다.
+
+    - row_filter: {컬럼: 값} — 그 값인 줄만 쓴다 (예: 구분=발생건수)
+    - 기본: label_column 줄마다 value_column 값 하나 (group_column이 있으면 그 값을 group으로)
+    - value_columns: [칸...] — 줄마다 여러 칸을 막대로 펼치고 칸 이름을 group으로 (group_names로 표시 이름 지정)
+    - wide_columns: 정규식 — 연도가 칸으로 놓인 표. 맞는 칸 이름이 label, 그 칸 값이 value (row_filter 후 1줄이어야 함)
+    - sort_by_label: true — label 오름차순 (연도 순서)
+    """
+    cid = chart["id"]
+
+    def need(cols):
+        missing = [c for c in cols if c not in df.columns]
+        if missing:
+            raise SystemExit(f"{cid}: 컬럼 {missing} 없음. 실제 컬럼: {list(df.columns)}")
+
+    for col, val in (chart.get("row_filter") or {}).items():
+        need([col])
+        df = df[df[col].astype(str).str.strip() == str(val)]
+    if chart.get("wide_columns"):
+        import re
+        pat = re.compile(chart["wide_columns"])
+        cols = [c for c in df.columns if pat.fullmatch(c)]
+        if len(df) != 1 or not cols:
+            raise SystemExit(f"{cid}: wide_columns는 1줄·맞는 칸 1개 이상 필요 (줄 {len(df)}, 칸 {cols})")
+        vals = _num(df.iloc[0][cols])
+        series = [{"label": c, "value": float(v), "group": None} for c, v in vals.items() if pd.notna(v)]
+    elif chart.get("value_columns"):
+        need([chart["label_column"], *chart["value_columns"]])
+        names = chart.get("group_names") or {}
+        series = [{"label": str(lbl), "value": float(v), "group": names.get(c, c)}
+                  for c in chart["value_columns"]
+                  for lbl, v in zip(df[chart["label_column"]], _num(df[c])) if pd.notna(v)]
+    else:
+        need([chart["label_column"], chart["value_column"]])
+        gcol = chart.get("group_column")
+        series = [{"label": str(lbl), "value": float(v), "group": (str(df[gcol].iloc[i]) if gcol else None)}
+                  for i, (lbl, v) in enumerate(zip(df[chart["label_column"]], _num(df[chart["value_column"]])))
+                  if pd.notna(v)]
+    if chart.get("sort_by_label"):
+        series.sort(key=lambda s: s["label"])
+    return series

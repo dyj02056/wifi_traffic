@@ -15,6 +15,8 @@
       "sigungu": "가상구",
       "count": 40,
       "available": true,
+      "r1_status": "provisional",
+      "r1_coverage": 0.0,
       "center": {
         "lat": 37.506065,
         "lng": 126.957366

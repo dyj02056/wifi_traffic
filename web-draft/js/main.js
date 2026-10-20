@@ -139,6 +139,11 @@ async function loadRegion(rid) {
   closePoint();
   state.regionId = rid;
   const region = state.regions.regions.find((r) => r.region_id === rid);
+  // '임시(무효)'는 지역별로 판단(contracts 1.1.0). r1_status가 없는 이전 번들은 meta.r1_confirmed로 대신한다.
+  const r1 = region.r1_status ?? (state.meta.r1_confirmed ? "confirmed" : "provisional");
+  $("#badge-provisional").hidden = r1 !== "provisional";
+  $("#watermark").hidden = r1 !== "provisional";
+  $("#badge-nossid").hidden = r1 !== "no_ssid";
   const [pts, details, changes] = await Promise.all([api.getPoints(rid), api.getDetailMap(rid), api.getChanges(rid)]);
   state.points = pts.points;
   state.details = details;
@@ -170,8 +175,10 @@ function setupRegionPicker() {
   sggSel.addEventListener("change", () => loadRegion(sggSel.value));
   const want = new URLSearchParams(location.search).get("region");
   // 회원이면 가입 때 적은 지역(데이터가 있을 때만)을 먼저 보여준다
-  const home = session?.type === "member" && session.sigungu
-    ? avail.find((r) => r.sido === session.sido && r.sigungu === session.sigungu) : null;
+  // (region_id가 없는 예전 세션은 시도·시군구 이름으로 찾는다)
+  const home = session?.type !== "member" ? null
+    : avail.find((r) => session.region_id && r.region_id === session.region_id)
+      ?? (session.sigungu ? avail.find((r) => r.sido === session.sido && r.sigungu === session.sigungu) : null);
   const initial = avail.find((r) => r.region_id === want) ?? home ?? avail.find((r) => r.region_id === state.regions.default_region_id) ?? avail[0];
   sidoSel.value = initial.sido_code;
   fillSgg();
@@ -224,8 +231,6 @@ async function main() {
   state.gradeFilter = new Set(state.rules.grades.map((g) => g.label));
   applyGradeColors();
   $("#badge-mock").hidden = !state.meta.is_mock;
-  $("#badge-provisional").hidden = state.meta.r1_confirmed;
-  $("#watermark").hidden = state.meta.r1_confirmed;
   $("#data-date").textContent = `데이터 기준일 ${state.meta.data_reference_date ?? "–"} · 수집 ${state.meta.snapshot_collected_at ?? "–"}`;
   mapView = await loadMapView();
   mapView.initMap($("#map"), { onPointClick: openPoint });

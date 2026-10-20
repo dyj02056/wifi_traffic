@@ -84,6 +84,8 @@ class Region(Strict):
     sigungu: str
     count: int
     available: bool
+    r1_status: Literal["confirmed", "provisional", "no_ssid"]
+    r1_coverage: float | None
     center: LatLng
     bbox: list[float]
 

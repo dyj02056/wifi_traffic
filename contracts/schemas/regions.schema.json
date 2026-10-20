@@ -23,7 +23,8 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["region_id", "sido_code", "sido", "sigungu", "count", "available", "center", "bbox"],
+        "required": ["region_id", "sido_code", "sido", "sigungu", "count", "available", "r1_status", "r1_coverage",
+                     "center", "bbox"],
         "properties": {
           "region_id": {"$ref": "_common.schema.json#/$defs/region_id"},
           "sido_code": {"type": "string", "pattern": "^[0-9]{2}$"},
@@ -31,6 +32,10 @@
           "sigungu": {"type": "string"},
           "count": {"type": "integer", "minimum": 0},
           "available": {"type": "boolean", "description": "true면 points/detail/changes/sensitivity 파일이 번들에 있음"},
+          "r1_status": {"enum": ["confirmed", "provisional", "no_ssid"],
+                        "description": "provisional이면 이 지역을 볼 때 '임시(무효)' 배지·워터마크, no_ssid면 'SSID 정보 없음 — 보안접속 항목(R1)은 가정값' 배지만"},
+          "r1_coverage": {"type": ["number", "null"], "minimum": 0, "maximum": 1,
+                          "description": "SSID 있는 행 중 확정 라벨 비율. no_ssid면 null. 기준은 rules.params.R1_REGION_COVERAGE_MIN"},
           "center": {
             "type": "object", "required": ["lat", "lng"],
             "properties": {"lat": {"$ref": "_common.schema.json#/$defs/lat"}, "lng": {"$ref": "_common.schema.json#/$defs/lng"}},

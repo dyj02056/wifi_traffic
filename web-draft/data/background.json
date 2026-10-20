@@ -1,5 +1,301 @@
 {
   "included_in_score": false,
   "notice": "이 통계는 지점 점수에 반영하지 않습니다",
-  "datasets": []
+  "datasets": [
+    {
+      "id": "police_hacking_by_year",
+      "title": "연도별 해킹 발생 건수 (유형별)",
+      "unit": "건",
+      "note": "경찰청 전국 통계이며 와이파이 지점과 직접 연결되지 않습니다",
+      "source": {
+        "name": "경찰청_연도별 사이버 범죄 통계 현황",
+        "dataset_id": "15053887",
+        "url": "https://www.data.go.kr/data/15053887/fileData.do",
+        "published_at": null,
+        "retrieved_at": "2026-10-20"
+      },
+      "series": [
+        {
+          "label": "2014",
+          "value": 567.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2014",
+          "value": 760.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2014",
+          "value": 116.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2014",
+          "value": 205.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2015",
+          "value": 1062.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2015",
+          "value": 809.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2015",
+          "value": 69.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2015",
+          "value": 307.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2016",
+          "value": 758.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2016",
+          "value": 714.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2016",
+          "value": 71.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2016",
+          "value": 304.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2017",
+          "value": 1160.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2017",
+          "value": 904.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2017",
+          "value": 67.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2017",
+          "value": 299.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2018",
+          "value": 721.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2018",
+          "value": 1003.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2018",
+          "value": 114.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2018",
+          "value": 340.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2019",
+          "value": 751.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2019",
+          "value": 1458.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2019",
+          "value": 114.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2019",
+          "value": 341.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2020",
+          "value": 1067.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2020",
+          "value": 1621.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2020",
+          "value": 130.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2020",
+          "value": 358.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2021",
+          "value": 1391.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2021",
+          "value": 1090.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2021",
+          "value": 110.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2021",
+          "value": 248.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2022",
+          "value": 896.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2022",
+          "value": 1181.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2022",
+          "value": 103.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2022",
+          "value": 216.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2023",
+          "value": 877.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2023",
+          "value": 1424.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2023",
+          "value": 172.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2023",
+          "value": 223.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2024",
+          "value": 1197.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2024",
+          "value": 1164.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2024",
+          "value": 186.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2024",
+          "value": 247.0,
+          "group": "자료훼손"
+        },
+        {
+          "label": "2025",
+          "value": 1854.0,
+          "group": "계정도용"
+        },
+        {
+          "label": "2025",
+          "value": 1135.0,
+          "group": "단순침입"
+        },
+        {
+          "label": "2025",
+          "value": 322.0,
+          "group": "자료유출"
+        },
+        {
+          "label": "2025",
+          "value": 233.0,
+          "group": "자료훼손"
+        }
+      ]
+    },
+    {
+      "id": "kisa_private_incidents_by_year",
+      "title": "연도별 민간 분야 침해사고 신고 건수",
+      "unit": "건",
+      "note": "한국인터넷진흥원 전국 통계이며 와이파이 지점과 직접 연결되지 않습니다",
+      "source": {
+        "name": "한국인터넷진흥원_국내 민간 분야 침해사고 신고 건수",
+        "dataset_id": "15140309",
+        "url": "https://www.data.go.kr/data/15140309/fileData.do",
+        "published_at": null,
+        "retrieved_at": "2026-10-20"
+      },
+      "series": [
+        {
+          "label": "2019년",
+          "value": 418.0,
+          "group": null
+        },
+        {
+          "label": "2020년",
+          "value": 603.0,
+          "group": null
+        },
+        {
+          "label": "2021년",
+          "value": 640.0,
+          "group": null
+        },
+        {
+          "label": "2022년",
+          "value": 1142.0,
+          "group": null
+        },
+        {
+          "label": "2023년",
+          "value": 1277.0,
+          "group": null
+        }
+      ]
+    }
+  ]
 }

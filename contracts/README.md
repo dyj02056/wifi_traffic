@@ -48,7 +48,13 @@ grade = grades에서 min ≤ score < max (반올림된 score로)
 ## 프론트엔드 표시 규칙
 
 - `meta.disclaimer`를 모든 화면 상단에 고정 표시
-- `meta.is_mock=true` → "샘플 데이터" 배지, `meta.r1_confirmed=false` → "임시(무효)" 워터마크
+- `meta.is_mock=true` → "샘플 데이터" 배지
+- **"임시(무효)"는 지역별로 판단한다(1.1.0~)**: 보고 있는 지역의 `regions[].r1_status`가
+  - `provisional` → "임시(무효) — SSID 라벨 미확정" 배지 + 지도 워터마크
+  - `no_ssid` → "SSID 정보 없음 — 보안접속 항목(R1)은 가정값" 배지만(워터마크 없음)
+  - `confirmed` → 둘 다 없음
+  - `r1_coverage` = 그 지역 SSID 있는 행 중 확정 라벨 비율, 기준은 `rules.params.R1_REGION_COVERAGE_MIN`(0.9)
+  - `meta.r1_confirmed`는 "번들의 모든 지역이 provisional이 아님"이라는 요약값(이전 계약 호환용)
 - `rules[].is_assumption=true` → "가정" 배지
 - `background.included_in_score=false` → "이 통계는 지점 점수에 반영하지 않습니다" 고정
 - `cases.label` 그대로 표시. 출처(`source`)가 없는 항목은 스키마상 존재할 수 없음

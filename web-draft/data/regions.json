@@ -1,5 +1,5 @@
 {
-  "default_region_id": "11-guro",
+  "default_region_id": "11-seocho",
   "sido": [
     {
       "sido_code": "11",
@@ -85,6 +85,8 @@
       "sigungu": "도봉구",
       "count": 971,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.659848,
         "lng": 127.039938
@@ -103,6 +105,8 @@
       "sigungu": "동대문구",
       "count": 477,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.578389,
         "lng": 127.055593
@@ -121,6 +125,8 @@
       "sigungu": "동작구",
       "count": 1069,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.498274,
         "lng": 126.947118
@@ -139,6 +145,8 @@
       "sigungu": "은평구",
       "count": 1140,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.608189,
         "lng": 126.918645
@@ -157,6 +165,8 @@
       "sigungu": "강북구",
       "count": 295,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.631964,
         "lng": 127.024335
@@ -175,6 +185,8 @@
       "sigungu": "강동구",
       "count": 2417,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.542817,
         "lng": 127.139639
@@ -193,6 +205,8 @@
       "sigungu": "강남구",
       "count": 2807,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9772,
       "center": {
         "lat": 37.501413,
         "lng": 127.056431
@@ -211,6 +225,8 @@
       "sigungu": "강서구",
       "count": 1801,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.556032,
         "lng": 126.840016
@@ -229,6 +245,8 @@
       "sigungu": "금천구",
       "count": 173,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.462747,
         "lng": 126.898415
@@ -247,6 +265,8 @@
       "sigungu": "구로구",
       "count": 1259,
       "available": true,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.494818,
         "lng": 126.865047
@@ -265,6 +285,8 @@
       "sigungu": "관악구",
       "count": 784,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.478976,
         "lng": 126.938662
@@ -283,6 +305,8 @@
       "sigungu": "광진구",
       "count": 977,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.545621,
         "lng": 127.076118
@@ -301,6 +325,8 @@
       "sigungu": "종로구",
       "count": 212,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.580331,
         "lng": 126.986271
@@ -319,6 +345,8 @@
       "sigungu": "중구",
       "count": 228,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.562453,
         "lng": 126.99924
@@ -337,6 +365,8 @@
       "sigungu": "중랑구",
       "count": 815,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.598961,
         "lng": 127.090683
@@ -355,6 +385,8 @@
       "sigungu": "마포구",
       "count": 995,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.562617,
         "lng": 126.910646
@@ -373,6 +405,8 @@
       "sigungu": "노원구",
       "count": 1345,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.644002,
         "lng": 127.066674
@@ -390,7 +424,9 @@
       "sido": "서울특별시",
       "sigungu": "서초구",
       "count": 1030,
-      "available": false,
+      "available": true,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.485105,
         "lng": 127.025513
@@ -409,6 +445,8 @@
       "sigungu": "서대문구",
       "count": 231,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.577983,
         "lng": 126.938526
@@ -427,6 +465,8 @@
       "sigungu": "성북구",
       "count": 1132,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.602674,
         "lng": 127.02125
@@ -445,6 +485,8 @@
       "sigungu": "성동구",
       "count": 968,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.547929,
         "lng": 127.039762
@@ -463,6 +505,8 @@
       "sigungu": "송파구",
       "count": 1278,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.996,
       "center": {
         "lat": 37.506397,
         "lng": 127.113029
@@ -481,6 +525,8 @@
       "sigungu": "양천구",
       "count": 587,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.524943,
         "lng": 126.856406
@@ -499,6 +545,8 @@
       "sigungu": "영등포구",
       "count": 272,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.517366,
         "lng": 126.900165
@@ -517,6 +565,8 @@
       "sigungu": "용산구",
       "count": 813,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.535426,
         "lng": 126.976912
@@ -535,6 +585,8 @@
       "sigungu": "북구",
       "count": 120,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.224257,
         "lng": 129.015647
@@ -553,6 +605,8 @@
       "sigungu": "부산진구",
       "count": 103,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8539,
       "center": {
         "lat": 35.15992,
         "lng": 129.05012
@@ -571,6 +625,8 @@
       "sigungu": "동구",
       "count": 222,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9685,
       "center": {
         "lat": 35.129545,
         "lng": 129.046342
@@ -589,6 +645,8 @@
       "sigungu": "동래구",
       "count": 140,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.203929,
         "lng": 129.082914
@@ -607,6 +665,8 @@
       "sigungu": "강서구",
       "count": 105,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9333,
       "center": {
         "lat": 35.123608,
         "lng": 128.897589
@@ -625,6 +685,8 @@
       "sigungu": "금정구",
       "count": 126,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9365,
       "center": {
         "lat": 35.245421,
         "lng": 129.092186
@@ -643,6 +705,8 @@
       "sigungu": "기장군",
       "count": 93,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.289008,
         "lng": 129.207264
@@ -661,6 +725,8 @@
       "sigungu": "해운대구",
       "count": 503,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8946,
       "center": {
         "lat": 35.183747,
         "lng": 129.156733
@@ -679,6 +745,8 @@
       "sigungu": "중구",
       "count": 115,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9184,
       "center": {
         "lat": 35.104407,
         "lng": 129.030997
@@ -697,6 +765,8 @@
       "sigungu": "남구",
       "count": 150,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.129152,
         "lng": 129.09395
@@ -715,6 +785,8 @@
       "sigungu": "사하구",
       "count": 151,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9205,
       "center": {
         "lat": 35.086912,
         "lng": 128.981669
@@ -733,6 +805,8 @@
       "sigungu": "사상구",
       "count": 101,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9703,
       "center": {
         "lat": 35.1602,
         "lng": 128.989465
@@ -751,6 +825,8 @@
       "sigungu": "서구",
       "count": 96,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.097179,
         "lng": 129.018397
@@ -769,6 +845,8 @@
       "sigungu": "수영구",
       "count": 405,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9417,
       "center": {
         "lat": 35.162507,
         "lng": 129.117548
@@ -787,6 +865,8 @@
       "sigungu": "영도구",
       "count": 110,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9794,
       "center": {
         "lat": 35.125437,
         "lng": 129.013469
@@ -805,6 +885,8 @@
       "sigungu": "연제구",
       "count": 90,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.184866,
         "lng": 129.076617
@@ -823,6 +905,8 @@
       "sigungu": "북구",
       "count": 126,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9524,
       "center": {
         "lat": 35.909182,
         "lng": 128.583627
@@ -841,6 +925,8 @@
       "sigungu": "달서구",
       "count": 117,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9744,
       "center": {
         "lat": 35.835939,
         "lng": 128.52706
@@ -859,6 +945,8 @@
       "sigungu": "달성군",
       "count": 69,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.769532,
         "lng": 128.466046
@@ -877,6 +965,8 @@
       "sigungu": "동구",
       "count": 47,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.889675,
         "lng": 128.665412
@@ -895,6 +985,8 @@
       "sigungu": "군위군",
       "count": 19,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.179641,
         "lng": 128.639622
@@ -913,6 +1005,8 @@
       "sigungu": "중구",
       "count": 51,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8824,
       "center": {
         "lat": 35.86682,
         "lng": 128.592724
@@ -931,6 +1025,8 @@
       "sigungu": "남구",
       "count": 108,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.831258,
         "lng": 128.571509
@@ -949,6 +1045,8 @@
       "sigungu": "서구",
       "count": 103,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9903,
       "center": {
         "lat": 35.872431,
         "lng": 128.558485
@@ -967,6 +1065,8 @@
       "sigungu": "수성구",
       "count": 53,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.7736,
       "center": {
         "lat": 35.846138,
         "lng": 128.639717
@@ -985,6 +1085,8 @@
       "sigungu": "부평구",
       "count": 356,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.492737,
         "lng": 126.719824
@@ -1003,6 +1105,8 @@
       "sigungu": "강화군",
       "count": 276,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.717376,
         "lng": 126.401947
@@ -1021,6 +1125,8 @@
       "sigungu": "검단구",
       "count": 168,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.600492,
         "lng": 126.667372
@@ -1039,6 +1145,8 @@
       "sigungu": "계양구",
       "count": 213,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.542375,
         "lng": 126.732226
@@ -1057,6 +1165,8 @@
       "sigungu": "제물포구",
       "count": 123,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.47941,
         "lng": 126.640332
@@ -1075,6 +1185,8 @@
       "sigungu": "미추홀구",
       "count": 344,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.455615,
         "lng": 126.670436
@@ -1093,6 +1205,8 @@
       "sigungu": "남동구",
       "count": 684,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.422266,
         "lng": 126.742706
@@ -1111,6 +1225,8 @@
       "sigungu": "옹진군",
       "count": 123,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.541446,
         "lng": 125.669673
@@ -1129,6 +1245,8 @@
       "sigungu": "서해구",
       "count": 1850,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.535197,
         "lng": 126.670589
@@ -1147,6 +1265,8 @@
       "sigungu": "연수구",
       "count": 168,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.416127,
         "lng": 126.670629
@@ -1165,6 +1285,8 @@
       "sigungu": "대덕구",
       "count": 118,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.39387,
         "lng": 127.425256
@@ -1183,6 +1305,8 @@
       "sigungu": "동구",
       "count": 57,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.323757,
         "lng": 127.447677
@@ -1201,6 +1325,8 @@
       "sigungu": "중구",
       "count": 164,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.317717,
         "lng": 127.410309
@@ -1219,6 +1345,8 @@
       "sigungu": "서구",
       "count": 986,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.5308,
         "lng": 127.051173
@@ -1237,6 +1365,8 @@
       "sigungu": "유성구",
       "count": 111,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.373315,
         "lng": 127.348351
@@ -1255,6 +1385,8 @@
       "sigungu": "북구",
       "count": 251,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.604034,
         "lng": 129.367086
@@ -1273,6 +1405,8 @@
       "sigungu": "동구",
       "count": 168,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.7738,
       "center": {
         "lat": 35.510099,
         "lng": 129.426786
@@ -1291,6 +1425,8 @@
       "sigungu": "중구",
       "count": 37,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.0,
       "center": {
         "lat": 35.564668,
         "lng": 129.320601
@@ -1309,6 +1445,8 @@
       "sigungu": "남구",
       "count": 141,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.532877,
         "lng": 129.31554
@@ -1327,6 +1465,8 @@
       "sigungu": "울주군",
       "count": 98,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.0,
       "center": {
         "lat": 35.507084,
         "lng": 129.223494
@@ -1345,6 +1485,8 @@
       "sigungu": "없음",
       "count": 801,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.540073,
         "lng": 127.267891
@@ -1363,6 +1505,8 @@
       "sigungu": "안산시",
       "count": 811,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.313744,
         "lng": 126.822818
@@ -1381,6 +1525,8 @@
       "sigungu": "안성시",
       "count": 1507,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.021547,
         "lng": 127.272844
@@ -1399,6 +1545,8 @@
       "sigungu": "안양시",
       "count": 698,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9126,
       "center": {
         "lat": 37.395754,
         "lng": 126.938739
@@ -1417,6 +1565,8 @@
       "sigungu": "부천시",
       "count": 1199,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.499692,
         "lng": 126.785233
@@ -1435,6 +1585,8 @@
       "sigungu": "동두천",
       "count": 162,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.906369,
         "lng": 127.058002
@@ -1453,6 +1605,8 @@
       "sigungu": "가평군",
       "count": 50,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.787227,
         "lng": 127.462524
@@ -1471,6 +1625,8 @@
       "sigungu": "김포시",
       "count": 650,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.652222,
         "lng": 126.661082
@@ -1489,6 +1645,8 @@
       "sigungu": "고양시",
       "count": 613,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9967,
       "center": {
         "lat": 37.654698,
         "lng": 126.818579
@@ -1507,6 +1665,8 @@
       "sigungu": "군포시",
       "count": 337,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8665,
       "center": {
         "lat": 37.351764,
         "lng": 126.93453
@@ -1525,6 +1685,8 @@
       "sigungu": "구리시",
       "count": 1354,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.604678,
         "lng": 127.135962
@@ -1543,6 +1705,8 @@
       "sigungu": "과천시",
       "count": 72,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.0,
       "center": {
         "lat": 37.429698,
         "lng": 126.991335
@@ -1561,6 +1725,8 @@
       "sigungu": "광주시",
       "count": 589,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8812,
       "center": {
         "lat": 37.395278,
         "lng": 127.266901
@@ -1579,6 +1745,8 @@
       "sigungu": "광명시",
       "count": 280,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8964,
       "center": {
         "lat": 37.463219,
         "lng": 126.8685
@@ -1597,6 +1765,8 @@
       "sigungu": "하남시",
       "count": 2420,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.54154,
         "lng": 127.195052
@@ -1615,6 +1785,8 @@
       "sigungu": "화성시",
       "count": 546,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.187195,
         "lng": 126.965753
@@ -1633,6 +1805,8 @@
       "sigungu": "이천시",
       "count": 302,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.6358,
       "center": {
         "lat": 37.247507,
         "lng": 127.458481
@@ -1651,6 +1825,8 @@
       "sigungu": "남양주",
       "count": 118,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8305,
       "center": {
         "lat": 37.613231,
         "lng": 127.205426
@@ -1669,6 +1845,8 @@
       "sigungu": "오산시",
       "count": 132,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.158096,
         "lng": 127.062718
@@ -1687,6 +1865,8 @@
       "sigungu": "파주시",
       "count": 664,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.771967,
         "lng": 126.776464
@@ -1705,6 +1885,8 @@
       "sigungu": "포천시",
       "count": 536,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.911737,
         "lng": 127.220442
@@ -1723,6 +1905,8 @@
       "sigungu": "평택시",
       "count": 514,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9066,
       "center": {
         "lat": 37.014027,
         "lng": 127.049668
@@ -1741,6 +1925,8 @@
       "sigungu": "성남시",
       "count": 1308,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.405763,
         "lng": 127.128948
@@ -1759,6 +1945,8 @@
       "sigungu": "시흥시",
       "count": 408,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.384366,
         "lng": 126.7751
@@ -1777,6 +1965,8 @@
       "sigungu": "수원시",
       "count": 437,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.276141,
         "lng": 127.01705
@@ -1795,6 +1985,8 @@
       "sigungu": "의정부시",
       "count": 49,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.740861,
         "lng": 127.051052
@@ -1813,6 +2005,8 @@
       "sigungu": "의왕시",
       "count": 523,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.3448,
         "lng": 126.9682
@@ -1831,6 +2025,8 @@
       "sigungu": "양주시",
       "count": 100,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.817934,
         "lng": 127.044972
@@ -1849,6 +2045,8 @@
       "sigungu": "양평군",
       "count": 451,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 37.498128,
         "lng": 127.487666
@@ -1867,6 +2065,8 @@
       "sigungu": "여주시",
       "count": 494,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.290888,
         "lng": 127.626576
@@ -1885,6 +2085,8 @@
       "sigungu": "연천군",
       "count": 75,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 38.051748,
         "lng": 127.045387
@@ -1903,6 +2105,8 @@
       "sigungu": "용인시",
       "count": 559,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.277496,
         "lng": 127.140269
@@ -1921,6 +2125,8 @@
       "sigungu": "보은군",
       "count": 111,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.0,
         "lng": 128.0
@@ -1939,6 +2145,8 @@
       "sigungu": "청주시",
       "count": 548,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.625545,
         "lng": 127.456136
@@ -1957,6 +2165,8 @@
       "sigungu": "충주시",
       "count": 206,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.980506,
         "lng": 127.913454
@@ -1975,6 +2185,8 @@
       "sigungu": "단양군",
       "count": 315,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.993504,
         "lng": 128.356539
@@ -1993,6 +2205,8 @@
       "sigungu": "음성군",
       "count": 65,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.978725,
         "lng": 127.60816
@@ -2011,6 +2225,8 @@
       "sigungu": "괴산군",
       "count": 128,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.78297,
         "lng": 127.804353
@@ -2029,6 +2245,8 @@
       "sigungu": "제천시",
       "count": 355,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8056,
       "center": {
         "lat": 37.129595,
         "lng": 128.198089
@@ -2047,6 +2265,8 @@
       "sigungu": "증평군",
       "count": 196,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.793109,
         "lng": 127.568676
@@ -2065,6 +2285,8 @@
       "sigungu": "진천군",
       "count": 297,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.880459,
         "lng": 127.454192
@@ -2083,6 +2305,8 @@
       "sigungu": "옥천군",
       "count": 274,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.30289,
         "lng": 127.597969
@@ -2101,6 +2325,8 @@
       "sigungu": "영동군",
       "count": 131,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.17128,
         "lng": 127.78879
@@ -2119,6 +2345,8 @@
       "sigungu": "아산시",
       "count": 169,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9763,
       "center": {
         "lat": 36.797051,
         "lng": 126.991472
@@ -2137,6 +2365,8 @@
       "sigungu": "보령시",
       "count": 262,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.334868,
         "lng": 126.561157
@@ -2155,6 +2385,8 @@
       "sigungu": "부여군",
       "count": 518,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.7452,
       "center": {
         "lat": 36.260987,
         "lng": 126.875952
@@ -2173,6 +2405,8 @@
       "sigungu": "천안시",
       "count": 273,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.7985,
       "center": {
         "lat": 36.808794,
         "lng": 127.159205
@@ -2191,6 +2425,8 @@
       "sigungu": "청양군",
       "count": 195,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9487,
       "center": {
         "lat": 36.432009,
         "lng": 126.839327
@@ -2209,6 +2445,8 @@
       "sigungu": "당진시",
       "count": 95,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.4947,
       "center": {
         "lat": 36.895174,
         "lng": 126.682699
@@ -2227,6 +2465,8 @@
       "sigungu": "금산군",
       "count": 228,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8246,
       "center": {
         "lat": 36.10564,
         "lng": 127.470715
@@ -2245,6 +2485,8 @@
       "sigungu": "공주시",
       "count": 600,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.7733,
       "center": {
         "lat": 36.473938,
         "lng": 127.119962
@@ -2263,6 +2505,8 @@
       "sigungu": "계룡시",
       "count": 249,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.300506,
         "lng": 127.235874
@@ -2281,6 +2525,8 @@
       "sigungu": "홍성군",
       "count": 111,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.575366,
         "lng": 126.62629
@@ -2299,6 +2545,8 @@
       "sigungu": "논산시",
       "count": 205,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8341,
       "center": {
         "lat": 36.193763,
         "lng": 127.1049
@@ -2317,6 +2565,8 @@
       "sigungu": "서천군",
       "count": 92,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.078532,
         "lng": 126.69503
@@ -2335,6 +2585,8 @@
       "sigungu": "서산시",
       "count": 150,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.86,
       "center": {
         "lat": 36.787849,
         "lng": 126.45811
@@ -2353,6 +2605,8 @@
       "sigungu": "태안군",
       "count": 284,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.72896,
         "lng": 126.292198
@@ -2371,6 +2625,8 @@
       "sigungu": "예산군",
       "count": 62,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.677201,
         "lng": 126.78798
@@ -2389,6 +2645,8 @@
       "sigungu": "안동시",
       "count": 237,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9578,
       "center": {
         "lat": 36.570321,
         "lng": 128.725575
@@ -2407,6 +2665,8 @@
       "sigungu": "봉화군",
       "count": 54,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9815,
       "center": {
         "lat": 36.906158,
         "lng": 128.831801
@@ -2425,6 +2685,8 @@
       "sigungu": "청도군",
       "count": 59,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.667022,
         "lng": 128.732882
@@ -2443,6 +2705,8 @@
       "sigungu": "청송군",
       "count": 155,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9806,
       "center": {
         "lat": 36.379847,
         "lng": 129.036918
@@ -2461,6 +2725,8 @@
       "sigungu": "칠곡군",
       "count": 41,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.046083,
         "lng": 128.455665
@@ -2479,6 +2745,8 @@
       "sigungu": "김천시",
       "count": 296,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.115033,
         "lng": 128.111507
@@ -2497,6 +2765,8 @@
       "sigungu": "고령군",
       "count": 102,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9857,
       "center": {
         "lat": 35.731559,
         "lng": 128.293384
@@ -2515,6 +2785,8 @@
       "sigungu": "구미시",
       "count": 773,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.214487,
         "lng": 128.335071
@@ -2533,6 +2805,8 @@
       "sigungu": "경주시",
       "count": 3762,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9968,
       "center": {
         "lat": 35.836493,
         "lng": 129.251871
@@ -2551,6 +2825,8 @@
       "sigungu": "경산시",
       "count": 57,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9123,
       "center": {
         "lat": 35.849189,
         "lng": 128.773403
@@ -2569,6 +2845,8 @@
       "sigungu": "문경시",
       "count": 50,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.635224,
         "lng": 128.167066
@@ -2587,6 +2865,8 @@
       "sigungu": "포항시",
       "count": 327,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.7737,
       "center": {
         "lat": 36.048399,
         "lng": 129.368575
@@ -2605,6 +2885,8 @@
       "sigungu": "상주시",
       "count": 468,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.435822,
         "lng": 128.139216
@@ -2623,6 +2905,8 @@
       "sigungu": "성주군",
       "count": 645,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.918625,
         "lng": 128.307261
@@ -2641,6 +2925,8 @@
       "sigungu": "의성군",
       "count": 149,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.35188,
         "lng": 128.617086
@@ -2659,6 +2945,8 @@
       "sigungu": "울진군",
       "count": 71,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.7746,
       "center": {
         "lat": 36.912103,
         "lng": 129.404794
@@ -2677,6 +2965,8 @@
       "sigungu": "울릉군",
       "count": 52,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.0769,
       "center": {
         "lat": 37.495546,
         "lng": 130.882538
@@ -2695,6 +2985,8 @@
       "sigungu": "예천군",
       "count": 131,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.648282,
         "lng": 128.424512
@@ -2713,6 +3005,8 @@
       "sigungu": "영천시",
       "count": 571,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.993,
       "center": {
         "lat": 35.814935,
         "lng": 128.756837
@@ -2731,6 +3025,8 @@
       "sigungu": "영덕군",
       "count": 78,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 36.436933,
         "lng": 129.383347
@@ -2749,6 +3045,8 @@
       "sigungu": "영주시",
       "count": 169,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.857499,
         "lng": 128.599961
@@ -2767,6 +3065,8 @@
       "sigungu": "영양군",
       "count": 40,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 36.663691,
         "lng": 129.126152
@@ -2785,6 +3085,8 @@
       "sigungu": "창녕군",
       "count": 148,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9704,
       "center": {
         "lat": 35.517094,
         "lng": 128.485778
@@ -2803,6 +3105,8 @@
       "sigungu": "창원시",
       "count": 638,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8527,
       "center": {
         "lat": 35.210974,
         "lng": 128.609049
@@ -2821,6 +3125,8 @@
       "sigungu": "거제시",
       "count": 606,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 34.878763,
         "lng": 128.64444
@@ -2839,6 +3145,8 @@
       "sigungu": "김해시",
       "count": 580,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9466,
       "center": {
         "lat": 35.23913,
         "lng": 128.852613
@@ -2857,6 +3165,8 @@
       "sigungu": "고성군",
       "count": 87,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.008533,
         "lng": 128.304206
@@ -2875,6 +3185,8 @@
       "sigungu": "하동군",
       "count": 344,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.5846,
       "center": {
         "lat": 35.112908,
         "lng": 127.790127
@@ -2893,6 +3205,8 @@
       "sigungu": "함안군",
       "count": 80,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.261265,
         "lng": 128.388137
@@ -2911,6 +3225,8 @@
       "sigungu": "함양군",
       "count": 84,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.869,
       "center": {
         "lat": 35.546395,
         "lng": 127.730793
@@ -2929,6 +3245,8 @@
       "sigungu": "합천군",
       "count": 608,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9984,
       "center": {
         "lat": 35.570651,
         "lng": 128.159665
@@ -2947,6 +3265,8 @@
       "sigungu": "진주시",
       "count": 214,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8458,
       "center": {
         "lat": 35.183759,
         "lng": 128.105363
@@ -2965,6 +3285,8 @@
       "sigungu": "밀양시",
       "count": 684,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.486182,
         "lng": 128.757467
@@ -2983,6 +3305,8 @@
       "sigungu": "남해군",
       "count": 475,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 34.815915,
         "lng": 127.938009
@@ -3001,6 +3325,8 @@
       "sigungu": "사천시",
       "count": 446,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 34.995388,
         "lng": 128.059149
@@ -3019,6 +3345,8 @@
       "sigungu": "산청군",
       "count": 105,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8952,
       "center": {
         "lat": 35.295217,
         "lng": 127.714518
@@ -3037,6 +3365,8 @@
       "sigungu": "통영시",
       "count": 387,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.0,
       "center": {
         "lat": 34.836204,
         "lng": 128.400773
@@ -3055,6 +3385,8 @@
       "sigungu": "의령군",
       "count": 70,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.1714,
       "center": {
         "lat": 35.360378,
         "lng": 128.270472
@@ -3073,6 +3405,8 @@
       "sigungu": "양산시",
       "count": 154,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.358584,
         "lng": 129.041838
@@ -3091,6 +3425,8 @@
       "sigungu": "제주시",
       "count": 1748,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 33.482004,
         "lng": 126.528341
@@ -3109,6 +3445,8 @@
       "sigungu": "서귀포시",
       "count": 1647,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 33.289284,
         "lng": 126.569493
@@ -3127,6 +3465,8 @@
       "sigungu": "철원군",
       "count": 146,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.589,
       "center": {
         "lat": 38.204037,
         "lng": 127.315969
@@ -3145,6 +3485,8 @@
       "sigungu": "춘천시",
       "count": 1802,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.87274,
         "lng": 127.727748
@@ -3163,6 +3505,8 @@
       "sigungu": "동해시",
       "count": 110,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.51209,
         "lng": 129.076109
@@ -3181,6 +3525,8 @@
       "sigungu": "강릉시",
       "count": 1049,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.770647,
         "lng": 128.89281
@@ -3199,6 +3545,8 @@
       "sigungu": "고성군",
       "count": 103,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.1782,
       "center": {
         "lat": 38.3755,
         "lng": 128.482112
@@ -3217,6 +3565,8 @@
       "sigungu": "횡성군",
       "count": 133,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.501367,
         "lng": 128.031153
@@ -3235,6 +3585,8 @@
       "sigungu": "홍천군",
       "count": 164,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.713234,
         "lng": 127.948392
@@ -3253,6 +3605,8 @@
       "sigungu": "화천군",
       "count": 83,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 38.111827,
         "lng": 127.681186
@@ -3271,6 +3625,8 @@
       "sigungu": "인제군",
       "count": 84,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 38.055531,
         "lng": 128.20883
@@ -3289,6 +3645,8 @@
       "sigungu": "정선군",
       "count": 135,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.350542,
         "lng": 128.724126
@@ -3307,6 +3665,8 @@
       "sigungu": "평창군",
       "count": 153,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8824,
       "center": {
         "lat": 37.524674,
         "lng": 128.469984
@@ -3325,6 +3685,8 @@
       "sigungu": "삼척시",
       "count": 106,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.340572,
         "lng": 129.168956
@@ -3343,6 +3705,8 @@
       "sigungu": "속초시",
       "count": 86,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 38.198816,
         "lng": 128.574308
@@ -3361,6 +3725,8 @@
       "sigungu": "태백시",
       "count": 113,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9912,
       "center": {
         "lat": 37.154869,
         "lng": 128.98828
@@ -3379,6 +3745,8 @@
       "sigungu": "원주시",
       "count": 1000,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.966,
       "center": {
         "lat": 37.334764,
         "lng": 127.93214
@@ -3397,6 +3765,8 @@
       "sigungu": "양구군",
       "count": 161,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 38.145041,
         "lng": 128.01425
@@ -3415,6 +3785,8 @@
       "sigungu": "양양군",
       "count": 211,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 38.043571,
         "lng": 128.64578
@@ -3433,6 +3805,8 @@
       "sigungu": "영월군",
       "count": 141,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 37.196709,
         "lng": 128.459664
@@ -3451,6 +3825,8 @@
       "sigungu": "부안군",
       "count": 88,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.679473,
         "lng": 126.649336
@@ -3469,6 +3845,8 @@
       "sigungu": "김제시",
       "count": 124,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.806351,
         "lng": 126.895522
@@ -3487,6 +3865,8 @@
       "sigungu": "고창군",
       "count": 156,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.8889,
       "center": {
         "lat": 35.449236,
         "lng": 126.637936
@@ -3505,6 +3885,8 @@
       "sigungu": "군산시",
       "count": 384,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.970884,
         "lng": 126.711607
@@ -3523,6 +3905,8 @@
       "sigungu": "익산시",
       "count": 248,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.984313,
         "lng": 126.977724
@@ -3541,6 +3925,8 @@
       "sigungu": "임실군",
       "count": 37,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 1.0,
       "center": {
         "lat": 35.600323,
         "lng": 127.257164
@@ -3559,6 +3945,8 @@
       "sigungu": "장수군",
       "count": 159,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9748,
       "center": {
         "lat": 35.663747,
         "lng": 127.534218
@@ -3577,6 +3965,8 @@
       "sigungu": "정읍시",
       "count": 488,
       "available": false,
+      "r1_status": "confirmed",
+      "r1_coverage": 0.9693,
       "center": {
         "lat": 35.592552,
         "lng": 126.876965
@@ -3595,6 +3985,8 @@
       "sigungu": "전주시",
       "count": 101,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.5743,
       "center": {
         "lat": 35.859634,
         "lng": 127.13507
@@ -3613,6 +4005,8 @@
       "sigungu": "진안군",
       "count": 49,
       "available": false,
+      "r1_status": "provisional",
+      "r1_coverage": 0.898,
       "center": {
         "lat": 35.820041,
         "lng": 127.438498
@@ -3631,6 +4025,8 @@
       "sigungu": "무주군",
       "count": 283,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.949726,
         "lng": 127.698972
@@ -3649,6 +4045,8 @@
       "sigungu": "남원시",
       "count": 343,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.406003,
         "lng": 127.394224
@@ -3667,6 +4065,8 @@
       "sigungu": "순창군",
       "count": 45,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.399184,
         "lng": 127.13126
@@ -3685,6 +4085,8 @@
       "sigungu": "완주군",
       "count": 209,
       "available": false,
+      "r1_status": "no_ssid",
+      "r1_coverage": null,
       "center": {
         "lat": 35.919044,
         "lng": 127.170262

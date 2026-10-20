@@ -51,6 +51,39 @@ def load_tables():
     return tables, status
 
 
+def confirmed_ssids() -> set[str]:
+    labels = read_config_csv("ssid_labels.csv")
+    return set(labels.loc[labels["status"] == "confirmed", "ssid"])
+
+
+def r1_region_status(df: pd.DataFrame, confirmed: set[str]) -> dict[str, tuple[str, float | None]]:
+    """지역별 R1 확정 상태 (requests #23·#24). region_id → (status, coverage).
+
+    coverage = SSID 있는 행 중 확정 라벨이 붙은 행 비율. 기준(R1_REGION_COVERAGE_MIN) 이상이면 confirmed,
+    미만이면 provisional('임시(무효)'). SSID가 전부 빈 지역은 확정할 이름이 없으므로 no_ssid(coverage=None).
+    """
+    has = df["ssid"].fillna("").astype(str).str.strip().ne("")
+    ok = df["ssid"].isin(confirmed) & has
+    out = {}
+    for rid, idx in df.groupby("region_id").groups.items():
+        n = int(has.loc[idx].sum())
+        if n == 0:
+            out[rid] = ("no_ssid", None)
+            continue
+        cov = round(float(ok.loc[idx].sum()) / n, 4)
+        out[rid] = ("confirmed" if cov >= PARAMS["R1_REGION_COVERAGE_MIN"] else "provisional", cov)
+    return out
+
+
+def enforce_r1_region_gate(mode: str, region_status: dict, region_ids: list[str]) -> None:
+    if mode != "final":
+        return
+    bad = [f"{r}({region_status[r][1]:.1%})" for r in region_ids if region_status[r][0] == "provisional"]
+    if bad:
+        raise SystemExit(f"APP_MODE=final 이지만 SSID 라벨 확정 비율이 {PARAMS['R1_REGION_COVERAGE_MIN']:.0%} 미만인 지역이 "
+                         f"번들에 있습니다: {bad} — 최종 번들 생성 중단")
+
+
 def enforce_r1_gate(mode: str, status: dict) -> None:
     if mode == "final" and not status["r1_confirmed"]:
         raise SystemExit("APP_MODE=final 이지만 config/ssid_labels.csv가 전부 status=confirmed가 아닙니다. "

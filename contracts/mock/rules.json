@@ -110,6 +110,7 @@
   ],
   "params": {
     "R1_UNKNOWN_RATIO": 0.5,
+    "R1_REGION_COVERAGE_MIN": 0.9,
     "R2_UNMAPPED_RATIO": 0.5,
     "R4_FULL_YEARS": 8,
     "R4_MISSING_RATIO": 0.5,

@@ -37,12 +37,6 @@ body.intro::before {
   width: min(330px, 100%); background: rgba(255, 255, 255, .95); border-radius: 14px; padding: 18px; font-size: 13px;
   box-shadow: 0 16px 48px rgba(0, 0, 0, .45);
 }
-.auth-card .tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--surface-2); border-radius: 10px;
-  padding: 3px; margin-bottom: 14px; }
-.auth-card .tabs button { border: 0; background: transparent; padding: 7px 0; font-weight: 700; color: var(--text-muted);
-  border-radius: 8px; }
-.auth-card .tabs button[aria-selected="true"] { background: var(--surface); color: var(--accent);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, .12); }
 .auth-card form { display: flex; flex-direction: column; gap: 9px; }
 .auth-card label { display: flex; flex-direction: column; gap: 5px; font-weight: 600; font-size: 12px; color: var(--text); }
 .auth-card label small { font-weight: 400; color: var(--text-muted); }
@@ -84,13 +78,11 @@ body.intro::before {
 .social-btn.naver:disabled { opacity: .6; cursor: wait; }
 .naver-n { font-family: Arial, sans-serif; font-weight: 900; font-size: 16px; }
 
-/* ── 아이디 로그인(접힘) ── */
-.id-login { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
-.id-login summary { cursor: pointer; text-align: center; font-size: 12px; color: var(--text-muted); list-style: none; }
-.id-login summary::-webkit-details-marker { display: none; }
-.id-login summary::after { content: " ▾"; }
-.id-login[open] summary::after { content: " ▴"; }
-.id-login[open] summary { margin-bottom: 10px; }
+/* ── 개발용 로그인(로컬 전용) ── */
+.auth-card button.dev-login { width: 100%; margin-top: 12px; padding: 7px; font-size: 12px; font-weight: 700;
+  border: 1px dashed var(--text-muted); color: var(--text-muted); background: transparent; border-radius: 7px; }
+.auth-card button.dev-login[hidden] { display: none; }
+.auth-card select:disabled { background: var(--surface-2); color: var(--text-muted); }
 .auth-card button.link { border: 0; background: none; color: var(--text-muted); font-size: 12px; text-decoration: underline; }
 
 @media (max-width: 480px) {

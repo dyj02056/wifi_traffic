@@ -58,12 +58,14 @@ def meta_json(*, is_mock: bool, r1_confirmed: bool, app_mode: str, data_referenc
     }
 
 
-def regions_json(clean: pd.DataFrame, available: set[str], default_region_id: str) -> dict:
+def regions_json(clean: pd.DataFrame, available: set[str], default_region_id: str,
+                 r1_status: dict[str, tuple[str, float | None]]) -> dict:
     regions = []
     for rid, g in clean.groupby("region_id", sort=True):
+        st, cov = r1_status[rid]
         regions.append({
             "region_id": rid, "sido_code": rid[:2], "sido": g["sido"].iloc[0], "sigungu": g["sigungu"].iloc[0],
-            "count": int(len(g)), "available": rid in available,
+            "count": int(len(g)), "available": rid in available, "r1_status": st, "r1_coverage": cov,
             "center": {"lat": round(float(g["lat"].mean()), 6), "lng": round(float(g["lng"].mean()), 6)},
             "bbox": [round(float(g["lng"].min()), 6), round(float(g["lat"].min()), 6),
                      round(float(g["lng"].max()), 6), round(float(g["lat"].max()), 6)],
