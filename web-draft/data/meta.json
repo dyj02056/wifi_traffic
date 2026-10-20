@@ -1,0 +1,23 @@
+{
+  "contract_version": "1.0.0",
+  "disclaimer": "이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.",
+  "is_mock": false,
+  "r1_confirmed": false,
+  "app_mode": "dev",
+  "data_reference_date": "2026-09-30",
+  "snapshot_collected_at": "2026-10-20",
+  "snapshot_count": 1,
+  "generated_at": "2026-10-20T16:32:51+09:00",
+  "regions_in_bundle": [
+    "11-guro"
+  ],
+  "sources": [
+    {
+      "id": "D1",
+      "name": "전국무료와이파이표준데이터",
+      "dataset_id": "15013116",
+      "url": "https://www.data.go.kr/data/15013116/standard.do",
+      "retrieved_at": "2026-10-20"
+    }
+  ]
+}
