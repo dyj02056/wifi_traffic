@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wifi Traffic — 공공와이파이 안전 지도</title>
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&display=swap">
+  <link rel="stylesheet" href="css/intro.css">
+</head>
+<body class="intro">
+  <div class="disclaimer-bar" role="note" data-disclaimer>※ 이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.</div>
+
+  <main class="intro-main">
+    <section class="hero">
+      <div class="hero-mark">
+        <img class="wifi-bg" src="img/wifi.png" alt="" aria-hidden="true">
+        <img class="logo" src="img/logo-cutout.png" alt="Wifi Traffic">
+      </div>
+      <p class="tagline" lang="en">Scan Public Wi-Fi Risks by Color Before Connecting</p>
+    </section>
+
+    <section class="auth-card" aria-label="로그인">
+      <div id="step-main">
+        <p class="card-title">간편 로그인</p>
+        <div class="social">
+          <div id="google-btn" class="social-slot">
+            <button type="button" class="social-btn google" data-provider="google">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.9 6.1C12.5 13.6 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.1 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.4c-.5 2.9-2.2 5.3-4.6 6.9l7.4 5.7c4.3-4 6.9-9.9 6.9-17.1z"/><path fill="#FBBC05" d="M10.6 28.6c-.5-1.4-.8-3-.8-4.6s.3-3.2.8-4.6l-7.9-6.1C1 16.6 0 20.2 0 24s1 7.4 2.7 10.7l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.4-5.7c-2.1 1.4-4.8 2.3-8.5 2.3-6.2 0-11.5-4.1-13.4-9.9l-7.9 6.1C6.6 42.6 14.6 48 24 48z"/></svg>
+              구글 아이디로 로그인
+            </button>
+          </div>
+          <button type="button" class="social-btn naver" data-provider="naver">
+            <span class="naver-n" aria-hidden="true">N</span>
+            네이버 아이디로 로그인
+          </button>
+        </div>
+        <p class="msg" id="social-msg" role="alert"></p>
+
+        <div class="divider"><span>또는</span></div>
+        <button type="button" id="guest" class="ghost">비회원으로 바로 이용하기</button>
+        <p class="guest-note">비회원은 지도를 볼 수 있지만 리뷰·평가·이벤트에는 참여할 수 없습니다.</p>
+
+        <details class="id-login">
+          <summary>아이디로 로그인 / 회원가입</summary>
+          <div class="tabs" role="tablist">
+            <button type="button" role="tab" id="tab-login" aria-selected="true" aria-controls="form-login">로그인</button>
+            <button type="button" role="tab" id="tab-signup" aria-selected="false" aria-controls="form-signup">회원가입</button>
+          </div>
+          <form id="form-login" role="tabpanel" aria-labelledby="tab-login" novalidate>
+            <label>아이디<input name="id" autocomplete="username" required></label>
+            <label>비밀번호<input name="password" type="password" autocomplete="current-password" required></label>
+            <p class="msg" role="alert"></p>
+            <button type="submit" class="primary">로그인</button>
+          </form>
+          <form id="form-signup" role="tabpanel" aria-labelledby="tab-signup" novalidate hidden>
+            <label>아이디 <small>영문·숫자·밑줄 4~20자</small><input name="id" autocomplete="username" required></label>
+            <label>비밀번호 <small>6자 이상</small><input name="password" type="password" autocomplete="new-password" required></label>
+            <label>비밀번호 확인<input name="password2" type="password" autocomplete="new-password" required></label>
+            <div class="row">
+              <label>사는 지역 (시도)<select name="sido" required></select></label>
+              <label>시군구<input name="sigungu" placeholder="예: 구로구 (선택)"></label>
+            </div>
+            <p class="msg" role="alert"></p>
+            <button type="submit" class="primary">회원가입</button>
+          </form>
+        </details>
+      </div>
+
+      <!-- 구글·네이버로 처음 들어온 사람: 사는 지역만 받고 가입 완료 -->
+      <form id="step-region" novalidate hidden>
+        <p class="card-title">거의 다 됐어요!</p>
+        <p class="welcome"></p>
+        <div class="row">
+          <label>사는 지역 (시도)<select name="sido" required></select></label>
+          <label>시군구<input name="sigungu" placeholder="예: 구로구 (선택)"></label>
+        </div>
+        <p class="msg" role="alert"></p>
+        <button type="submit" class="primary">가입 완료하고 시작하기</button>
+        <button type="button" class="link" id="region-cancel">다른 방법으로 로그인</button>
+      </form>
+    </section>
+  </main>
+
+  <script type="module">
+    import { SIDO_LIST, signup, login, loginGuest, socialLogin, pendingSocial, completeSocialSignup, cancelSocialSignup } from "./js/auth.js";
+    import { googleConfigured, naverConfigured, setupGoogle, setupNaver } from "./js/social.js";
+
+    const goMap = () => location.replace("index.html" + location.search);
+    const $ = (s) => document.querySelector(s);
+    const fLogin = $("#form-login"), fSignup = $("#form-signup"), fRegion = $("#step-region");
+    const sidoOptions = `<option value="">선택하세요</option>` + SIDO_LIST.map((s) => `<option>${s}</option>`).join("");
+    fSignup.sido.innerHTML = sidoOptions;
+    fRegion.sido.innerHTML = sidoOptions;
+
+    const setMsg = (el, text, ok = false) => {
+      const m = el.matches(".msg") ? el : el.querySelector(".msg");
+      m.textContent = text;
+      m.classList.toggle("ok", ok);
+    };
+    const socialMsg = $("#social-msg");
+
+    // ── 구글·네이버 ──
+    const LABEL = { google: "구글", naver: "네이버" };
+    function showRegionStep(profile) {
+      $("#step-main").hidden = true;
+      fRegion.hidden = false;
+      fRegion.querySelector(".welcome").textContent =
+        `${LABEL[profile.provider]} 계정${profile.name ? ` (${profile.name})` : ""}으로 처음 오셨네요. 사는 지역을 알려 주시면 내 동네 지도부터 보여 드려요.`;
+      fRegion.sido.focus();
+    }
+    function onProfile(profile) {
+      if (socialLogin(profile)) goMap(); else showRegionStep(profile);
+    }
+    const onError = (e) => setMsg(socialMsg, e.message);
+
+    fRegion.addEventListener("submit", (e) => {
+      e.preventDefault();
+      try {
+        completeSocialSignup({ sido: fRegion.sido.value, sigungu: fRegion.sigungu.value });
+        goMap();
+      } catch (err) { setMsg(fRegion, err.message); }
+    });
+    $("#region-cancel").addEventListener("click", () => {
+      cancelSocialSignup();
+      fRegion.hidden = true;
+      $("#step-main").hidden = false;
+    });
+    if (pendingSocial()) showRegionStep(pendingSocial());
+
+    const notReady = (name, file) => () =>
+      setMsg(socialMsg, `${name} 로그인은 아직 설정 전입니다. js/oauth-config.js에 ${file} 클라이언트 ID를 넣어 주세요.`);
+
+    if (googleConfigured()) {
+      setupGoogle($("#google-btn"), onProfile, onError).catch(onError);
+    } else {
+      $("#google-btn button").addEventListener("click", notReady("구글", "Google"));
+    }
+    const naverBtn = $(".social-btn.naver");
+    if (naverConfigured()) {
+      naverBtn.disabled = true;
+      setupNaver(onProfile, onError)
+        .then((start) => { naverBtn.disabled = false; naverBtn.addEventListener("click", start); })
+        .catch(onError);
+    } else {
+      naverBtn.addEventListener("click", notReady("네이버", "Naver"));
+    }
+
+    // ── 아이디 로그인 / 회원가입 ──
+    function showTab(which) {
+      const isLogin = which === "login";
+      $("#tab-login").setAttribute("aria-selected", isLogin);
+      $("#tab-signup").setAttribute("aria-selected", !isLogin);
+      fLogin.hidden = !isLogin;
+      fSignup.hidden = isLogin;
+      (isLogin ? fLogin : fSignup).id.focus();
+    }
+    $("#tab-login").addEventListener("click", () => showTab("login"));
+    $("#tab-signup").addEventListener("click", () => showTab("signup"));
+
+    fLogin.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      try {
+        await login(fLogin.id.value, fLogin.password.value);
+        goMap();
+      } catch (err) { setMsg(fLogin, err.message); }
+    });
+
+    fSignup.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (fSignup.password.value !== fSignup.password2.value) return setMsg(fSignup, "비밀번호 확인이 일치하지 않습니다.");
+      try {
+        await signup({ id: fSignup.id.value, password: fSignup.password.value, sido: fSignup.sido.value, sigungu: fSignup.sigungu.value });
+        const id = fSignup.id.value;
+        fSignup.reset();
+        setMsg(fSignup, "");
+        showTab("login");
+        fLogin.id.value = id;
+        fLogin.password.focus();
+        setMsg(fLogin, "가입이 완료되었습니다. 로그인해 주세요.", true);
+      } catch (err) { setMsg(fSignup, err.message); }
+    });
+
+    $("#guest").addEventListener("click", () => { loginGuest(); goMap(); });
+  </script>
+</body>
+</html>

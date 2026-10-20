@@ -1,0 +1,101 @@
+/* 인트로(로그인) 화면 — 도시 야경 배경 위에 어두운 막을 깔아 로고·와이파이 아이콘·버튼이 먼저 보이게 한다. */
+body.intro {
+  min-height: 100%; height: auto;
+  background: #0b1530 url("../img/city.png") center / cover no-repeat fixed;
+}
+body.intro::before {
+  content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(8, 14, 34, .78) 0%, rgba(8, 14, 34, .62) 45%, rgba(8, 14, 34, .85) 100%);
+}
+.intro-main {
+  position: relative; z-index: 1; flex: 1;
+  /* 화면 폭과 상관없이 로고 아래에 로그인 상자를 둔다 */
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+  padding: 32px 16px 40px;
+}
+
+/* ── 로고 + 와이파이 아이콘 ── */
+.hero { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 640px; }
+.hero-mark { position: relative; width: min(520px, 100%); display: flex; flex-direction: column; align-items: center;
+  padding-top: clamp(70px, 19vw, 104px); }
+/* 와이파이 아이콘: 흰색, 로고 오른쪽 위(affic 위)에서 T 가로대 끝을 향해 살짝 기울여 전파가 퍼지는 느낌 */
+.hero-mark .wifi-bg {
+  position: absolute; top: 9%; right: -4%; transform: rotate(28deg); transform-origin: 50% 90%;
+  width: min(190px, 37%); z-index: 2; opacity: .6;
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, .35)) drop-shadow(0 2px 6px rgba(0, 0, 0, .7));
+}
+.hero-mark .logo {
+  position: relative; z-index: 1; width: min(480px, 94%); margin-top: -6px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .85)) drop-shadow(0 0 22px rgba(8, 14, 34, .9));
+}
+.tagline { font-family: "Dancing Script", "Segoe Script", "Brush Script MT", cursive; font-weight: 700;
+  color: #fff; font-size: clamp(22px, 3.2vw, 32px); line-height: 1.3; margin: 18px 0 0; letter-spacing: .3px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .75); }
+
+/* ── 로그인 카드 ── */
+.auth-card {
+  width: min(330px, 100%); background: rgba(255, 255, 255, .95); border-radius: 14px; padding: 18px; font-size: 13px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, .45);
+}
+.auth-card .tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--surface-2); border-radius: 10px;
+  padding: 3px; margin-bottom: 14px; }
+.auth-card .tabs button { border: 0; background: transparent; padding: 7px 0; font-weight: 700; color: var(--text-muted);
+  border-radius: 8px; }
+.auth-card .tabs button[aria-selected="true"] { background: var(--surface); color: var(--accent);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .12); }
+.auth-card form { display: flex; flex-direction: column; gap: 9px; }
+.auth-card label { display: flex; flex-direction: column; gap: 5px; font-weight: 600; font-size: 12px; color: var(--text); }
+.auth-card label small { font-weight: 400; color: var(--text-muted); }
+.auth-card input, .auth-card select {
+  font: inherit; font-weight: 400; padding: 8px 10px; border: 1px solid var(--border); border-radius: 7px;
+  background: var(--surface); width: 100%;
+}
+.auth-card input:focus, .auth-card select:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.auth-card .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.auth-card .msg { min-height: 1.2em; margin: 0; font-size: 13px; color: var(--error-text); }
+.auth-card .msg.ok { color: var(--grade-low); }
+.auth-card .msg:empty { min-height: 0; }
+.auth-card button.primary { background: var(--accent); color: #fff; border: 0; padding: 9px; font-size: 14px;
+  font-weight: 700; border-radius: 7px; }
+.auth-card button.primary:hover { background: #1b47b0; }
+.auth-card .divider { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 12px; margin: 12px 0; }
+.auth-card .divider::before, .auth-card .divider::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+.auth-card button.ghost { width: 100%; padding: 8px; font-size: 14px; font-weight: 700; border: 2px solid var(--accent);
+  color: var(--accent); background: transparent; border-radius: 8px; }
+.auth-card button.ghost:hover { background: #eaf0ff; }
+.guest-note { margin: 8px 0 0; font-size: 11px; color: var(--text-muted); text-align: center; }
+
+.card-title { margin: 0 0 12px; font-size: 15px; font-weight: 800; text-align: center; color: var(--text); }
+.welcome { margin: 0 0 4px; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.auth-card #step-main > .msg { margin-top: 8px; }
+.auth-card #step-region { display: flex; flex-direction: column; gap: 9px; }
+.auth-card #step-region[hidden] { display: none; }
+
+/* ── 구글·네이버 버튼 (각 사 로그인 버튼 가이드 색상) ── */
+.social { display: flex; flex-direction: column; gap: 8px; }
+.social-slot { min-height: 40px; display: flex; justify-content: center; }
+.social-btn { width: 100%; height: 40px; display: flex; align-items: center; justify-content: center; gap: 10px;
+  font-size: 14px; font-weight: 700; border-radius: 7px; padding: 0 12px; }
+.social-btn.google { background: #fff; color: #1f1f1f; border: 1px solid #dadce0; }
+.social-btn.google:hover { background: #f7f8f8; }
+.social-btn.google svg { width: 18px; height: 18px; }
+.social-btn.naver { background: #03c75a; color: #fff; border: 0; }
+.social-btn.naver:hover { background: #02b351; }
+.social-btn.naver:disabled { opacity: .6; cursor: wait; }
+.naver-n { font-family: Arial, sans-serif; font-weight: 900; font-size: 16px; }
+
+/* ── 아이디 로그인(접힘) ── */
+.id-login { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
+.id-login summary { cursor: pointer; text-align: center; font-size: 12px; color: var(--text-muted); list-style: none; }
+.id-login summary::-webkit-details-marker { display: none; }
+.id-login summary::after { content: " ▾"; }
+.id-login[open] summary::after { content: " ▴"; }
+.id-login[open] summary { margin-bottom: 10px; }
+.auth-card button.link { border: 0; background: none; color: var(--text-muted); font-size: 12px; text-decoration: underline; }
+
+@media (max-width: 480px) {
+  .intro-main { gap: 20px; padding: 24px 16px; }
+  .auth-card { padding: 18px; }
+  .auth-card .row { grid-template-columns: 1fr; }
+  body.intro { background-attachment: scroll; }
+}

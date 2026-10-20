@@ -10,11 +10,14 @@
 <body>
   <div class="disclaimer-bar" role="note" data-disclaimer>※ 이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.</div>
   <nav class="top-nav">
-    <span class="brand">공공와이파이 안전 지도</span>
-    <span id="badge-mock" class="badge mock" hidden>샘플 데이터</span>
-    <a href="index.html">지도</a>
-    <a href="rules.html" aria-current="page">채점 기준</a>
-    <a href="about.html">데이터와 한계</a>
+    <div class="nav-left">
+      <a href="index.html">지도</a>
+      <a href="rules.html" aria-current="page">채점 기준</a>
+      <a href="about.html">데이터와 한계</a>
+      <span id="badge-mock" class="badge mock" hidden>샘플 데이터</span>
+    </div>
+    <a class="brand" href="index.html"><img src="img/logo-cutout.png" alt="Wifi Traffic — 공공와이파이 안전 지도"></a>
+    <div class="nav-right"></div>
   </nav>
   <main class="doc">
     <h1>채점 기준표</h1>
@@ -31,6 +34,8 @@
   <script type="module">
     import * as api from "./js/api.js";
     import { esc } from "./js/panel.js";
+    import { requireSession } from "./js/auth.js";
+    requireSession();
     const meta = await api.init();
     document.querySelector("#badge-mock").hidden = !meta.is_mock;
     const rules = await api.getRules();

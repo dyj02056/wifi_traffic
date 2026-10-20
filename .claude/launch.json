@@ -6,6 +6,12 @@
       "runtimeExecutable": "backend/.venv/Scripts/python.exe",
       "runtimeArgs": ["-m", "http.server", "5500", "--directory", "web-draft"],
       "port": 5500
+    },
+    {
+      "name": "web-draft-syspy",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5501", "--directory", "web-draft"],
+      "port": 5501
     }
   ]
 }
