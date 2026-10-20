@@ -129,3 +129,18 @@ def test_r1_region_status_coverage_threshold():
     enforce_r1_region_gate("dev", st, ["b"])                 # dev는 막지 않음
     with pytest.raises(SystemExit, match="b"):
         enforce_r1_region_gate("final", st, ["a", "b"])
+
+
+def test_gov_free_only_is_unknown_with_own_flag():
+    """정부 공공와이파이 Free만 적힌 칸 → 불명(0.5) + R1_free_only, 둘 다 적힌 칸은 그대로 secure (requests #47)"""
+    import pandas as pd
+    from wifisafe.rules import gov_free_only, r1_secure_access, RuleTables
+    s = pd.Series(["Public_WiFi_Free", "PUBLIC  WIFI FREE", "Public WiFi Free, Public WiFi Secure", "DJ_Public_WiFi", ""])
+    assert gov_free_only(s).tolist() == [True, True, False, False, False]
+    t = RuleTables(ssid_labels={"Public_WiFi_Free": "unknown", "Public WiFi Free, Public WiFi Secure": "secure",
+                                "DJ_Public_WiFi": "open"}, facility_map={}, outdoor_keywords=())
+    df = pd.DataFrame({"ssid": ["Public_WiFi_Free", "Public WiFi Free, Public WiFi Secure", "DJ_Public_WiFi"]})
+    ratio, reason, flag = r1_secure_access(df, t)
+    assert ratio.tolist() == [0.5, 0.0, 1.0]
+    assert flag.tolist() == ["R1_free_only", "", ""]
+    assert "Secure" in reason.iloc[0]

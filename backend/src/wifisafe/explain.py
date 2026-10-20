@@ -44,7 +44,9 @@ def _plain(b: dict) -> str:
     rid, reason = b["id"], b["reason"]
     assumed = "가정 비율 적용" in reason or ("없음" in reason and rid in ("R4", "R8"))
     if rid == "R1":
-        text = "비밀번호 없이 연결되는 개방형 와이파이" if "개방형" in reason else "보안 방식을 확인할 수 없는 와이파이"
+        text = ("비밀번호 없이 연결되는 개방형 와이파이" if "개방형" in reason
+                else "보안접속을 함께 제공하는지 확인되지 않은 정부 공공와이파이" if "Free" in reason
+                else "보안 방식을 확인할 수 없는 와이파이")
     elif rid == "R2":
         m = re.search(r"시설구분 '([^']+)'", reason)
         ft = m.group(1) if m else ""

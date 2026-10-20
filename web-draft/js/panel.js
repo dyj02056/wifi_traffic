@@ -112,6 +112,7 @@ const FLAG_LABELS = {
   R1_ssid_missing: "SSID 정보 없음(가정 비율)", R1_unlabeled: "SSID 라벨 없음(가정 비율)", R1_unknown: "SSID 분류 불명(가정 비율)", R2_unmapped: "시설구분 미등록(가정 비율)",
   R4_missing: "설치연월 결측(가정 비율)", R4_year_only: "설치연도만 있음", R5_boundary: "시군구 경계 근처 — 밀집도 과소평가 가능",
   R7_invalid_tel: "전화번호 형식 불일치", R8_missing: "데이터기준일자 결측",
+  R1_free_only: "정부 공공와이파이 일반접속(Free) SSID만 기재 — 보안접속(Secure) 함께 송출 여부 확인 불가(가정)",
   COORD_suspect: "좌표 이상 의심 — 지역 지도 범위 계산에서 제외(점수에는 영향 없음)",
 };
 

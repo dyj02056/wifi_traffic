@@ -1,19 +1,19 @@
 ﻿ssid,label,evidence,reviewer,reviewed_at,status
-Public WiFi Free,open,"이름에 Free/무료 포함 [Public WiFi Free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+Public WiFi Free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 SEOUL,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [SEOUL=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-Public Wifi Free,open,"이름에 Free/무료 포함 [Public Wifi Free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+Public Wifi Free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 Golden-Fi Gyeongju,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 "SEOUL, SEOUL_Secure",secure,개방형 SEOUL과 보안접속 SEOUL_Secure를 함께 제공 — 보안접속을 고를 수 있는 지점은 secure(requests #14). 서울시 SSID 통합 https://news.seoul.go.kr/gov/archives/520321,dyj02056,2026-10-20,confirmed
 Public wifi,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [Public wifi=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Chuncheon_Free_WiFi,open,"이름에 Free/무료 포함 [Chuncheon_Free_WiFi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Jeju Free Wifi,open,"이름에 Free/무료 포함 [Jeju Free Wifi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Public WiFi,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [Public WiFi=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-public wifi free,open,"이름에 Free/무료 포함 [public wifi free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+public wifi free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 Public WiFi@Seoul,open,"서울시 2019 마을버스 공공와이파이 개방형 SSID 'PublicWiFi@Seoul' 계열, 보안형 짝 없음 https://mediahub.seoul.go.kr/archives/1259019",dyj02056,2026-10-20,confirmed
 G_PublicWiFi@SeongNam,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 SEOUL_Secure,secure,"이름에 Secure/보안 포함 [SEOUL_Secure=S] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 public wifi,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [public wifi=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-Public WiFi FREE,open,"이름에 Free/무료 포함 [Public WiFi FREE=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+Public WiFi FREE,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 PublicWiFi,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [PublicWiFi=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 "Public WiFi Free, Public WiFi Secure",secure,"혼합: 개방형과 보안접속 SSID를 함께 제공 [Public WiFi Free=O, Public WiFi Secure=S] — 보안접속 선택 가능 지점을 secure로 볼지 리드 결정 (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Seoul,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [Seoul=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
@@ -22,7 +22,7 @@ Public Wifi Free(Public WiFi Secure),secure,"혼합: 개방형과 보안접속 S
 Public WiFi@yangcheon,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 Anyang WiFi Free,open,"이름에 Free/무료 포함 [Anyang WiFi Free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 public WiFi,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [public WiFi=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-Public wifi free,open,"이름에 Free/무료 포함 [Public wifi free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+Public wifi free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 Public_wifi@Hapcheon,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 G_PublicWiFi@Yongin,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 Paju_Free-WiFi,open,"이름에 Free/무료 포함 [Paju_Free-WiFi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
@@ -32,7 +32,7 @@ mlte_HWASUN,unknown,이동형 LTE 라우터 이름으로 보임 — 판단 근�
 Public WiFi Free/Public WiFi Secure,secure,"혼합: 개방형과 보안접속 SSID를 함께 제공 [Public WiFi Free=O, Public WiFi Secure=S] — 보안접속 선택 가능 지점을 secure로 볼지 리드 결정 (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 seoul,open,서울시 2021 통합 개방형 SSID 'SEOUL'의 소문자 표기 https://news.seoul.go.kr/gov/archives/520321,dyj02056,2026-10-20,confirmed
 Gangneung WIFI,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
-Public_WiFi_Free,open,"이름에 Free/무료 포함 [Public_WiFi_Free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+Public_WiFi_Free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 PublicWiFi@Suwon,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 PublicWiFi@Gangbuk,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 경로당,unknown,장소 이름 — 판단 근거 없음 (requests #25),dyj02056,2026-10-20,confirmed
@@ -40,17 +40,17 @@ GOKSEONG,unknown,지역 이름만 있음 — 판단 근거 없음 (requests #25)
 KOREA FREE WiFi,open,"이름에 Free/무료 포함 [KOREA FREE WiFi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Public,unknown,단어 하나뿐이라 개방형으로 단정할 근거 부족 (requests #25),dyj02056,2026-10-20,confirmed
 "Public WiFi Free, Public WiFi Secure, SEOUL, SEOUL_Secure",secure,"혼합: 개방형과 보안접속 SSID를 함께 제공 [Public WiFi Free=O, Public WiFi Secure=S, SEOUL=P, SEOUL_Secure=S] — 보안접속 선택 가능 지점을 secure로 볼지 리드 결정 (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-Public Wifi FREE,open,"이름에 Free/무료 포함 [Public Wifi FREE=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+Public Wifi FREE,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 PUBLIC WIFI,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [PUBLIC WIFI=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 publicwifi@smart_gimhae,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 PublicWiFi@Seoul,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 PublicWiFi@Goyang/G_PublicWiFi@Goyang,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 Gyeyang-gu WiFi,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
-"Public WiFi Free, G_PublicWiFi@GJCITY",open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
+"Public WiFi Free, G_PublicWiFi@GJCITY",unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 SEOUL_JUNGGU,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 Seoul WiFi@Seoul,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 "Public WiFi, Public WiFi Secure",secure,"혼합: 개방형과 보안접속 SSID를 함께 제공 [Public WiFi=P, Public WiFi Secure=S] — 보안접속 선택 가능 지점을 secure로 볼지 리드 결정 (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-Public WIFI Free,open,"이름에 Free/무료 포함 [Public WIFI Free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+Public WIFI Free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 PublicWiFi@Geumcheon,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 Jinju_PublicWiFi,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 ChangWon_WiFi,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
@@ -67,7 +67,7 @@ Buyeo Wifi Free,open,"이름에 Free/무료 포함 [Buyeo Wifi Free=O] (사람 �
 Pubilc wi-fi,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 FREE_KT,open,"이름에 Free/무료 포함 [FREE_KT=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 GongJu_Free_wifi,open,"이름에 Free/무료 포함 [GongJu_Free_wifi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-PUBLIC  WIFI FREE,open,"이름에 Free/무료 포함 [PUBLIC  WIFI FREE=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+PUBLIC  WIFI FREE,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 Smart City_Gunpo,unknown,"스마트시티 서비스명, 와이파이·공공 표시 없음 — 판단 근거 없음 (requests #25)",dyj02056,2026-10-20,confirmed
 Publlic Wifi,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 KOREA FREE WiFi_5G,open,"이름에 Free/무료 포함 [KOREA FREE WiFi_5G=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
@@ -80,17 +80,17 @@ smart_changnyeong,unknown,"스마트시티 서비스명, 와이파이·공공 �
 Busan_WiFi,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [Busan_WiFi=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 KOREA FREE WIFI,open,"이름에 Free/무료 포함 [KOREA FREE WIFI=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Public Wifi Zone,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
-public_wifi_free,open,"이름에 Free/무료 포함 [public_wifi_free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+public_wifi_free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 평창군무료WiFi,open,"이름에 Free/무료 포함 [평창군무료WiFi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Public WIFI,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [Public WIFI=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Bsgun_FreeWifi,open,"이름에 Free/무료 포함 [Bsgun_FreeWifi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-public WiFi Free,open,"이름에 Free/무료 포함 [public WiFi Free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+public WiFi Free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 Public_WiFi,open,"같은 이름의 Secure 버전이 데이터에 따로 있어 그 짝인 개방형으로 추정 [Public_WiFi=P] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Public WiFi Secure,secure,"이름에 Secure/보안 포함 [Public WiFi Secure=S] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 G_PublicWiFi@Namyangju,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
-PublicWifiFree,open,"이름에 Free/무료 포함 [PublicWifiFree=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+PublicWifiFree,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 BUS_Free.BUS_Secure,secure,"혼합: 개방형과 보안접속 SSID를 함께 제공 [BUS_Free=O, BUS_Secure=S] — 보안접속 선택 가능 지점을 secure로 볼지 리드 결정 (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
-CJ-Public WiFi Free,open,"이름에 Free/무료 포함 [CJ-Public WiFi Free=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
+CJ-Public WiFi Free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
 Korea Free Wifi,open,"이름에 Free/무료 포함 [Korea Free Wifi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Sancheong Free WiFi,open,"이름에 Free/무료 포함 [Sancheong Free WiFi=O] (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 Public WiFi Jecheon,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
