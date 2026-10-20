@@ -1,10 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "regions": [
+    "sin1"
+  ],
   "functions": {
-    "api/main.py": {
-      "includeFiles": "{config,src,db}/**",
-      "maxDuration": 30
+    "app.py": {
+      "maxDuration": 30,
+      "excludeFiles": "{tests/**,pipeline/**,data/**,dist/**,.venv/**,**/__pycache__/**}"
     }
-  },
-  "rewrites": [{ "source": "/(.*)", "destination": "/api/main" }]
+  }
 }

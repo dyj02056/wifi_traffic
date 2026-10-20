@@ -9,7 +9,7 @@
 |---|---|---|
 | 데이터 원본 | 사람이 D1 CSV를 2~3일마다 다운로드 | **GitHub Actions가 매일 KST 05:00 LOCALDATA 전국 파일 자동 수집** (#15·#17) |
 | 저장 | 정적 번들 파일 | **Neon(Postgres+PostGIS)** `bundle_docs`에 같은 JSON 저장, API가 읽음 (#15) |
-| API | FastAPI 로컬 | **Vercel 파이썬 함수**(`backend/vercel.json`), DB 없으면 파일 번들 (#17) |
+| API | FastAPI 로컬 | **Vercel FastAPI 프리셋**(`backend/app.py` 진입점, `backend/vercel.json` 지역 sin1, #41), DB 없으면 파일 번들 (#17) |
 | 화면 데이터 | `NEXT_PUBLIC_DATA_BASE` 하나 | API 우선 → 응답 없으면 정적 번들(`public/data`)로 자동 전환 + "정적 백업 데이터" 배지 (#16) |
 | 지도 | MapLibre + OpenFreeMap | **카카오맵** (#31) |
 | 로그인 | 없음 | **구글·네이버(서버 검증) + 비회원**, 로컬 전용 개발용 로그인, 아이디·비밀번호 없음 (#19) |
