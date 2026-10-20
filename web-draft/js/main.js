@@ -1,10 +1,26 @@
 // 지도 화면 진입점: 지역 선택 → 마커 → 클릭 상세 → 슬라이더 재채점·순위표 (plan.md §1.1 흐름 1~3)
 import * as api from "./api.js";
 import { computeScore } from "./score.js";
-import * as mapView from "./map.js";
-import { renderPointSheet, renderRankTable, renderScoreNotice, renderSummary, renderWeightPanel, rankOrder } from "./panel.js";
+import { KAKAO_JS_KEY } from "./map-config.js";
+import { esc, renderPointSheet, renderRankTable, renderScoreNotice, renderSummary, renderWeightPanel, rankOrder } from "./panel.js";
+import { requireSession } from "./auth.js";
 
 const $ = (s) => document.querySelector(s);
+const session = requireSession();
+let mapView;   // 카카오맵(키가 있을 때) 또는 Leaflet — 같은 함수 이름을 쓴다
+
+async function loadMapView() {
+  if (KAKAO_JS_KEY) {
+    try {
+      const kakaoView = await import("./map-kakao.js");
+      await kakaoView.loadSdk(KAKAO_JS_KEY);
+      return kakaoView;
+    } catch (e) {
+      console.warn(`${e.message} → 기본 지도(Leaflet)로 표시합니다.`);
+    }
+  }
+  return import("./map.js");
+}
 const TOP_N = 20;
 const DEBOUNCE_MS = 120;
 
@@ -57,7 +73,38 @@ function render() {
     current: blocked ? [] : rankOrder(state.points, scoreOf), baseRank: state.baseRank, topN: TOP_N,
     colorOf, scoreOf, onClick: openPoint,
   });
+  renderRecommend();
   if (state.selectedKey) renderSheet();
+}
+
+// 추천 TOP 3: 지금 지도 화면 안(등급 필터 통과)에서 점수가 가장 낮은 3곳
+function renderRecommend() {
+  const list = $("#recommend-list");
+  if (!mapView || !state.points.length) return;
+  if (state.status.error) {
+    list.innerHTML = `<li class="empty">점수 계산이 멈춰 추천할 수 없습니다.</li>`;
+    return;
+  }
+  const top = state.points
+    .filter((p) => {
+      const s = state.scores.get(p.key);
+      return s?.score != null && state.gradeFilter.has(s.grade) && mapView.contains(p.lat, p.lng);
+    })
+    .sort((a, b) => scoreOf(a.key) - scoreOf(b.key) || a.name.localeCompare(b.name, "ko"))
+    .slice(0, 3);
+  if (!top.length) {
+    list.innerHTML = `<li class="empty">지도 화면 안에 표시된 지점이 없습니다. 지도를 움직여 보세요.</li>`;
+    return;
+  }
+  list.innerHTML = top.map((p, i) => {
+    const s = state.scores.get(p.key), g = gradeMeta(s.grade);
+    return `<li><button type="button" data-key="${p.key}">
+      <span class="rank">${i + 1}</span>
+      <span class="dot" style="background:${g.color}"></span>
+      <span class="name">${esc(p.name)}</span>
+      <span class="meta">${g.emoji} ${esc(s.grade)} · <b>${s.score.toFixed(1)}</b>점</span>
+    </button></li>`;
+  }).join("");
 }
 
 let timer = null;
@@ -122,7 +169,10 @@ function setupRegionPicker() {
   sidoSel.addEventListener("change", () => { fillSgg(); loadRegion(sggSel.value); });
   sggSel.addEventListener("change", () => loadRegion(sggSel.value));
   const want = new URLSearchParams(location.search).get("region");
-  const initial = avail.find((r) => r.region_id === want) ?? avail.find((r) => r.region_id === state.regions.default_region_id) ?? avail[0];
+  // 회원이면 가입 때 적은 지역(데이터가 있을 때만)을 먼저 보여준다
+  const home = session?.type === "member" && session.sigungu
+    ? avail.find((r) => r.sido === session.sido && r.sigungu === session.sigungu) : null;
+  const initial = avail.find((r) => r.region_id === want) ?? home ?? avail.find((r) => r.region_id === state.regions.default_region_id) ?? avail[0];
   sidoSel.value = initial.sido_code;
   fillSgg();
   sggSel.value = initial.region_id;
@@ -177,9 +227,15 @@ async function main() {
   $("#badge-provisional").hidden = state.meta.r1_confirmed;
   $("#watermark").hidden = state.meta.r1_confirmed;
   $("#data-date").textContent = `데이터 기준일 ${state.meta.data_reference_date ?? "–"} · 수집 ${state.meta.snapshot_collected_at ?? "–"}`;
+  mapView = await loadMapView();
   mapView.initMap($("#map"), { onPointClick: openPoint });
+  mapView.onViewChange(renderRecommend);
+  $("#recommend-list").addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-key]");
+    if (btn) openPoint(btn.dataset.key);
+  });
   setupControls();
   await loadRegion(setupRegionPicker());
 }
 
-main();
+if (session) main();

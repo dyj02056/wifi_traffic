@@ -22,7 +22,7 @@ export function showPoints(points, colorOf, bbox) {
   markers.clear();
   for (const p of points) {
     const m = L.circleMarker([p.lat, p.lng], {
-      radius: 7, weight: 1.5, color: "#ffffff", fillColor: colorOf(p.key), fillOpacity: 0.9,
+      radius: 11, weight: 2.5, color: "#ffffff", fillColor: colorOf(p.key), fillOpacity: 0.95,
     });
     m.bindTooltip(p.name, { direction: "top" });
     m.on("click", () => onSelect(p.key));
@@ -42,7 +42,7 @@ export function showPoints(points, colorOf, bbox) {
 export function recolor(colorOf, visibleOf) {
   for (const [key, m] of markers) {
     const visible = visibleOf(key);
-    m.setStyle({ fillColor: colorOf(key), fillOpacity: visible ? 0.9 : 0, opacity: visible ? 1 : 0 });
+    m.setStyle({ fillColor: colorOf(key), fillOpacity: visible ? 0.95 : 0, opacity: visible ? 1 : 0 });
     if (m._path) m._path.style.pointerEvents = visible ? "" : "none";
   }
 }
@@ -52,7 +52,7 @@ export function select(key) {
   const m = markers.get(key);
   if (!m) return;
   highlight = L.circleMarker(m.getLatLng(), {
-    radius: 14, weight: 3, color: "#1c2430", fill: false, interactive: false,
+    radius: 18, weight: 4, color: "#ffffff", fill: false, interactive: false,
   }).addTo(map);
   map.panTo(m.getLatLng());
 }
@@ -66,13 +66,22 @@ export function showChanges(changes, visible) {
   for (const c of changes) {
     const added = c.change === "added";
     L.circleMarker([c.lat, c.lng], {
-      radius: 11, weight: 2.5, fill: false, interactive: true,
+      radius: 16, weight: 3, fill: false, interactive: true,
       color: added ? getComputedStyle(document.documentElement).getPropertyValue("--added").trim() : "#6b7280",
       dashArray: added ? null : "4 4",
     }).bindTooltip(`${added ? "추가" : "삭제"} (${c.snapshot_from} → ${c.snapshot_to}): ${c.place_name ?? ""}`)
       .addTo(changeLayer);
   }
   setChangesVisible(visible);
+}
+
+// 지도 이동·확대가 끝날 때마다 cb 호출 (추천 TOP 3 갱신용)
+export function onViewChange(cb) {
+  map.on("moveend", cb);
+}
+
+export function contains(lat, lng) {
+  return map.getBounds().contains([lat, lng]);
 }
 
 export function setChangesVisible(visible) {

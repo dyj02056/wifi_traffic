@@ -12,29 +12,37 @@
   <!-- DisclaimerBar: 모든 화면 상단 고정 (scripts/check_disclaimer.py가 검사) -->
   <div class="disclaimer-bar" role="note" data-disclaimer>※ 이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.</div>
   <nav class="top-nav">
-    <span class="brand">공공와이파이 안전 지도</span>
-    <span id="badge-mock" class="badge mock" hidden>샘플 데이터</span>
-    <span id="badge-provisional" class="badge provisional" hidden>임시(무효) — SSID 라벨 미확정</span>
-    <a href="index.html" aria-current="page">지도</a>
-    <a href="rules.html">채점 기준</a>
-    <a href="about.html">데이터와 한계</a>
+    <div class="nav-left">
+      <a href="index.html" aria-current="page">지도</a>
+      <a href="rules.html">채점 기준</a>
+      <a href="about.html">데이터와 한계</a>
+      <span id="badge-mock" class="badge mock" hidden>샘플 데이터</span>
+      <span id="badge-provisional" class="badge provisional" hidden>임시(무효) — SSID 라벨 미확정</span>
+    </div>
+    <a class="brand" href="index.html"><img src="img/logo-cutout.png" alt="Wifi Traffic — 공공와이파이 안전 지도"></a>
+    <div class="nav-right"></div>
   </nav>
   <div id="fatal" class="notice error" hidden></div>
 
+  <section class="topbar">
+    <div class="region-picker">
+      <h2><span class="step">1</span> 지역 선택</h2>
+      <div class="fields">
+        <label>시도<select id="sido"></select></label>
+        <label>시군구<select id="sigungu"></select></label>
+        <label class="grow">장소명 검색<input id="search" type="search" list="search-list" placeholder="장소명을 입력하세요"></label>
+        <datalist id="search-list"></datalist>
+      </div>
+      <p class="field" id="data-date"></p>
+    </div>
+    <div class="recommend">
+      <h2><span class="step">2</span> 추천 와이파이 TOP 3 <small>지금 지도 화면 안에서 위험요인 점수가 가장 낮은 곳</small></h2>
+      <ol id="recommend-list" class="recommend-list"></ol>
+    </div>
+  </section>
+
   <main class="app">
     <aside class="sidebar">
-      <section class="panel region-picker">
-        <h2>지역 선택</h2>
-        <label class="field" for="sido">시도</label>
-        <select id="sido"></select>
-        <label class="field" for="sigungu" style="margin-top:8px">시군구</label>
-        <select id="sigungu"></select>
-        <label class="field" for="search" style="margin-top:8px">장소명 검색</label>
-        <input id="search" type="search" list="search-list" placeholder="장소명을 입력하세요">
-        <datalist id="search-list"></datalist>
-        <p class="field" id="data-date"></p>
-      </section>
-
       <section class="panel">
         <h2>위험요인 선택·가중치 <button id="reset-weights" type="button">기본값으로</button></h2>
         <div id="score-notice"></div>
