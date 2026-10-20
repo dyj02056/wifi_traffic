@@ -40,9 +40,9 @@ RULE_IDS = tuple(r.id for r in RULES)
 DEFAULT_WEIGHTS = tuple(r.max_points for r in RULES)
 
 # (min, max, label, emoji, color) — min ≤ score < max
-GRADES = ((0, 30, "낮음", "🟢", "#2e9e5b"),
-          (30, 60, "주의", "🟡", "#e0a800"),
-          (60, 101, "높음", "🔴", "#d64545"))
+GRADES = ((0, 30, "낮음", "🟢", "#16a34a"),
+          (30, 60, "주의", "🟡", "#f59e0b"),
+          (60, 101, "높음", "🔴", "#e5383b"))
 
 PARAMS = {
     "R1_UNKNOWN_RATIO": 0.5,   # 가정

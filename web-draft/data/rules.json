@@ -89,21 +89,21 @@
     {
       "max": 30,
       "min": 0,
-      "color": "#2e9e5b",
+      "color": "#16a34a",
       "emoji": "🟢",
       "label": "낮음"
     },
     {
       "max": 60,
       "min": 30,
-      "color": "#e0a800",
+      "color": "#f59e0b",
       "emoji": "🟡",
       "label": "주의"
     },
     {
       "max": 101,
       "min": 60,
-      "color": "#d64545",
+      "color": "#e5383b",
       "emoji": "🔴",
       "label": "높음"
     }

@@ -1,5 +1,6 @@
 "use client";
 // 지점 상세: 오른쪽(모바일은 아래)에서 슬라이드 인, R1~R8 막대가 순서대로 채워짐(stagger 50ms) (plan.md §9.2)
+import type { CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Detail, RulesDoc } from "@/lib/types";
 import { usePrefersReducedMotion } from "@/lib/queries";
@@ -31,13 +32,21 @@ export function PointSheet({ detail, loading, open, rules, weights, selected, cu
             <button className="close" aria-label="닫기" onClick={onClose}>✕</button>
             {loading || !detail ? <p className="loading">{loading ? "불러오는 중…" : "지점 정보를 찾지 못했습니다."}</p> : (
               <>
-                <h2>{detail.name}</h2>
-                <div className="sheet-disclaimer">※ {DISCLAIMER}</div>
-                <div>
-                  <span className="score-big" style={{ color: g?.color }}>{current?.score != null ? fmt(current.score) : "계산 중지"}</span>{" "}
-                  {g && <span>{g.emoji} {g.label}</span>}
-                  <div className="reason">현재 가중치 기준 · 기본 가중치 기준 {fmt(detail.score)}점({detail.grade})</div>
+                {/* 머리 부분: 등급색 바탕 + 신호등(해당 등급 불만 켜짐) (E) */}
+                <div className="sheet-head" style={{ "--c": g?.color ?? "var(--grade-none)" } as CSSProperties}>
+                  <div className="signal" aria-hidden="true">
+                    {[...rules.grades].reverse().map((x) => (
+                      <span key={x.label} className={x.label === g?.label ? "on" : ""} style={{ "--lamp": x.color } as CSSProperties} />
+                    ))}
+                  </div>
+                  <div className="head-text">
+                    <h2>{detail.name}</h2>
+                    <span className="score-big">{current?.score != null ? fmt(current.score) : "계산 중지"}</span>
+                    {g && <span className="grade-label">{g.label}</span>}
+                  </div>
                 </div>
+                <div className="sheet-disclaimer">※ {DISCLAIMER}</div>
+                <div className="reason">현재 가중치 기준 · 기본 가중치 기준 {fmt(detail.score)}점({detail.grade})</div>
                 <section className="panel breakdown">
                   <h3>위험요인별 점수 (R1~R8)</h3>
                   {detail.breakdown.map((b, i) => {

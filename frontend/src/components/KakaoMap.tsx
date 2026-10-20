@@ -18,6 +18,8 @@ interface Props {
   points: MapPoint[];
   bbox: [number, number, number, number] | null;
   colorOf: (key: string) => string;
+  /** 등급 단계 — 마커 안 기호(✓ ! ×)와 크기에 쓴다 */
+  levelOf: (key: string) => "low" | "mid" | "high" | "";
   visibleOf: (key: string) => boolean;
   colorVersion: unknown;               // 바뀌면 다시 칠한다(가중치·필터 변경)
   selectedKey: string | null;
@@ -29,9 +31,11 @@ interface Props {
   focus?: { lat: number; lng: number; level: number; seq: number } | null;
 }
 
-function paint(ms: Map<string, { el: HTMLDivElement }>, colorOf: (k: string) => string, visibleOf: (k: string) => boolean) {
+function paint(ms: Map<string, { el: HTMLDivElement }>, colorOf: (k: string) => string,
+  levelOf: (k: string) => string, visibleOf: (k: string) => boolean) {
   for (const [key, { el }] of ms) {
     el.style.background = colorOf(key);
+    el.dataset.level = levelOf(key);
     el.classList.toggle("hidden-marker", !visibleOf(key));
   }
 }
@@ -91,6 +95,7 @@ export function KakaoMap(p: Props) {
       const el = document.createElement("div");
       el.className = "kmarker";
       el.style.background = cb.current.colorOf(pt.key);
+      el.dataset.level = cb.current.levelOf(pt.key);
       el.dataset.name = pt.name;
       el.addEventListener("click", () => cb.current.onSelect(pt.key));
       const pos = new k.LatLng(pt.lat, pt.lng);
@@ -118,7 +123,7 @@ export function KakaoMap(p: Props) {
 
   // 색·필터 다시 칠하기
   useEffect(() => {
-    paint(markers.current, cb.current.colorOf, cb.current.visibleOf);
+    paint(markers.current, cb.current.colorOf, cb.current.levelOf, cb.current.visibleOf);
   }, [p.colorVersion, p.points]);
 
   // 선택 지점 링

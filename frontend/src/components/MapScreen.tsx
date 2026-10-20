@@ -18,6 +18,10 @@ import { ScoreNotice, WeightPanel } from "./WeightPanel";
 
 const TOP_N = 20;
 const DEBOUNCE_MS = 120;
+// 데이터가 아직 없을 때 넘기는 빈 배열은 하나로 고정한다. 렌더마다 새 []를 넘기면 지도가 매번 범위를 다시 맞추고
+// idle → onViewChange → 다시 렌더가 반복된다(Maximum update depth exceeded)
+const NO_POINTS: never[] = [];
+const NO_CHANGES: never[] = [];
 
 function useDebounced<T>(value: T, ms: number): T {
   const [v, setV] = useState(value);
@@ -47,6 +51,7 @@ export function MapScreen() {
   const [picked, setPicked] = useState<string | null>(null);
   const [inView, setInView] = useState<((lat: number, lng: number) => boolean) | null>(null);
   const [gps, setGps] = useState<{ busy: boolean; msg: string }>({ busy: false, msg: "" });
+  const [dimMap, setDimMap] = useState(true);   // 배경 지도 색을 30%만 남겨 마커가 먼저 보이게 (A′)
   const [focus, setFocus] = useState<{ lat: number; lng: number; level: number; seq: number } | null>(null);
   const focusOn = (lat: number, lng: number, level: number) => setFocus((f) => ({ lat, lng, level, seq: (f?.seq ?? 0) + 1 }));
 
@@ -106,6 +111,13 @@ export function MapScreen() {
     const s = scores.get(key);
     return (s?.grade && gradeColor.get(s.grade)) || "var(--grade-none)";
   }, [scores, gradeColor]);
+  // grades 순서(낮음·주의·높음) → 마커 기호·크기 단계
+  const gradeLevel = useMemo(() => new Map<string, "low" | "mid" | "high">(
+    (grades ?? []).map((g, i, all) => [g.label, i === 0 ? "low" : i === all.length - 1 ? "high" : "mid"])), [grades]);
+  const levelOf = useCallback((key: string) => {
+    const s = scores.get(key);
+    return (s?.grade && gradeLevel.get(s.grade)) || "";
+  }, [scores, gradeLevel]);
   const visibleOf = useCallback((key: string) => {
     const s = scores.get(key);
     return !s?.grade || st.gradeFilter.has(s.grade);
@@ -188,7 +200,7 @@ export function MapScreen() {
               </select>
             </label>
             <label className="grow">장소 검색
-              <SearchBox regionId={regionId} region={region ?? undefined} points={pts ?? []}
+              <SearchBox regionId={regionId} region={region ?? undefined} points={pts ?? NO_POINTS}
                 onPickPoint={(h) => {
                   if (h.region_id && h.region_id !== regionId) chooseRegion(h.region_id);
                   st.selectPoint(h.key);
@@ -217,7 +229,7 @@ export function MapScreen() {
                   <button type="button" onClick={() => st.selectPoint(p.key)}>
                     <span className="rank">{i + 1}</span><span className="dot" style={{ background: colorOf(p.key) }} />
                     <span className="name">{p.name}</span>
-                    <span className="meta">{g?.emoji} {s.grade} · <b>{s.score!.toFixed(1)}</b>점</span>
+                    <span className="meta">{g?.emoji} {s.grade} · <b>{s.score!.toFixed(1)}</b>점{i === 0 && <span className="badge pick">추천</span>}</span>
                   </button>
                 </li>
               );
@@ -245,14 +257,16 @@ export function MapScreen() {
           </section>
         </aside>
 
-        <div className="map-wrap">
-          <KakaoMap points={pts ?? []} bbox={region?.bbox ?? null} colorOf={colorOf} visibleOf={visibleOf}
-            colorVersion={scores} selectedKey={st.selectedKey} changes={changes.data?.changes ?? []}
+        <div className={`map-wrap${dimMap ? " dim" : ""}`}>
+          <KakaoMap points={pts ?? NO_POINTS} bbox={region?.bbox ?? null} colorOf={colorOf} levelOf={levelOf} visibleOf={visibleOf}
+            colorVersion={scores} selectedKey={st.selectedKey} changes={changes.data?.changes ?? NO_CHANGES}
             showChanges={st.showChanges} onSelect={st.selectPoint} onViewChange={(fn) => setInView(() => fn)} focus={focus} />
           <Summary total={pts?.length ?? 0} counts={counts} grades={rules.data.grades} avg={n ? Math.floor((sum / n) * 100 + 0.5) / 100 : null} />
           {r1 === "provisional" && <div className="watermark"><span>임시(무효)</span></div>}
           {status.error && <div className="map-overlay"><div>{status.error === "TOO_FEW_RULES" ? "위험요인을 2개 이상 선택하세요" : "가중치 합이 0입니다"}</div></div>}
           {gps.msg && <div className="gps-msg" role="status">{gps.msg}</div>}
+          <button type="button" className="dim-btn" onClick={() => setDimMap((v) => !v)} aria-pressed={dimMap}
+            title="배경 지도의 색을 흐리게 해 마커가 먼저 보이게 합니다">{dimMap ? "지도 색 원래대로" : "지도 색 흐리게"}</button>
           <button type="button" className="gps-btn" onClick={onGps} disabled={gps.busy} title="누를 때만 위치 권한을 요청합니다">📍 내 위치</button>
         </div>
 
