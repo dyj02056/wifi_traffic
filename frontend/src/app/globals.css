@@ -436,3 +436,48 @@ ul.tips li { margin-bottom: 4px; }
 @media (max-width: 900px) { .rule-cards { grid-template-columns: repeat(2, 1fr); } .kpis b { font-size: 20px; } }
 .doc .step { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--accent);
   color: #fff; font-size: 13px; font-weight: 800; flex: none; }
+
+/* 민감도 분석 (requests #46) */
+.tornado { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-3) var(--space-4); }
+.tn-legend { display: flex; justify-content: center; gap: var(--space-4); font-size: 12px; color: var(--text-muted); margin-bottom: var(--space-2); }
+.tn-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+.tn-legend i.off, .tn-bar.off span { background: #888780; }
+.tn-legend i.dbl, .tn-bar.dbl span { background: #2a78d6; }
+.tn-row { display: grid; grid-template-columns: 1fr 190px 1fr; align-items: center; gap: var(--space-2); margin: 4px 0; }
+.tn-label { text-align: center; font-size: 13px; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 4px; }
+.tn-label .badge { font-size: 10px; padding: 0 5px; }
+.tn-bar { position: relative; display: flex; align-items: center; height: 26px; padding: 0; background: var(--surface-2); border: 2px solid transparent;
+  border-radius: 6px; cursor: pointer; overflow: hidden; }
+.tn-bar.off { justify-content: flex-end; }
+.tn-bar span { display: block; height: 100%; min-width: 2px; transition: width var(--t-color) ease; }
+.tn-bar em { position: absolute; font-style: normal; font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--text); }
+.tn-bar.off em { left: 6px; } .tn-bar.dbl em { right: 6px; }
+.tn-bar:hover { border-color: var(--border); }
+.tn-bar.on { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(36, 89, 214, .2); }
+.sc-pick { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin-bottom: var(--space-3); }
+.sc-pick select { width: auto; }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; }
+.seg button { border: 0; border-right: 1px solid var(--border); background: var(--surface); padding: 6px 12px; font-size: 13px; cursor: pointer; }
+.seg button:last-child { border-right: 0; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; font-weight: 700; }
+.sens-answer { background: var(--surface); border: 1px solid var(--border); border-left: 6px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0;
+  padding: var(--space-3) var(--space-4); margin-bottom: var(--space-3); }
+.sens-answer .q { margin: 0 0 4px; font-weight: 700; color: var(--text-muted); font-size: 13px; }
+.sens-answer .a { margin: 0; font-size: 16px; }
+.sens-answer .verdict { display: inline-block; margin-left: var(--space-2); padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 800; color: #fff; }
+.sens-answer.ok { border-left-color: var(--grade-low); } .sens-answer.ok .verdict { background: var(--grade-low); }
+.sens-answer.mid { border-left-color: var(--grade-mid); } .sens-answer.mid .verdict { background: var(--grade-mid); }
+.sens-answer.big { border-left-color: var(--grade-high); } .sens-answer.big .verdict { background: var(--grade-high); }
+.doc h3.sub { margin: var(--space-4) 0 var(--space-2); font-size: 15px; }
+.grade-flow { width: 100%; height: auto; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--space-2); }
+.grade-flow .gf-head { font-size: 13px; fill: var(--text-muted); font-weight: 700; }
+.grade-flow .gf-node { font-size: 13px; fill: #fff; font-weight: 800; }
+.grade-flow .gf-move { font-size: 13px; fill: var(--text); font-weight: 800; paint-order: stroke; stroke: #fff; stroke-width: 3px; }
+.more { margin-top: var(--space-4); }
+.more > summary { cursor: pointer; font-weight: 700; color: var(--accent); padding: var(--space-2) 0; }
+.slope { width: 100%; height: auto; }
+.slope .axis { stroke: var(--border); stroke-width: 2; }
+.slope .sl-label { font-size: 12px; fill: var(--text); font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) { .tn-row { grid-template-columns: 1fr 120px 1fr; } .tn-label { font-size: 11px; } }
+.slope .sl-head { font-size: 12px; fill: var(--text-muted); font-weight: 700; }
+.slope .sl-num { font-weight: 800; }
