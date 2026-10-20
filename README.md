@@ -4,6 +4,13 @@
 
 전국 공공와이파이 지점마다 위험요인 점수(0~100)를 매겨 지도에 색으로 표시하고, 가중치 슬라이더로 채점 기준을 직접 바꿔 볼 수 있는 웹사이트. 설계 문서는 [plan.md](plan.md).
 
+| 배포 | 주소 |
+|---|---|
+| 화면 | https://wifi-traffic.vercel.app |
+| API | https://wifi-traffic-api.vercel.app (API 목록 `/docs`) |
+
+시연 순서와 백업 전환은 [docs/demo_script.md](docs/demo_script.md).
+
 | 폴더 | 담당 | 내용 |
 |---|---|---|
 | [contracts/](contracts/README.md) | A | API 계약: JSON Schema 10종, mock 번들, 골든 테스트 |
@@ -19,7 +26,7 @@
 ### 운영 구조 (docs/requests.md #15~#19)
 ```
 GitHub Actions(매일 05:00) → LOCALDATA 전국 CSV → 정제·채점 → Neon(Postgres+PostGIS)
-Next.js(frontend) → 우리 API(Vercel, Neon 읽기) — 응답 없으면 정적 번들(public/data)로 자동 전환
+Next.js(frontend, Vercel) → 우리 API(Vercel FastAPI·sin1, Neon 읽기) — 응답 없으면 정적 번들(public/data)로 자동 전환
 ```
 
 ```bash
@@ -32,7 +39,7 @@ cp .env.example .env                                # DATABASE_URL(Neon), SESSIO
 # Neon(DB) 경로 — 매일 수집과 같은 처리
 python pipeline/db_migrate.py                        # 스키마·PostGIS (여러 번 실행해도 안전)
 python pipeline/daily_sync.py                        # 원본 다운로드 → 정제·채점 → 전 지역 문서를 DB에 (약 5분)
-python pipeline/export_bundle_from_db.py --regions 11-seocho,11-guro   # 시연 직전 정적 백업 번들
+python pipeline/export_bundle_from_db.py --regions 41-goyang,11-seocho,11-guro --default 41-goyang   # 시연 직전 정적 백업 번들 → bash scripts/sync_bundle.sh
 
 # 파일 경로 — DB 없이 로컬 확인용(기존 방식)
 python pipeline/ingest_snapshot.py ~/Downloads/무료와이파이정보.csv

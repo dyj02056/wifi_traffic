@@ -3,6 +3,18 @@
 > 2026-10-20 작성. 원래 B 몫이던 Next.js 앱(`frontend/`)을 A가 먼저 만들었다. 이 문서는 B가 이어받을 때 읽는 요약이다.
 > 결정 근거는 모두 [docs/requests.md](requests.md) 번호로 적었다.
 
+## 0. 배포 (2026-10-21)
+| 용도 | 주소 | Vercel 프로젝트 / 루트 폴더 |
+|---|---|---|
+| 화면 | https://wifi-traffic.vercel.app | `wifi-traffic` / `frontend` (Next.js) |
+| API | https://wifi-traffic-api.vercel.app | `wifi-traffic-api` / `backend` (FastAPI 프리셋, `app.py`, 지역 sin1) |
+
+- main에 푸시하면 두 프로젝트가 자동으로 다시 배포된다.
+- API 환경변수: `DATABASE_URL` `SESSION_SECRET` `GOOGLE_CLIENT_ID` `CORS_ORIGINS`(=화면 주소,http://localhost:3000). `DEV_LOGIN`은 넣지 않는다.
+- 화면 환경변수: `NEXT_PUBLIC_API_BASE`(=API 주소/api) `NEXT_PUBLIC_DATA_BASE=/data` `NEXT_PUBLIC_KAKAO_JS_KEY` `NEXT_PUBLIC_GOOGLE_CLIENT_ID` `NEXT_PUBLIC_NAVER_CLIENT_ID`
+- 화면 주소를 카카오(JS SDK 도메인)·구글(승인된 자바스크립트 원본)·네이버(서비스 URL, Callback URL `…/`)에 등록함.
+- 매일 수집: GitHub Actions Secret `DATABASE_URL` 필요.
+
 ## 1. 바뀐 큰 그림
 
 | 항목 | 계획서(plan.md) | 지금 |
@@ -13,7 +25,7 @@
 | 화면 데이터 | `NEXT_PUBLIC_DATA_BASE` 하나 | API 우선 → 응답 없으면 정적 번들(`public/data`)로 자동 전환 + "정적 백업 데이터" 배지 (#16) |
 | 지도 | MapLibre + OpenFreeMap | **카카오맵** (#31) |
 | 로그인 | 없음 | **구글·네이버(서버 검증) + 비회원**, 로컬 전용 개발용 로그인, 아이디·비밀번호 없음 (#19) |
-| 첫 지역 | `default_region_id` | `?region` → 회원 가입 지역 → **"내 위치" 버튼(GPS, 누를 때만)** → 기본 지역 서초구(임시) (#18·#20) |
+| 첫 지역 | `default_region_id` | `?region` → 회원 가입 지역 → **"내 위치" 버튼(GPS, 누를 때만)** → 기본 지역 고양시 (#18·#34) |
 | "임시(무효)" | `meta.r1_confirmed` 하나 | **지역별** `regions[].r1_status` (#23·#24) |
 
 ## 2. 계약 1.0.0 → 1.1.0 (`contracts/`)
@@ -44,9 +56,9 @@
 - Next.js 16(Cache Components 켜짐): URL을 읽는 화면은 `Suspense` 안에서 렌더링, 외부 상태는 `useSyncExternalStore`.
 
 ## 5. 아직 남은 일 (B가 이어서)
-- [ ] 카카오 JavaScript 키 발급·도메인 등록(로컬 3000, Vercel 주소) 후 지도 동작 확인 — 지금은 키 없이 안내 화면만 확인함
-- [ ] 마커가 많은 지역(강남구 2,807개 등) 성능 확인. 필요하면 확대 수준에 따라 묶어 보이기(클러스터링)
-- [ ] 구글·네이버 클라이언트 ID 발급 후 실제 로그인 확인(지금은 개발용 로그인만 확인)
-- [ ] Vercel 배포 2개(frontend, backend API)와 환경변수 설정, CORS(`CORS_ORIGINS`)에 프론트 주소 추가
+- [x] 카카오 JavaScript 키 발급·도메인 등록(로컬 3000, Vercel 주소), 지도 동작 확인
+- [x] 마커가 많은 지역(강남구 2,807개) 성능 확인 — 문제 없음, 묶어 보이기는 색이 가려져 넣지 않음(#43)
+- [x] 구글·네이버 실제 로그인 확인(로컬, #39). 배포 주소 로그인은 사용자 확인 대기
+- [x] Vercel 배포 2개와 환경변수, CORS (위 0절)
 - [ ] 계획서 §9.2 효과 중 미구현: 지역 이동 시 마커가 커지며 등장, 선택 마커 펄스, AI 설명 문장 단위 페이드
 - [ ] (선택) Playwright 시연 시나리오 E2E

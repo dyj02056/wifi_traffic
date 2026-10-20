@@ -58,9 +58,12 @@
 - [x] Vercel 배포(2026-10-21): API https://wifi-traffic-api.vercel.app (sin1, Neon), 화면 https://wifi-traffic.vercel.app — backend API(환경변수 DATABASE_URL·SESSION_SECRET·GOOGLE_CLIENT_ID·CORS_ORIGINS), frontend(NEXT_PUBLIC_*)
 - [ ] GitHub Secret `DATABASE_URL`(매일 수집 Actions)
 - [x] 카카오(JS SDK 도메인)·구글(승인된 자바스크립트 원본)·네이버(서비스 URL·Callback)에 배포 주소 등록
-- [x] 배포 주소 확인: 비회원 → 고양시 613곳·카카오맵, 검색·지점 상세·대전 서구 처음 화면·배경 통계 차트·사례 4건 (구글·네이버 실제 로그인은 사용자 확인 필요) / [ ] 시연 시나리오 리허설 + API 끈 상태 정적 백업 확인
+- [x] 배포 주소 확인: 비회원 → 고양시 613곳·카카오맵, 검색·지점 상세·대전 서구 처음 화면·배경 통계 차트·사례 4건 (구글·네이버 실제 로그인은 사용자 확인 필요) 
+- [x] 정적 백업 확인(로컬 API 실제 중지, 배포 주소 백업 모드, web-draft) + 시연 대본 고양시·배포 주소 기준 재작성(docs/demo_script.md), 배포 화면에서 대본 수치 확인
+- [ ] 발표자 본인 리허설 1회(대본 소리 내어, 4분)
 - [x] 사례 카드 요약 4건 — Claude 초안 반영(#40), 발표 전 사용자 검토
-- [ ] 발표자료 갱신(requests #35 목록)
+- [x] README·인계 문서에 배포 주소
+- [ ] 발표자료 갱신(requests #35 목록) — 맨 마지막
 - [x] 광주·전남 잘못된 '신규 설치' 이력 9,546건 삭제(2026-10-21 사용자 허락)
 - [x] 마커 묶어 보이기(19번): 성능 문제 없어 넣지 않음, TOP 3 같은 이름 중복 제거(#43)
 - [x] APP_MODE=dev 유지(#42)
