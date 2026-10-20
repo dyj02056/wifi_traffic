@@ -3,131 +3,131 @@
     {
       "id": "R1",
       "name": "보안접속 미지원",
+      "one_liner": "SSID가 팀이 확정한 보안접속 목록에 없으면 위험요인으로 본다",
       "max_points": 30,
       "is_assumption": false,
       "source_fields": [
         "ssid"
-      ],
-      "one_liner": "SSID가 팀이 확정한 보안접속 목록에 없으면 위험요인으로 본다"
+      ]
     },
     {
       "id": "R2",
       "name": "시설유형",
+      "one_liner": "불특정 다수가 오가는 시설일수록 높게 본다",
       "max_points": 20,
       "is_assumption": true,
       "source_fields": [
         "facility_type"
-      ],
-      "one_liner": "불특정 다수가 오가는 시설일수록 높게 본다"
+      ]
     },
     {
       "id": "R3",
       "name": "실외",
+      "one_liner": "설치장소 문구에 실외 키워드가 있으면 위험요인으로 본다",
       "max_points": 10,
       "is_assumption": true,
       "source_fields": [
         "place_detail",
         "facility_type"
-      ],
-      "one_liner": "설치장소 문구에 실외 키워드가 있으면 위험요인으로 본다"
+      ]
     },
     {
       "id": "R4",
       "name": "노후도",
+      "one_liner": "설치 후 오래될수록 장비 보안 수준이 낮을 수 있다고 가정한다",
       "max_points": 15,
       "is_assumption": true,
       "source_fields": [
         "install_ym"
-      ],
-      "one_liner": "설치 후 오래될수록 장비 보안 수준이 낮을 수 있다고 가정한다"
+      ]
     },
     {
       "id": "R5",
       "name": "개방형 AP 밀집도",
+      "one_liner": "반경 100m 안 개방형 AP가 많을수록 위장 AP가 섞이기 쉽다",
       "max_points": 10,
       "is_assumption": false,
       "source_fields": [
         "lat",
         "lng",
         "ssid"
-      ],
-      "one_liner": "반경 100m 안 개방형 AP가 많을수록 위장 AP가 섞이기 쉽다"
+      ]
     },
     {
       "id": "R6",
       "name": "제공주체 불명",
+      "one_liner": "제공사·관리기관 정보가 비어 있으면 위험요인으로 본다",
       "max_points": 5,
       "is_assumption": false,
       "source_fields": [
         "provider",
         "manager"
-      ],
-      "one_liner": "제공사·관리기관 정보가 비어 있으면 위험요인으로 본다"
+      ]
     },
     {
       "id": "R7",
       "name": "신고경로 부재",
+      "one_liner": "관리기관 전화번호가 없거나 형식이 틀리면 위험요인으로 본다",
       "max_points": 5,
       "is_assumption": false,
       "source_fields": [
         "manager_tel"
-      ],
-      "one_liner": "관리기관 전화번호가 없거나 형식이 틀리면 위험요인으로 본다"
+      ]
     },
     {
       "id": "R8",
       "name": "데이터 노후",
+      "one_liner": "데이터 기준일자가 오래되면 운영 상태를 신뢰하기 어렵다",
       "max_points": 5,
       "is_assumption": false,
       "source_fields": [
         "data_date"
-      ],
-      "one_liner": "데이터 기준일자가 오래되면 운영 상태를 신뢰하기 어렵다"
+      ]
     }
   ],
   "grades": [
     {
-      "min": 0,
       "max": 30,
-      "label": "낮음",
+      "min": 0,
+      "color": "#2e9e5b",
       "emoji": "🟢",
-      "color": "#2e9e5b"
+      "label": "낮음"
     },
     {
-      "min": 30,
       "max": 60,
-      "label": "주의",
+      "min": 30,
+      "color": "#e0a800",
       "emoji": "🟡",
-      "color": "#e0a800"
+      "label": "주의"
     },
     {
-      "min": 60,
       "max": 101,
-      "label": "높음",
+      "min": 60,
+      "color": "#d64545",
       "emoji": "🔴",
-      "color": "#d64545"
+      "label": "높음"
     }
   ],
   "params": {
-    "R1_UNKNOWN_RATIO": 0.5,
-    "R1_REGION_COVERAGE_MIN": 0.9,
-    "R2_UNMAPPED_RATIO": 0.5,
-    "R4_FULL_YEARS": 8,
-    "R4_MISSING_RATIO": 0.5,
     "R5_RADIUS_M": 100,
-    "R5_FULL_COUNT": 5,
-    "R6_PARTIAL_RATIO": 0.5,
     "R8_WARN_DAYS": 180,
-    "R8_WARN_RATIO": 0.5,
+    "R4_FULL_YEARS": 8,
+    "R5_FULL_COUNT": 5,
     "R8_STALE_DAYS": 365,
+    "R8_WARN_RATIO": 0.5,
+    "LOW_MAXSUM_WARN": 30,
+    "R1_UNKNOWN_RATIO": 0.5,
+    "R4_MISSING_RATIO": 0.5,
+    "R6_PARTIAL_RATIO": 0.5,
+    "R2_UNMAPPED_RATIO": 0.5,
     "MIN_SELECTED_RULES": 2,
-    "LOW_MAXSUM_WARN": 30
+    "R1_REGION_COVERAGE_MIN": 0.9
   },
   "formula": {
-    "score": "score = round2(100 × Σ_{i∈S}(w_i × r_i) / Σ_{i∈S} w_i)",
-    "rounding": "round2(x) = floor(x × 100 + 0.5 + 1e-9) / 100  (Python round()·toFixed 사용 금지)",
     "grade": "grades에서 min ≤ score < max 인 항목 (반올림된 score로 판정)",
+    "score": "score = round2(100 × Σ_{i∈S}(w_i × r_i) / Σ_{i∈S} w_i)",
     "errors": "|S| < MIN_SELECTED_RULES → TOO_FEW_RULES (먼저 검사), Σ_{i∈S} w_i ≤ 0 → ZERO_WEIGHT; 둘 다 점수·등급 없음",
+    "rounding": "round2(x) = floor(x × 100 + 0.5 + 1e-9) / 100  (Python round()·toFixed 사용 금지)",
     "low_maxsum_basis": "Σ_{i∈S} w_i(현재 슬라이더 가중치) < LOW_MAXSUM_WARN 이면 LOW_MAXSUM 경고, 계산은 함"
   }
 }

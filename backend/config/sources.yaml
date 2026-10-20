@@ -5,7 +5,11 @@ sources:
     name: 전국무료와이파이표준데이터
     dataset_id: "15013116"
     url: https://www.data.go.kr/data/15013116/standard.do
-    access: csv_manual
+    access: csv_manual           # 수동 등록(import_downloads.py)도 계속 가능
+    # 자동 수집(pipeline/daily_sync.py, requests #15). 키 불필요, 매일 갱신(2일 전 기준).
+    # 2026-10-20 확인: 공공데이터포털 15013116의 제공 URL이 이 LOCALDATA 파일로 연결되고, 받은 파일 해시가 수동 다운로드와 같았다.
+    download_url: https://file.localdata.go.kr/file/download/free_wifi_info/info
+    download_referer: https://file.localdata.go.kr/file/free_wifi_info/info
   D2:
     name: 서울특별시 구로구_공공와이파이 서비스 위치 정보
     dataset_id: "15147901"

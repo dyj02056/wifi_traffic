@@ -1,0 +1,8 @@
+# 수집·정제·채점·번들(pipeline/, GitHub Actions)과 테스트 — API 의존성 포함
+-r requirements.txt
+pandas==3.0.6
+pyarrow==26.0.0
+scikit-learn==1.9.1
+jsonschema==4.26.0
+uvicorn==0.54.0
+pytest==9.1.1

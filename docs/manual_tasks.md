@@ -33,7 +33,7 @@
 ## 3. 직접 작성
 
 - [ ] **`backend\data\cases.yaml`**: 사례 카드. 기사를 직접 읽고 요약을 쓰고, 출처명·URL·게재일·확인일을 적습니다. 출처가 없으면 export가 멈춥니다.
-- [ ] `backend\.env` (`backend\.env.example`을 복사): `ANTHROPIC_API_KEY`(선택. AI 설명용, 없으면 템플릿 설명 사용)
+- [ ] `backend\.env` (`backend\.env.example`을 복사): `ANTHROPIC_API_KEY`(넣지 않음 — 설명은 근거값 기반 자동 설명으로 운영, docs/requests.md #36)
 
 ## 4. 소통
 

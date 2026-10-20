@@ -8,6 +8,7 @@ import pandas as pd
 from config.rules import DEFAULT_WEIGHTS, GRADES, PARAMS, RULE_IDS
 from wifisafe import rules as R
 from wifisafe.density import r5_density
+from wifisafe.geo import SUSPECT_FLAG, coord_suspects
 from wifisafe.io import CONFIG_DIR, read_config_csv, read_yaml
 from wifisafe.schema import (COLUMN_MAP, ID_COLUMN, MOCK_SIDO_CODE, PENDING_SIDO, REQUIRED_INTERNAL, point_key, sido_code,
                              sigungu_slug, validate_header)
@@ -187,6 +188,8 @@ def score_frame(df: pd.DataFrame, tables: R.RuleTables, ref_date: pd.Timestamp) 
         out[f"reason{n}"] = reason
         out[f"_flag{n}"] = flag
         flag_cols.append(f"_flag{n}")
+    out["_flag_coord"] = coord_suspects(out).map({True: SUSPECT_FLAG, False: ""})   # 표시만, 점수 영향 없음 (#32)
+    flag_cols.append("_flag_coord")
     out["flags"] = out[flag_cols].apply(lambda row: ";".join(f for f in row if f), axis=1)
     out = out.drop(columns=flag_cols)
     rcols = [f"r{i}" for i in range(1, 9)]

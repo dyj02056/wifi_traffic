@@ -15,12 +15,10 @@ import pandas as pd
 
 from snapshots import snapshot_dates
 from wifisafe import bundle as B
-from wifisafe.background import build_background
-from wifisafe.cases import load_cases
+from wifisafe.assemble import assemble, print_summary
 from wifisafe.changes import CHANGE_COLS
-from wifisafe.engine import confirmed_ssids, enforce_r1_gate, enforce_r1_region_gate, load_tables, r1_region_status
-from wifisafe.io import (CONFIG_DIR, DIST_DATA_DIR, GOLDEN_PATH, INTERIM_DIR, PROCESSED_DIR, app_mode, read_json,
-                         read_yaml, validate_bundle, write_json)
+from wifisafe.engine import enforce_r1_gate, load_tables
+from wifisafe.io import DIST_DATA_DIR, GOLDEN_PATH, INTERIM_DIR, PROCESSED_DIR, app_mode, read_json, validate_bundle, write_json
 
 
 def main():
@@ -35,19 +33,8 @@ def main():
     enforce_r1_gate(mode, status)
     scored = pd.read_parquet(PROCESSED_DIR / "wifi_scored.parquet")
     region_ids = [r.strip() for r in args.regions.split(",") if r.strip()]
-    unknown = sorted(set(region_ids) - set(scored["region_id"]))
-    if unknown:
-        known = scored.drop_duplicates("region_id").set_index("region_id")
-        hint = known[known["sido"] == "서울특별시"]["sigungu"].to_dict() if "sido" in known else {}
-        raise SystemExit(f"없는 region_id: {unknown}. 예시(서울): {dict(list(hint.items())[:30])}")
-    default = args.default or region_ids[0]
-    r1_status = r1_region_status(scored, confirmed_ssids())
-    enforce_r1_region_gate(mode, r1_status, region_ids)
-    # 화면은 지역별 r1_status를 쓴다. meta.r1_confirmed는 "번들의 모든 지역이 임시(무효)가 아님"(이전 계약 호환용)
-    bundle_r1_confirmed = all(r1_status[r][0] != "provisional" for r in region_ids)
 
     snap = read_json(INTERIM_DIR / "clean_report.json")["snapshot"]
-    dates = snapshot_dates()
     ch_path = PROCESSED_DIR / "wifi_changes.csv"
     changes = (pd.read_csv(ch_path, dtype=str, keep_default_na=False, encoding="utf-8-sig")
                if ch_path.exists() else pd.DataFrame(columns=CHANGE_COLS))
@@ -59,44 +46,16 @@ def main():
         if p.exists():
             explanations[rid] = read_json(p)
 
-    src_cfg = read_yaml(CONFIG_DIR / "sources.yaml")["sources"]
-    d1 = src_cfg["D1"]
-    sources = [{"id": "D1", "name": d1["name"], "dataset_id": d1["dataset_id"], "url": d1["url"], "retrieved_at": snap}]
-    background, bg_warn = build_background()
-    used = {d["source"]["name"] for d in background["datasets"]}
-    for sid in ("D3", "D4", "D5"):
-        s = src_cfg.get(sid) or {}
-        if s.get("name") in used:
-            ds = next(d for d in background["datasets"] if d["source"]["name"] == s["name"])
-            sources.append({"id": sid, "name": s["name"], "dataset_id": s.get("dataset_id"), "url": s["url"],
-                            "retrieved_at": ds["source"]["retrieved_at"]})
-    cases = load_cases()
-
-    meta = B.meta_json(is_mock=False, r1_confirmed=bundle_r1_confirmed, app_mode=mode,
-                       data_reference_date=scored["data_date_norm"].dropna().max(), snapshot_collected_at=snap,
-                       snapshot_count=len(dates), regions_in_bundle=region_ids, sources=sources)
-    regions = B.regions_json(scored, set(region_ids), default, r1_status)
-
+    a = assemble(scored, region_ids, args.default or region_ids[0], mode=mode, snapshot=snap,
+                 snapshot_dates=snapshot_dates(), changes=changes, explanations=explanations)
     if DIST_DATA_DIR.exists():
         shutil.rmtree(DIST_DATA_DIR)
-    B.write_bundle(DIST_DATA_DIR, meta=meta, regions=regions, scored=scored, region_ids=region_ids, changes=changes,
-                   snapshots=dates, background=background, cases=cases, explanations=explanations)
+    B.write_bundle(DIST_DATA_DIR, **a.docs_kwargs)
     errors = validate_bundle(DIST_DATA_DIR)
     if errors:
         raise SystemExit("번들 스키마 검증 실패:\n  " + "\n  ".join(errors[:30]))
-
-    print(f"[export_bundle] {DIST_DATA_DIR}  APP_MODE={mode}  r1_confirmed={bundle_r1_confirmed}  스키마 검증 통과")
-    for rid in region_ids:
-        sub = scored[scored["region_id"] == rid]
-        n_exp = len(explanations.get(rid, {}))
-        st, cov = r1_status[rid]
-        print(f"  {rid}: 지점 {len(sub):,}개, R1 {st}" + (f"(확정 {cov:.1%})" if cov is not None else "")
-              + f", 사전 생성 설명 {n_exp}개(나머지 템플릿), 등급 {sub['grade'].value_counts().to_dict()}")
-    print(f"  스냅샷 {len(dates)}회, 배경 통계 {len(background['datasets'])}종, 사례 카드 {len(cases['cases'])}건")
-    for w in bg_warn:
-        print(f"  ⚠ 배경: {w}")
-    if not bundle_r1_confirmed:
-        print("  ⚠ SSID 라벨 확정 비율이 기준 미만인 지역이 있음 — 그 지역을 고르면 '임시(무효)' 워터마크가 표시됩니다")
+    print(f"[export_bundle] {DIST_DATA_DIR}  APP_MODE={mode}  스키마 검증 통과")
+    print_summary("export_bundle", a, scored, region_ids)
 
     if not args.no_golden:
         sample = (scored[scored["region_id"].isin(region_ids)].sort_values("key")

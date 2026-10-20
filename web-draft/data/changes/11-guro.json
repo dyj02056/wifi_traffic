@@ -1,8 +1,9 @@
 {
+  "changes": [],
   "region_id": "11-guro",
   "snapshots": [
-    "2026-10-20"
+    "2026-10-20",
+    "2026-10-21"
   ],
-  "collection_count": 1,
-  "changes": []
+  "collection_count": 2
 }

@@ -1,4102 +1,4647 @@
 {
-  "default_region_id": "11-seocho",
   "sido": [
     {
-      "sido_code": "11",
       "sido": "서울특별시",
-      "count": 24076
+      "count": 24076,
+      "sido_code": "11"
     },
     {
-      "sido_code": "26",
+      "sido": "전남광주통합특별시",
+      "count": 9546,
+      "sido_code": "12"
+    },
+    {
       "sido": "부산광역시",
-      "count": 2630
+      "count": 2630,
+      "sido_code": "26"
     },
     {
-      "sido_code": "27",
       "sido": "대구광역시",
-      "count": 693
+      "count": 693,
+      "sido_code": "27"
     },
     {
-      "sido_code": "28",
       "sido": "인천광역시",
-      "count": 4305
+      "count": 4305,
+      "sido_code": "28"
     },
     {
-      "sido_code": "30",
       "sido": "대전광역시",
-      "count": 1436
+      "count": 1436,
+      "sido_code": "30"
     },
     {
-      "sido_code": "31",
       "sido": "울산광역시",
-      "count": 695
+      "count": 695,
+      "sido_code": "31"
     },
     {
-      "sido_code": "36",
       "sido": "세종특별자치시",
-      "count": 801
+      "count": 801,
+      "sido_code": "36"
     },
     {
-      "sido_code": "41",
       "sido": "경기도",
-      "count": 17958
+      "count": 17958,
+      "sido_code": "41"
     },
     {
-      "sido_code": "43",
       "sido": "충청북도",
-      "count": 2626
+      "count": 2626,
+      "sido_code": "43"
     },
     {
-      "sido_code": "44",
       "sido": "충청남도",
-      "count": 3493
+      "count": 3493,
+      "sido_code": "44"
     },
     {
-      "sido_code": "47",
       "sido": "경상북도",
-      "count": 8287
+      "count": 8287,
+      "sido_code": "47"
     },
     {
-      "sido_code": "48",
       "sido": "경상남도",
-      "count": 5710
+      "count": 5710,
+      "sido_code": "48"
     },
     {
-      "sido_code": "50",
       "sido": "제주특별자치도",
-      "count": 3395
+      "count": 3395,
+      "sido_code": "50"
     },
     {
-      "sido_code": "51",
       "sido": "강원특별자치도",
-      "count": 5780
+      "count": 5780,
+      "sido_code": "51"
     },
     {
-      "sido_code": "52",
       "sido": "전북특별자치도",
-      "count": 2714
+      "count": 2714,
+      "sido_code": "52"
     }
   ],
   "regions": [
     {
-      "region_id": "11-dobong",
-      "sido_code": "11",
+      "bbox": [
+        127.014564,
+        37.637374,
+        127.051555,
+        37.690776
+      ],
       "sido": "서울특별시",
-      "sigungu": "도봉구",
       "count": 971,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.659848,
         "lng": 127.039938
       },
-      "bbox": [
-        126.933337,
-        37.476739,
-        127.488517,
-        37.693706
-      ]
+      "sigungu": "도봉구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "11-dobong",
+      "sido_code": "11",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "11-dongdaemun",
-      "sido_code": "11",
+      "bbox": [
+        127.026113,
+        37.563879,
+        127.077193,
+        37.602253
+      ],
       "sido": "서울특별시",
-      "sigungu": "동대문구",
       "count": 477,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.578389,
         "lng": 127.055593
       },
-      "bbox": [
-        127.02374,
-        37.562172,
-        127.077642,
-        37.603275
-      ]
+      "sigungu": "동대문구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "11-dongdaemun",
+      "sido_code": "11",
+      "r1_coverage": null
     },
     {
-      "region_id": "11-dongjak",
-      "sido_code": "11",
+      "bbox": [
+        126.910068,
+        37.477041,
+        126.981088,
+        37.514914
+      ],
       "sido": "서울특별시",
-      "sigungu": "동작구",
       "count": 1069,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.498274,
         "lng": 126.947118
       },
-      "bbox": [
-        126.8971,
-        36.319408,
-        127.456424,
-        37.5261
-      ]
-    },
-    {
-      "region_id": "11-eunpyeong",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "은평구",
-      "count": 1140,
+      "sigungu": "동작구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-dongjak",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.893656,
+        37.581368,
+        126.939583,
+        37.647807
+      ],
+      "sido": "서울특별시",
+      "count": 1140,
       "center": {
         "lat": 37.608189,
         "lng": 126.918645
       },
-      "bbox": [
-        126.883447,
-        37.577591,
-        126.948812,
-        37.658187
-      ]
-    },
-    {
-      "region_id": "11-gangbuk",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "강북구",
-      "count": 295,
+      "sigungu": "은평구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-eunpyeong",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.006123,
+        37.612562,
+        127.046458,
+        37.647962
+      ],
+      "sido": "서울특별시",
+      "count": 295,
       "center": {
         "lat": 37.631964,
         "lng": 127.024335
       },
-      "bbox": [
-        127.006123,
-        37.611335,
-        127.046593,
-        37.661888
-      ]
+      "sigungu": "강북구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "11-gangbuk",
+      "sido_code": "11",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "11-gangdong",
-      "sido_code": "11",
+      "bbox": [
+        127.11955,
+        37.52364,
+        127.176698,
+        37.569095
+      ],
       "sido": "서울특별시",
-      "sigungu": "강동구",
       "count": 2417,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.542817,
         "lng": 127.139639
       },
-      "bbox": [
-        127.10549,
-        37.52175,
-        127.18296,
-        37.57525
-      ]
+      "sigungu": "강동구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "11-gangdong",
+      "sido_code": "11",
+      "r1_coverage": null
     },
     {
-      "region_id": "11-gangnam",
-      "sido_code": "11",
+      "bbox": [
+        127.019814,
+        37.46576,
+        127.114359,
+        37.529726
+      ],
       "sido": "서울특별시",
-      "sigungu": "강남구",
       "count": 2807,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9772,
       "center": {
         "lat": 37.501413,
         "lng": 127.056431
       },
-      "bbox": [
-        127.008268,
-        37.46036,
-        127.121983,
-        37.53192
-      ]
-    },
-    {
-      "region_id": "11-gangseo",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "강서구",
-      "count": 1801,
+      "sigungu": "강남구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-gangnam",
+      "sido_code": "11",
+      "r1_coverage": 0.9772
+    },
+    {
+      "bbox": [
+        126.80308,
+        37.529594,
+        126.873314,
+        37.584248
+      ],
+      "sido": "서울특별시",
+      "count": 1801,
       "center": {
         "lat": 37.556032,
         "lng": 126.840016
       },
-      "bbox": [
-        126.79565,
-        37.481415,
-        126.94137,
-        37.5865
-      ]
-    },
-    {
-      "region_id": "11-geumcheon",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "금천구",
-      "count": 173,
+      "sigungu": "강서구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-gangseo",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.877247,
+        37.437391,
+        126.921584,
+        37.484402
+      ],
+      "sido": "서울특별시",
+      "count": 173,
       "center": {
         "lat": 37.462747,
         "lng": 126.898415
       },
-      "bbox": [
-        126.875468,
-        37.43432,
-        126.922,
-        37.485084
-      ]
+      "sigungu": "금천구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "11-geumcheon",
+      "sido_code": "11",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "11-guro",
-      "sido_code": "11",
+      "bbox": [
+        126.820852,
+        37.478675,
+        126.898339,
+        37.51315
+      ],
       "sido": "서울특별시",
-      "sigungu": "구로구",
       "count": 1259,
-      "available": true,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.494818,
         "lng": 126.865047
       },
-      "bbox": [
-        126.81655,
-        37.47478,
-        126.902,
-        37.51517
-      ]
+      "sigungu": "구로구",
+      "available": true,
+      "r1_status": "confirmed",
+      "region_id": "11-guro",
+      "sido_code": "11",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "11-gwanak",
-      "sido_code": "11",
+      "bbox": [
+        126.905602,
+        37.459773,
+        126.980605,
+        37.4929
+      ],
       "sido": "서울특별시",
-      "sigungu": "관악구",
       "count": 784,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.478976,
         "lng": 126.938662
       },
-      "bbox": [
-        126.902363,
-        37.449472,
-        126.98278,
-        37.494533
-      ]
-    },
-    {
-      "region_id": "11-gwangjin",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "광진구",
-      "count": 977,
+      "sigungu": "관악구",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "11-gwanak",
+      "sido_code": "11",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.063013,
+        37.528454,
+        127.108027,
+        37.570521
+      ],
+      "sido": "서울특별시",
+      "count": 977,
       "center": {
         "lat": 37.545621,
         "lng": 127.076118
       },
-      "bbox": [
-        126.882685,
-        37.517821,
-        127.110801,
-        37.582933
-      ]
+      "sigungu": "광진구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "11-gwangjin",
+      "sido_code": "11",
+      "r1_coverage": null
     },
     {
-      "region_id": "11-jongro",
-      "sido_code": "11",
+      "bbox": [
+        126.956647,
+        37.569,
+        127.020209,
+        37.612919
+      ],
       "sido": "서울특별시",
-      "sigungu": "종로구",
       "count": 212,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.580331,
         "lng": 126.986271
       },
-      "bbox": [
-        126.95587,
-        37.569,
-        127.02217,
-        37.615097
-      ]
-    },
-    {
-      "region_id": "11-jung",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "중구",
-      "count": 228,
+      "sigungu": "종로구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-jongro",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.963795,
+        37.546306,
+        127.021852,
+        37.568523
+      ],
+      "sido": "서울특별시",
+      "count": 228,
       "center": {
         "lat": 37.562453,
         "lng": 126.99924
       },
-      "bbox": [
-        126.96359,
-        37.545,
-        127.021852,
-        37.56893
-      ]
-    },
-    {
-      "region_id": "11-jungrang",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "중랑구",
-      "count": 815,
+      "sigungu": "중구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-jung",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.0731,
+        37.5721,
+        127.112988,
+        37.6173
+      ],
+      "sido": "서울특별시",
+      "count": 815,
       "center": {
         "lat": 37.598961,
         "lng": 127.090683
       },
-      "bbox": [
-        127.071819,
-        37.5549,
-        127.115287,
-        37.6198
-      ]
-    },
-    {
-      "region_id": "11-mapo",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "마포구",
-      "count": 995,
+      "sigungu": "중랑구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-jungrang",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.878515,
+        37.539479,
+        126.957108,
+        37.585939
+      ],
+      "sido": "서울특별시",
+      "count": 995,
       "center": {
         "lat": 37.562617,
         "lng": 126.910646
       },
-      "bbox": [
-        126.394622,
-        37.537561,
-        126.960805,
-        37.58627
-      ]
+      "sigungu": "마포구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "11-mapo",
+      "sido_code": "11",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "11-nowon",
-      "sido_code": "11",
+      "bbox": [
+        127.047768,
+        37.618026,
+        127.094966,
+        37.682949
+      ],
       "sido": "서울특별시",
-      "sigungu": "노원구",
       "count": 1345,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.644002,
         "lng": 127.066674
       },
-      "bbox": [
-        127.0436,
-        37.37475,
-        127.498,
-        37.68933
-      ]
+      "sigungu": "노원구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "11-nowon",
+      "sido_code": "11",
+      "r1_coverage": null
     },
     {
-      "region_id": "11-seocho",
-      "sido_code": "11",
+      "bbox": [
+        126.982603,
+        37.453866,
+        127.087917,
+        37.519702
+      ],
       "sido": "서울특별시",
-      "sigungu": "서초구",
       "count": 1030,
-      "available": true,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.485105,
         "lng": 127.025513
       },
-      "bbox": [
-        126.980637,
-        37.430712,
-        128.990526,
-        39.498796
-      ]
+      "sigungu": "서초구",
+      "available": true,
+      "r1_status": "confirmed",
+      "region_id": "11-seocho",
+      "sido_code": "11",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "11-seodaemun",
-      "sido_code": "11",
+      "bbox": [
+        126.905437,
+        37.556869,
+        126.962065,
+        37.598776
+      ],
       "sido": "서울특별시",
-      "sigungu": "서대문구",
       "count": 231,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.577983,
         "lng": 126.938526
       },
-      "bbox": [
-        126.903655,
-        37.556869,
-        126.962384,
-        37.598776
-      ]
+      "sigungu": "서대문구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "11-seodaemun",
+      "sido_code": "11",
+      "r1_coverage": null
     },
     {
-      "region_id": "11-seongbuk",
-      "sido_code": "11",
+      "bbox": [
+        126.955196,
+        37.58147,
+        127.0688,
+        37.619892
+      ],
       "sido": "서울특별시",
-      "sigungu": "성북구",
       "count": 1132,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.602674,
         "lng": 127.02125
       },
-      "bbox": [
-        126.955196,
-        37.57752,
-        127.0703,
-        37.62424
-      ]
-    },
-    {
-      "region_id": "11-seongdong",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "성동구",
-      "count": 968,
+      "sigungu": "성북구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-seongbuk",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.013157,
+        37.537582,
+        127.068165,
+        37.571847
+      ],
+      "sido": "서울특별시",
+      "count": 968,
       "center": {
         "lat": 37.547929,
         "lng": 127.039762
       },
-      "bbox": [
-        127.010876,
-        36.567031,
-        127.107194,
-        37.604514
-      ]
-    },
-    {
-      "region_id": "11-songpa",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "송파구",
-      "count": 1278,
+      "sigungu": "성동구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.996,
+      "region_id": "11-seongdong",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.076,
+        37.47352,
+        127.155,
+        37.538
+      ],
+      "sido": "서울특별시",
+      "count": 1278,
       "center": {
         "lat": 37.506397,
         "lng": 127.113029
       },
-      "bbox": [
-        127.071,
-        37.469,
-        127.158,
-        37.609
-      ]
-    },
-    {
-      "region_id": "11-yangcheon",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "양천구",
-      "count": 587,
+      "sigungu": "송파구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-songpa",
+      "sido_code": "11",
+      "r1_coverage": 0.996
+    },
+    {
+      "bbox": [
+        126.8253,
+        37.50888,
+        126.885543,
+        37.548367
+      ],
+      "sido": "서울특별시",
+      "count": 587,
       "center": {
         "lat": 37.524943,
         "lng": 126.856406
       },
-      "bbox": [
-        126.823909,
-        37.50631,
-        126.888206,
-        37.54969
-      ]
-    },
-    {
-      "region_id": "11-yeongdeungpo",
-      "sido_code": "11",
-      "sido": "서울특별시",
-      "sigungu": "영등포구",
-      "count": 272,
+      "sigungu": "양천구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "11-yangcheon",
+      "sido_code": "11",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.881136,
+        37.492549,
+        126.934616,
+        37.537751
+      ],
+      "sido": "서울특별시",
+      "count": 272,
       "center": {
         "lat": 37.517366,
         "lng": 126.900165
       },
-      "bbox": [
-        126.880908,
-        37.490889,
-        126.934616,
-        37.539201
-      ]
+      "sigungu": "영등포구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "11-yeongdeungpo",
+      "sido_code": "11",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "11-yongsan",
-      "sido_code": "11",
+      "bbox": [
+        126.951544,
+        37.520005,
+        127.005675,
+        37.553545
+      ],
       "sido": "서울특별시",
-      "sigungu": "용산구",
       "count": 813,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.535426,
         "lng": 126.976912
       },
-      "bbox": [
-        126.5245,
-        37.3239,
-        127.010815,
-        37.55472
-      ]
+      "sigungu": "용산구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "11-yongsan",
+      "sido_code": "11",
+      "r1_coverage": null
     },
     {
-      "region_id": "26-buk",
-      "sido_code": "26",
-      "sido": "부산광역시",
+      "bbox": [
+        127.009559,
+        34.668461,
+        127.412153,
+        34.957645
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 805,
+      "center": {
+        "lat": 34.797812,
+        "lng": 127.168269
+      },
+      "sigungu": "보성군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-boseong",
+      "sido_code": "12",
+      "r1_coverage": 0.4483
+    },
+    {
+      "bbox": [
+        126.850064,
+        35.159756,
+        127.001222,
+        35.231827
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 224,
+      "center": {
+        "lat": 35.18599,
+        "lng": 126.905096
+      },
       "sigungu": "북구",
-      "count": 120,
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "12-buk",
+      "sido_code": "12",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.886223,
+        35.181611,
+        127.058374,
+        35.408404
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 89,
+      "center": {
+        "lat": 35.320144,
+        "lng": 126.986072
+      },
+      "sigungu": "담양군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-damyang",
+      "sido_code": "12",
+      "r1_coverage": 0.3933
+    },
+    {
+      "bbox": [
+        126.914195,
+        35.117936,
+        126.955753,
+        35.160776
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 97,
+      "center": {
+        "lat": 35.14316,
+        "lng": 126.926766
+      },
+      "sigungu": "동구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-dong",
+      "sido_code": "12",
+      "r1_coverage": 0.9691
+    },
+    {
+      "bbox": [
+        126.686823,
+        34.448601,
+        126.819389,
+        34.738431
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 102,
+      "center": {
+        "lat": 34.61957,
+        "lng": 126.77249
+      },
+      "sigungu": "강진군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-gangjin",
+      "sido_code": "12",
+      "r1_coverage": 0.3529
+    },
+    {
+      "bbox": [
+        127.113672,
+        34.436689,
+        127.486464,
+        34.78023
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 257,
+      "center": {
+        "lat": 34.580278,
+        "lng": 127.277359
+      },
+      "sigungu": "고흥군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "12-goheung",
+      "sido_code": "12",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.110158,
+        35.097043,
+        127.384766,
+        35.321008
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 323,
+      "center": {
+        "lat": 35.228392,
+        "lng": 127.251329
+      },
+      "sigungu": "곡성군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-gokseong",
+      "sido_code": "12",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.22,
+        35.166514,
+        127.5572,
+        35.324264
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 51,
+      "center": {
+        "lat": 35.222892,
+        "lng": 127.463471
+      },
+      "sigungu": "구례군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-gurye",
+      "sido_code": "12",
+      "r1_coverage": 0.9412
+    },
+    {
+      "bbox": [
+        126.669254,
+        35.10046,
+        126.851263,
+        35.22396
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 1790,
+      "center": {
+        "lat": 35.173862,
+        "lng": 126.800416
+      },
+      "sigungu": "광산구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "12-gwangsan",
+      "sido_code": "12",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.56833,
+        34.931,
+        127.769743,
+        35.145488
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 477,
+      "center": {
+        "lat": 34.99498,
+        "lng": 127.619914
+      },
+      "sigungu": "광양시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-gwangyang",
+      "sido_code": "12",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.26,
+        34.2908,
+        126.67,
+        34.71
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 421,
+      "center": {
+        "lat": 34.535475,
+        "lng": 126.533653
+      },
+      "sigungu": "해남군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "12-haenam",
+      "sido_code": "12",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        126.417898,
+        35.006081,
+        126.630918,
+        35.205188
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 164,
+      "center": {
+        "lat": 35.096213,
+        "lng": 126.536485
+      },
+      "sigungu": "함평군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-hampyeong",
+      "sido_code": "12",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.877365,
+        34.857967,
+        127.171489,
+        35.182521
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 579,
+      "center": {
+        "lat": 35.017622,
+        "lng": 127.006685
+      },
+      "sigungu": "화순군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-hwasun",
+      "sido_code": "12",
+      "r1_coverage": 0.9033
+    },
+    {
+      "bbox": [
+        126.834953,
+        34.4025,
+        127.034575,
+        34.808484
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 240,
+      "center": {
+        "lat": 34.635499,
+        "lng": 126.922369
+      },
+      "sigungu": "장흥군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-jangheung",
+      "sido_code": "12",
+      "r1_coverage": 0.9667
+    },
+    {
+      "bbox": [
+        126.630668,
+        35.213589,
+        126.884462,
+        35.442151
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 310,
+      "center": {
+        "lat": 35.310768,
+        "lng": 126.76813
+      },
+      "sigungu": "장성군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-jangseong",
+      "sido_code": "12",
+      "r1_coverage": 0.9935
+    },
+    {
+      "bbox": [
+        126.098242,
+        34.353373,
+        126.353024,
+        34.570829
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 97,
+      "center": {
+        "lat": 34.462568,
+        "lng": 126.260317
+      },
+      "sigungu": "진도군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "12-jindo",
+      "sido_code": "12",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        126.36579,
+        34.781829,
+        126.4522,
+        34.821781
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 472,
+      "center": {
+        "lat": 34.802752,
+        "lng": 126.40037
+      },
+      "sigungu": "목포시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-mokpo",
+      "sido_code": "12",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.282279,
+        34.805192,
+        126.527913,
+        35.126504
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 129,
+      "center": {
+        "lat": 34.951865,
+        "lng": 126.441741
+      },
+      "sigungu": "무안군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-muan",
+      "sido_code": "12",
+      "r1_coverage": 0.7364
+    },
+    {
+      "bbox": [
+        126.563545,
+        34.903353,
+        126.849279,
+        35.076082
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 196,
+      "center": {
+        "lat": 35.00853,
+        "lng": 126.734894
+      },
+      "sigungu": "나주시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-naju",
+      "sido_code": "12",
+      "r1_coverage": 0.9439
+    },
+    {
+      "bbox": [
+        126.783952,
+        35.053623,
+        126.921992,
+        35.147556
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 100,
+      "center": {
+        "lat": 35.108877,
+        "lng": 126.877165
+      },
+      "sigungu": "남구",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-nam",
+      "sido_code": "12",
+      "r1_coverage": 0.65
+    },
+    {
+      "bbox": [
+        126.830374,
+        35.114451,
+        126.903202,
+        35.171873
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 610,
+      "center": {
+        "lat": 35.154039,
+        "lng": 126.876595
+      },
+      "sigungu": "서구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "12-seo",
+      "sido_code": "12",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        125.319409,
+        34.584821,
+        126.349957,
+        35.103105
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 78,
+      "center": {
+        "lat": 34.803887,
+        "lng": 126.01658
+      },
+      "sigungu": "신안군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "12-sinan",
+      "sido_code": "12",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.3793,
+        34.871675,
+        127.551174,
+        35.04689
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 573,
+      "center": {
+        "lat": 34.955185,
+        "lng": 127.486386
+      },
+      "sigungu": "순천시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-suncheon",
+      "sido_code": "12",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.555286,
+        34.1282,
+        127.068291,
+        34.436701
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 121,
+      "center": {
+        "lat": 34.299316,
+        "lng": 126.776339
+      },
+      "sigungu": "완도군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-wando",
+      "sido_code": "12",
+      "r1_coverage": 0.0
+    },
+    {
+      "bbox": [
+        126.428153,
+        34.698957,
+        126.73685,
+        34.892839
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 51,
+      "center": {
+        "lat": 34.791787,
+        "lng": 126.644165
+      },
+      "sigungu": "영암군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-yeongam",
+      "sido_code": "12",
+      "r1_coverage": 0.2941
+    },
+    {
+      "bbox": [
+        126.129896,
+        35.179714,
+        126.542603,
+        35.405531
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 50,
+      "center": {
+        "lat": 35.292387,
+        "lng": 126.418509
+      },
+      "sigungu": "영광군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "12-yeonggwang",
+      "sido_code": "12",
+      "r1_coverage": 0.86
+    },
+    {
+      "bbox": [
+        127.539125,
+        34.50921,
+        127.794742,
+        34.882271
+      ],
+      "sido": "전남광주통합특별시",
+      "count": 1140,
+      "center": {
+        "lat": 34.725249,
+        "lng": 127.680689
+      },
+      "sigungu": "여수시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "12-yeosu",
+      "sido_code": "12",
+      "r1_coverage": 0.914
+    },
+    {
+      "bbox": [
+        128.995,
+        35.194392,
+        129.04045,
+        35.262671
+      ],
+      "sido": "부산광역시",
+      "count": 120,
       "center": {
         "lat": 35.224257,
         "lng": 129.015647
       },
-      "bbox": [
-        128.992294,
-        35.193979,
-        129.381284,
-        35.605436
-      ]
+      "sigungu": "북구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "26-buk",
+      "sido_code": "26",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "26-busanjin",
-      "sido_code": "26",
+      "bbox": [
+        129.0195,
+        35.142296,
+        129.077141,
+        35.184085
+      ],
       "sido": "부산광역시",
-      "sigungu": "부산진구",
       "count": 103,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8539,
       "center": {
         "lat": 35.15992,
         "lng": 129.05012
       },
-      "bbox": [
-        129.017198,
-        35.141496,
-        129.0821,
-        35.19031
-      ]
+      "sigungu": "부산진구",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "26-busanjin",
+      "sido_code": "26",
+      "r1_coverage": 0.8539
     },
     {
-      "region_id": "26-dong",
-      "sido_code": "26",
+      "bbox": [
+        129.030193,
+        35.113879,
+        129.064631,
+        35.14551
+      ],
       "sido": "부산광역시",
-      "sigungu": "동구",
       "count": 222,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9685,
       "center": {
         "lat": 35.129545,
         "lng": 129.046342
       },
-      "bbox": [
-        129.030091,
-        35.06499,
-        129.065229,
-        35.145779
-      ]
-    },
-    {
-      "region_id": "26-dongrae",
-      "sido_code": "26",
-      "sido": "부산광역시",
-      "sigungu": "동래구",
-      "count": 140,
+      "sigungu": "동구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "26-dong",
+      "sido_code": "26",
+      "r1_coverage": 0.9685
+    },
+    {
+      "bbox": [
+        129.05511,
+        35.191226,
+        129.110165,
+        35.222215
+      ],
+      "sido": "부산광역시",
+      "count": 140,
       "center": {
         "lat": 35.203929,
         "lng": 129.082914
       },
-      "bbox": [
-        129.053659,
-        35.190943,
-        129.112533,
-        35.223065
-      ]
-    },
-    {
-      "region_id": "26-gangseo",
-      "sido_code": "26",
-      "sido": "부산광역시",
-      "sigungu": "강서구",
-      "count": 105,
+      "sigungu": "동래구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9333,
+      "region_id": "26-dongrae",
+      "sido_code": "26",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.8078,
+        35.0228,
+        128.98248,
+        35.2168
+      ],
+      "sido": "부산광역시",
+      "count": 105,
       "center": {
         "lat": 35.123608,
         "lng": 128.897589
       },
-      "bbox": [
-        128.8078,
-        35.0122,
-        128.9884,
-        35.2198
-      ]
-    },
-    {
-      "region_id": "26-geumjeong",
-      "sido_code": "26",
-      "sido": "부산광역시",
-      "sigungu": "금정구",
-      "count": 126,
+      "sigungu": "강서구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9365,
+      "region_id": "26-gangseo",
+      "sido_code": "26",
+      "r1_coverage": 0.9333
+    },
+    {
+      "bbox": [
+        129.055599,
+        35.214062,
+        129.118317,
+        35.292878
+      ],
+      "sido": "부산광역시",
+      "count": 126,
       "center": {
         "lat": 35.245421,
         "lng": 129.092186
       },
-      "bbox": [
-        129.053982,
-        35.212871,
-        129.12461,
-        35.298276
-      ]
+      "sigungu": "금정구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "26-geumjeong",
+      "sido_code": "26",
+      "r1_coverage": 0.9365
     },
     {
-      "region_id": "26-gijang",
-      "sido_code": "26",
+      "bbox": [
+        129.136936,
+        35.203733,
+        129.265092,
+        35.375228
+      ],
       "sido": "부산광역시",
-      "sigungu": "기장군",
       "count": 93,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.289008,
         "lng": 129.207264
       },
-      "bbox": [
-        129.115044,
-        35.188577,
-        129.2828,
-        35.379485
-      ]
+      "sigungu": "기장군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "26-gijang",
+      "sido_code": "26",
+      "r1_coverage": null
     },
     {
-      "region_id": "26-haeundae",
-      "sido_code": "26",
+      "bbox": [
+        129.11782,
+        35.153619,
+        129.204992,
+        35.23139
+      ],
       "sido": "부산광역시",
-      "sigungu": "해운대구",
       "count": 503,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8946,
       "center": {
         "lat": 35.183747,
         "lng": 129.156733
       },
-      "bbox": [
-        129.055245,
-        35.150168,
-        129.206078,
-        35.235172
-      ]
+      "sigungu": "해운대구",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "26-haeundae",
+      "sido_code": "26",
+      "r1_coverage": 0.8946
     },
     {
-      "region_id": "26-jung",
-      "sido_code": "26",
+      "bbox": [
+        129.022154,
+        35.096439,
+        129.038648,
+        35.115023
+      ],
       "sido": "부산광역시",
-      "sigungu": "중구",
       "count": 115,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9184,
       "center": {
         "lat": 35.104407,
         "lng": 129.030997
       },
-      "bbox": [
-        129.021863,
-        35.096407,
-        129.038739,
-        35.11529
-      ]
+      "sigungu": "중구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "26-jung",
+      "sido_code": "26",
+      "r1_coverage": 0.9184
     },
     {
-      "region_id": "26-nam",
-      "sido_code": "26",
+      "bbox": [
+        129.068755,
+        35.100757,
+        129.123676,
+        35.145428
+      ],
       "sido": "부산광역시",
-      "sigungu": "남구",
       "count": 150,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.129152,
         "lng": 129.09395
       },
-      "bbox": [
-        129.06799,
-        35.099837,
-        129.124395,
-        35.152438
-      ]
+      "sigungu": "남구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "26-nam",
+      "sido_code": "26",
+      "r1_coverage": null
     },
     {
-      "region_id": "26-saha",
-      "sido_code": "26",
+      "bbox": [
+        128.94468,
+        35.04523,
+        129.01061,
+        35.115115
+      ],
       "sido": "부산광역시",
-      "sigungu": "사하구",
       "count": 151,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9205,
       "center": {
         "lat": 35.086912,
         "lng": 128.981669
       },
-      "bbox": [
-        128.94468,
-        35.04358,
-        129.01061,
-        35.11714
-      ]
-    },
-    {
-      "region_id": "26-sasang",
-      "sido_code": "26",
-      "sido": "부산광역시",
-      "sigungu": "사상구",
-      "count": 101,
+      "sigungu": "사하구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9703,
+      "region_id": "26-saha",
+      "sido_code": "26",
+      "r1_coverage": 0.9205
+    },
+    {
+      "bbox": [
+        128.967806,
+        35.124509,
+        129.01578,
+        35.19218
+      ],
+      "sido": "부산광역시",
+      "count": 101,
       "center": {
         "lat": 35.1602,
         "lng": 128.989465
       },
-      "bbox": [
-        128.963984,
-        35.124312,
-        129.016251,
-        35.192329
-      ]
-    },
-    {
-      "region_id": "26-seo",
-      "sido_code": "26",
-      "sido": "부산광역시",
-      "sigungu": "서구",
-      "count": 96,
+      "sigungu": "사상구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "26-sasang",
+      "sido_code": "26",
+      "r1_coverage": 0.9703
+    },
+    {
+      "bbox": [
+        129.008573,
+        35.061928,
+        129.024953,
+        35.128093
+      ],
+      "sido": "부산광역시",
+      "count": 96,
       "center": {
         "lat": 35.097179,
         "lng": 129.018397
       },
-      "bbox": [
-        129.00578,
-        35.061912,
-        129.02551,
-        35.130722
-      ]
-    },
-    {
-      "region_id": "26-suyeong",
-      "sido_code": "26",
-      "sido": "부산광역시",
-      "sigungu": "수영구",
-      "count": 405,
+      "sigungu": "서구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9417,
+      "region_id": "26-seo",
+      "sido_code": "26",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        129.100248,
+        35.138908,
+        129.134115,
+        35.179519
+      ],
+      "sido": "부산광역시",
+      "count": 405,
       "center": {
         "lat": 35.162507,
         "lng": 129.117548
       },
-      "bbox": [
-        129.082726,
-        35.137097,
-        129.134829,
-        37.179395
-      ]
-    },
-    {
-      "region_id": "26-yeongdo",
-      "sido_code": "26",
-      "sido": "부산광역시",
-      "sigungu": "영도구",
-      "count": 110,
+      "sigungu": "수영구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9794,
+      "region_id": "26-suyeong",
+      "sido_code": "26",
+      "r1_coverage": 0.9417
+    },
+    {
+      "bbox": [
+        129.034317,
+        35.056326,
+        129.087388,
+        35.101456
+      ],
+      "sido": "부산광역시",
+      "count": 110,
       "center": {
         "lat": 35.125437,
         "lng": 129.013469
       },
-      "bbox": [
-        126.664048,
-        35.050969,
-        129.088373,
-        37.430223
-      ]
+      "sigungu": "영도구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "26-yeongdo",
+      "sido_code": "26",
+      "r1_coverage": 0.9794
     },
     {
-      "region_id": "26-yeonje",
-      "sido_code": "26",
+      "bbox": [
+        129.059593,
+        35.163902,
+        129.109592,
+        35.192729
+      ],
       "sido": "부산광역시",
-      "sigungu": "연제구",
       "count": 90,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.184866,
         "lng": 129.076617
       },
-      "bbox": [
-        129.055979,
-        35.1597,
-        129.111112,
-        35.194764
-      ]
+      "sigungu": "연제구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "26-yeonje",
+      "sido_code": "26",
+      "r1_coverage": null
     },
     {
-      "region_id": "27-buk",
-      "sido_code": "27",
+      "bbox": [
+        128.521703,
+        35.876029,
+        128.627309,
+        35.949796
+      ],
       "sido": "대구광역시",
-      "sigungu": "북구",
       "count": 126,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9524,
       "center": {
         "lat": 35.909182,
         "lng": 128.583627
       },
-      "bbox": [
-        128.51324,
-        35.873826,
-        128.630107,
-        35.9521
-      ]
-    },
-    {
-      "region_id": "27-dalseo",
-      "sido_code": "27",
-      "sido": "대구광역시",
-      "sigungu": "달서구",
-      "count": 117,
+      "sigungu": "북구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9744,
+      "region_id": "27-buk",
+      "sido_code": "27",
+      "r1_coverage": 0.9524
+    },
+    {
+      "bbox": [
+        128.480234,
+        35.801049,
+        128.566434,
+        35.860998
+      ],
+      "sido": "대구광역시",
+      "count": 117,
       "center": {
         "lat": 35.835939,
         "lng": 128.52706
       },
-      "bbox": [
-        128.47943,
-        35.798803,
-        128.570386,
-        35.862691
-      ]
-    },
-    {
-      "region_id": "27-dalseong",
-      "sido_code": "27",
-      "sido": "대구광역시",
-      "sigungu": "달성군",
-      "count": 69,
+      "sigungu": "달서구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "27-dalseo",
+      "sido_code": "27",
+      "r1_coverage": 0.9744
+    },
+    {
+      "bbox": [
+        128.413262,
+        35.658456,
+        128.630733,
+        35.904992
+      ],
+      "sido": "대구광역시",
+      "count": 69,
       "center": {
         "lat": 35.769532,
         "lng": 128.466046
       },
-      "bbox": [
-        128.412704,
-        35.657787,
-        128.647096,
-        35.911996
-      ]
+      "sigungu": "달성군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "27-dalseong",
+      "sido_code": "27",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "27-dong",
-      "sido_code": "27",
+      "bbox": [
+        128.618977,
+        35.860028,
+        128.735804,
+        35.942041
+      ],
       "sido": "대구광역시",
-      "sigungu": "동구",
       "count": 47,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.889675,
         "lng": 128.665412
       },
-      "bbox": [
-        128.618874,
-        35.859873,
-        128.737239,
-        35.942104
-      ]
-    },
-    {
-      "region_id": "27-gunwi",
-      "sido_code": "27",
-      "sido": "대구광역시",
-      "sigungu": "군위군",
-      "count": 19,
+      "sigungu": "동구",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "27-dong",
+      "sido_code": "27",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        128.491945,
+        36.10495,
+        128.787582,
+        36.252897
+      ],
+      "sido": "대구광역시",
+      "count": 19,
       "center": {
         "lat": 36.179641,
         "lng": 128.639622
       },
-      "bbox": [
-        128.475108,
-        36.100931,
-        128.794693,
-        36.255089
-      ]
+      "sigungu": "군위군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "27-gunwi",
+      "sido_code": "27",
+      "r1_coverage": null
     },
     {
-      "region_id": "27-jung",
-      "sido_code": "27",
+      "bbox": [
+        128.57735,
+        35.85764,
+        128.61075,
+        35.8779
+      ],
       "sido": "대구광역시",
-      "sigungu": "중구",
       "count": 51,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8824,
       "center": {
         "lat": 35.86682,
         "lng": 128.592724
       },
-      "bbox": [
-        128.5763,
-        35.85707,
-        128.6124,
-        35.8779
-      ]
+      "sigungu": "중구",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "27-jung",
+      "sido_code": "27",
+      "r1_coverage": 0.8824
     },
     {
-      "region_id": "27-nam",
-      "sido_code": "27",
+      "bbox": [
+        128.556593,
+        35.831317,
+        128.604293,
+        35.858768
+      ],
       "sido": "대구광역시",
-      "sigungu": "남구",
       "count": 108,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 35.831258,
         "lng": 128.571509
       },
-      "bbox": [
-        128.34042,
-        35.49507,
-        128.605934,
-        35.859179
-      ]
-    },
-    {
-      "region_id": "27-seo",
-      "sido_code": "27",
-      "sido": "대구광역시",
-      "sigungu": "서구",
-      "count": 103,
+      "sigungu": "남구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9903,
+      "region_id": "27-nam",
+      "sido_code": "27",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.536639,
+        35.85855,
+        128.578036,
+        35.887983
+      ],
+      "sido": "대구광역시",
+      "count": 103,
       "center": {
         "lat": 35.872431,
         "lng": 128.558485
       },
-      "bbox": [
-        128.530476,
-        35.856042,
-        128.578794,
-        35.888253
-      ]
+      "sigungu": "서구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "27-seo",
+      "sido_code": "27",
+      "r1_coverage": 0.9903
     },
     {
-      "region_id": "27-suseong",
-      "sido_code": "27",
+      "bbox": [
+        128.608863,
+        35.813055,
+        128.724434,
+        35.872709
+      ],
       "sido": "대구광역시",
-      "sigungu": "수성구",
       "count": 53,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.7736,
       "center": {
         "lat": 35.846138,
         "lng": 128.639717
       },
-      "bbox": [
-        128.60829,
-        35.810457,
-        128.724434,
-        35.873272
-      ]
+      "sigungu": "수성구",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "27-suseong",
+      "sido_code": "27",
+      "r1_coverage": 0.7736
     },
     {
-      "region_id": "28-bupyeong",
-      "sido_code": "28",
+      "bbox": [
+        126.69165,
+        37.47007,
+        126.753395,
+        37.521989
+      ],
       "sido": "인천광역시",
-      "sigungu": "부평구",
       "count": 356,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.492737,
         "lng": 126.719824
       },
-      "bbox": [
-        126.4313,
-        35.52096,
-        126.75516,
-        37.52293
-      ]
-    },
-    {
-      "region_id": "28-ganghwa",
-      "sido_code": "28",
-      "sido": "인천광역시",
-      "sigungu": "강화군",
-      "count": 276,
+      "sigungu": "부평구",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "28-bupyeong",
+      "sido_code": "28",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        126.196625,
+        37.596827,
+        126.5386,
+        37.810007
+      ],
+      "sido": "인천광역시",
+      "count": 276,
       "center": {
         "lat": 37.717376,
         "lng": 126.401947
       },
-      "bbox": [
-        126.1773,
-        37.59095,
-        126.5386,
-        37.82644
-      ]
-    },
-    {
-      "region_id": "28-geomdan",
-      "sido_code": "28",
-      "sido": "인천광역시",
-      "sigungu": "검단구",
-      "count": 168,
+      "sigungu": "강화군",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "28-ganghwa",
+      "sido_code": "28",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        126.627747,
+        37.584535,
+        126.715649,
+        37.623849
+      ],
+      "sido": "인천광역시",
+      "count": 168,
       "center": {
         "lat": 37.600492,
         "lng": 126.667372
       },
-      "bbox": [
-        126.618925,
-        37.572762,
-        126.71727,
-        37.629548
-      ]
+      "sigungu": "검단구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "28-geomdan",
+      "sido_code": "28",
+      "r1_coverage": null
     },
     {
-      "region_id": "28-gyeyang",
-      "sido_code": "28",
+      "bbox": [
+        126.70122,
+        37.524797,
+        126.757934,
+        37.579618
+      ],
       "sido": "인천광역시",
-      "sigungu": "계양구",
       "count": 213,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.542375,
         "lng": 126.732226
       },
-      "bbox": [
-        126.692458,
-        37.524167,
-        126.778814,
-        37.580801
-      ]
-    },
-    {
-      "region_id": "28-jemulpo",
-      "sido_code": "28",
-      "sido": "인천광역시",
-      "sigungu": "제물포구",
-      "count": 123,
+      "sigungu": "계양구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "28-gyeyang",
+      "sido_code": "28",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.619553,
+        37.46962,
+        126.670665,
+        37.488538
+      ],
+      "sido": "인천광역시",
+      "count": 123,
       "center": {
         "lat": 37.47941,
         "lng": 126.640332
       },
-      "bbox": [
-        126.617704,
-        37.46915,
-        126.67114,
-        37.49124
-      ]
-    },
-    {
-      "region_id": "28-michuhol",
-      "sido_code": "28",
-      "sido": "인천광역시",
-      "sigungu": "미추홀구",
-      "count": 344,
+      "sigungu": "제물포구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "28-jemulpo",
+      "sido_code": "28",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.634618,
+        37.434517,
+        126.699568,
+        37.477458
+      ],
+      "sido": "인천광역시",
+      "count": 344,
       "center": {
         "lat": 37.455615,
         "lng": 126.670436
       },
-      "bbox": [
-        126.629895,
-        37.433979,
-        127.086465,
-        37.735274
-      ]
-    },
-    {
-      "region_id": "28-namdong",
-      "sido_code": "28",
-      "sido": "인천광역시",
-      "sigungu": "남동구",
-      "count": 684,
+      "sigungu": "미추홀구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "28-michuhol",
+      "sido_code": "28",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.694804,
+        37.384182,
+        126.752172,
+        37.468243
+      ],
+      "sido": "인천광역시",
+      "count": 684,
       "center": {
         "lat": 37.422266,
         "lng": 126.742706
       },
-      "bbox": [
-        126.56497,
-        35.198799,
-        129.118751,
-        37.505376
-      ]
-    },
-    {
-      "region_id": "28-ongjin",
-      "sido_code": "28",
-      "sido": "인천광역시",
-      "sigungu": "옹진군",
-      "count": 123,
+      "sigungu": "남동구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "28-namdong",
+      "sido_code": "28",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        124.622429,
+        37.102611,
+        126.49152,
+        37.981188
+      ],
+      "sido": "인천광역시",
+      "count": 123,
       "center": {
         "lat": 37.541446,
         "lng": 125.669673
       },
-      "bbox": [
-        124.622392,
-        37.024488,
-        126.536518,
-        37.981629
-      ]
+      "sigungu": "옹진군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "28-ongjin",
+      "sido_code": "28",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "28-seohae",
-      "sido_code": "28",
+      "bbox": [
+        126.614228,
+        37.479235,
+        126.697768,
+        37.611073
+      ],
       "sido": "인천광역시",
-      "sigungu": "서해구",
       "count": 1850,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.535197,
         "lng": 126.670589
       },
-      "bbox": [
-        126.513118,
-        37.473773,
-        126.722352,
-        39.499264
-      ]
+      "sigungu": "서해구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "28-seohae",
+      "sido_code": "28",
+      "r1_coverage": null
     },
     {
-      "region_id": "28-yeonsu",
-      "sido_code": "28",
+      "bbox": [
+        126.641448,
+        37.384539,
+        126.701297,
+        37.434419
+      ],
       "sido": "인천광역시",
-      "sigungu": "연수구",
       "count": 168,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.416127,
         "lng": 126.670629
       },
-      "bbox": [
-        126.641448,
-        37.384539,
-        126.701401,
-        37.435349
-      ]
-    },
-    {
-      "region_id": "30-daedeok",
-      "sido_code": "30",
-      "sido": "대전광역시",
-      "sigungu": "대덕구",
-      "count": 118,
+      "sigungu": "연수구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "28-yeonsu",
+      "sido_code": "28",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.404484,
+        36.346784,
+        127.474263,
+        36.47354
+      ],
+      "sido": "대전광역시",
+      "count": 118,
       "center": {
         "lat": 36.39387,
         "lng": 127.425256
       },
-      "bbox": [
-        127.402625,
-        36.346784,
-        127.481631,
-        36.474504
-      ]
-    },
-    {
-      "region_id": "30-dong",
-      "sido_code": "30",
-      "sido": "대전광역시",
-      "sigungu": "동구",
-      "count": 57,
+      "sigungu": "대덕구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "30-daedeok",
+      "sido_code": "30",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.421365,
+        36.281339,
+        127.492992,
+        36.365053
+      ],
+      "sido": "대전광역시",
+      "count": 57,
       "center": {
         "lat": 36.323757,
         "lng": 127.447677
       },
-      "bbox": [
-        127.420461,
-        36.218629,
-        127.493395,
-        36.373341
-      ]
-    },
-    {
-      "region_id": "30-jung",
-      "sido_code": "30",
-      "sido": "대전광역시",
-      "sigungu": "중구",
-      "count": 164,
+      "sigungu": "동구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "30-dong",
+      "sido_code": "30",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.383698,
+        36.28538,
+        127.442409,
+        36.338905
+      ],
+      "sido": "대전광역시",
+      "count": 164,
       "center": {
         "lat": 36.317717,
         "lng": 127.410309
       },
-      "bbox": [
-        127.383698,
-        36.28538,
-        127.44243,
-        36.338905
-      ]
-    },
-    {
-      "region_id": "30-seo",
-      "sido_code": "30",
-      "sido": "대전광역시",
-      "sigungu": "서구",
-      "count": 986,
+      "sigungu": "중구",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "30-jung",
+      "sido_code": "30",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.329261,
+        36.251117,
+        127.398451,
+        36.369641
+      ],
+      "sido": "대전광역시",
+      "count": 986,
       "center": {
         "lat": 36.5308,
         "lng": 127.051173
       },
-      "bbox": [
-        125.246105,
-        36.215953,
-        127.695226,
-        37.575334
-      ]
+      "sigungu": "서구",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "30-seo",
+      "sido_code": "30",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "30-yuseong",
-      "sido_code": "30",
+      "bbox": [
+        127.300053,
+        36.298001,
+        127.406846,
+        36.440503
+      ],
       "sido": "대전광역시",
-      "sigungu": "유성구",
       "count": 111,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.373315,
         "lng": 127.348351
       },
-      "bbox": [
-        127.267513,
-        36.294984,
-        127.407736,
-        36.446876
-      ]
-    },
-    {
-      "region_id": "31-buk",
-      "sido_code": "31",
-      "sido": "울산광역시",
-      "sigungu": "북구",
-      "count": 251,
+      "sigungu": "유성구",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "30-yuseong",
+      "sido_code": "30",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        129.313885,
+        35.530706,
+        129.45672,
+        35.663061
+      ],
+      "sido": "울산광역시",
+      "count": 251,
       "center": {
         "lat": 35.604034,
         "lng": 129.367086
       },
-      "bbox": [
-        129.303021,
-        35.528568,
-        129.46356,
-        35.666544
-      ]
+      "sigungu": "북구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "31-buk",
+      "sido_code": "31",
+      "r1_coverage": null
     },
     {
-      "region_id": "31-dong",
-      "sido_code": "31",
+      "bbox": [
+        129.409897,
+        35.478167,
+        129.45634,
+        35.568127
+      ],
       "sido": "울산광역시",
-      "sigungu": "동구",
       "count": 168,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.7738,
       "center": {
         "lat": 35.510099,
         "lng": 129.426786
       },
-      "bbox": [
-        129.406372,
-        35.477998,
-        129.456741,
-        35.571739
-      ]
-    },
-    {
-      "region_id": "31-jung",
-      "sido_code": "31",
-      "sido": "울산광역시",
-      "sigungu": "중구",
-      "count": 37,
+      "sigungu": "동구",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.0,
+      "region_id": "31-dong",
+      "sido_code": "31",
+      "r1_coverage": 0.7738
+    },
+    {
+      "bbox": [
+        129.269724,
+        35.555651,
+        129.35033,
+        35.581139
+      ],
+      "sido": "울산광역시",
+      "count": 37,
       "center": {
         "lat": 35.564668,
         "lng": 129.320601
       },
-      "bbox": [
-        129.267037,
-        35.55528,
-        129.352434,
-        35.582151
-      ]
+      "sigungu": "중구",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "31-jung",
+      "sido_code": "31",
+      "r1_coverage": 0.0
     },
     {
-      "region_id": "31-nam",
-      "sido_code": "31",
+      "bbox": [
+        129.25531,
+        35.501264,
+        129.382364,
+        35.55235
+      ],
       "sido": "울산광역시",
-      "sigungu": "남구",
       "count": 141,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.532877,
         "lng": 129.31554
       },
-      "bbox": [
-        129.25528,
-        35.499712,
-        129.38292,
-        35.55397
-      ]
+      "sigungu": "남구",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "31-nam",
+      "sido_code": "31",
+      "r1_coverage": null
     },
     {
-      "region_id": "31-ulju",
-      "sido_code": "31",
-      "sido": "울산광역시",
-      "sigungu": "울주군",
-      "count": 98,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.0,
-      "center": {
-        "lat": 35.507084,
-        "lng": 129.223494
-      },
       "bbox": [
         129.067614,
         35.344345,
         129.360905,
         35.712577
-      ]
+      ],
+      "sido": "울산광역시",
+      "count": 98,
+      "center": {
+        "lat": 35.507084,
+        "lng": 129.223494
+      },
+      "sigungu": "울주군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "31-ulju",
+      "sido_code": "31",
+      "r1_coverage": 0.0
     },
     {
-      "region_id": "36-eopeum",
-      "sido_code": "36",
+      "bbox": [
+        127.156418,
+        36.354161,
+        127.37076,
+        36.719101
+      ],
       "sido": "세종특별자치시",
-      "sigungu": "없음",
       "count": 801,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.540073,
         "lng": 127.267891
       },
-      "bbox": [
-        126.61433,
-        36.311011,
-        128.009212,
-        37.594604
-      ]
+      "sigungu": "없음",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "36-eopeum",
+      "sido_code": "36",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-ansan",
-      "sido_code": "41",
+      "bbox": [
+        126.760131,
+        37.282414,
+        126.90548,
+        37.362026
+      ],
       "sido": "경기도",
-      "sigungu": "안산시",
       "count": 811,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.313744,
         "lng": 126.822818
       },
-      "bbox": [
-        126.391557,
-        37.097522,
-        126.9321,
-        37.369003
-      ]
-    },
-    {
-      "region_id": "41-anseong",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "안성시",
-      "count": 1507,
+      "sigungu": "안산시",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "41-ansan",
+      "sido_code": "41",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.129102,
+        36.933546,
+        127.490083,
+        37.121794
+      ],
+      "sido": "경기도",
+      "count": 1507,
       "center": {
         "lat": 37.021547,
         "lng": 127.272844
       },
-      "bbox": [
-        127.119569,
-        36.906393,
-        127.51225,
-        37.14127
-      ]
+      "sigungu": "안성시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "41-anseong",
+      "sido_code": "41",
+      "r1_coverage": null
     },
     {
-      "region_id": "41-anyang",
-      "sido_code": "41",
+      "bbox": [
+        126.89174,
+        37.366888,
+        126.977428,
+        37.431421
+      ],
       "sido": "경기도",
-      "sigungu": "안양시",
       "count": 698,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9126,
       "center": {
         "lat": 37.395754,
         "lng": 126.938739
       },
-      "bbox": [
-        126.883082,
-        37.36272,
-        126.98059,
-        37.442407
-      ]
-    },
-    {
-      "region_id": "41-bucheon",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "부천시",
-      "count": 1199,
+      "sigungu": "안양시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "41-anyang",
+      "sido_code": "41",
+      "r1_coverage": 0.9126
+    },
+    {
+      "bbox": [
+        126.745594,
+        37.467306,
+        126.825,
+        37.530105
+      ],
+      "sido": "경기도",
+      "count": 1199,
       "center": {
         "lat": 37.499692,
         "lng": 126.785233
       },
-      "bbox": [
-        126.74398,
-        37.100472,
-        127.351528,
-        37.783556
-      ]
+      "sigungu": "부천시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-bucheon",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-dongducheon",
-      "sido_code": "41",
+      "bbox": [
+        127.038938,
+        37.879804,
+        127.101885,
+        37.949492
+      ],
       "sido": "경기도",
-      "sigungu": "동두천",
       "count": 162,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.906369,
         "lng": 127.058002
       },
-      "bbox": [
-        127.017631,
-        37.873795,
-        127.106289,
-        37.949492
-      ]
+      "sigungu": "동두천",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "41-dongducheon",
+      "sido_code": "41",
+      "r1_coverage": null
     },
     {
-      "region_id": "41-gapyeong",
-      "sido_code": "41",
+      "bbox": [
+        127.342713,
+        37.675817,
+        127.552381,
+        37.886706
+      ],
       "sido": "경기도",
-      "sigungu": "가평군",
       "count": 50,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.787227,
         "lng": 127.462524
       },
-      "bbox": [
-        127.3365,
-        37.6757,
-        127.554837,
-        37.888064
-      ]
+      "sigungu": "가평군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-gapyeong",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-gimpo",
-      "sido_code": "41",
+      "bbox": [
+        126.53931,
+        37.596546,
+        126.772996,
+        37.755366
+      ],
       "sido": "경기도",
-      "sigungu": "김포시",
       "count": 650,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.652222,
         "lng": 126.661082
       },
-      "bbox": [
-        126.527496,
-        37.586025,
-        126.787877,
-        37.766615
-      ]
+      "sigungu": "김포시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "41-gimpo",
+      "sido_code": "41",
+      "r1_coverage": null
     },
     {
-      "region_id": "41-goyang",
-      "sido_code": "41",
+      "bbox": [
+        126.735768,
+        37.579985,
+        126.920231,
+        37.719059
+      ],
       "sido": "경기도",
-      "sigungu": "고양시",
       "count": 613,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9967,
       "center": {
         "lat": 37.654698,
         "lng": 126.818579
       },
-      "bbox": [
-        126.718719,
-        37.57888,
-        126.92657,
-        37.72578
-      ]
+      "sigungu": "고양시",
+      "available": true,
+      "r1_status": "confirmed",
+      "region_id": "41-goyang",
+      "sido_code": "41",
+      "r1_coverage": 0.9967
     },
     {
-      "region_id": "41-gunpo",
-      "sido_code": "41",
+      "bbox": [
+        126.915179,
+        37.315657,
+        126.956851,
+        37.375027
+      ],
       "sido": "경기도",
-      "sigungu": "군포시",
       "count": 337,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8665,
       "center": {
         "lat": 37.351764,
         "lng": 126.93453
       },
-      "bbox": [
-        126.888999,
-        37.313578,
-        126.957533,
-        37.375765
-      ]
+      "sigungu": "군포시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "41-gunpo",
+      "sido_code": "41",
+      "r1_coverage": 0.8665
     },
     {
-      "region_id": "41-guri",
-      "sido_code": "41",
+      "bbox": [
+        127.112758,
+        37.575189,
+        127.158693,
+        37.638488
+      ],
       "sido": "경기도",
-      "sigungu": "구리시",
       "count": 1354,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.604678,
         "lng": 127.135962
       },
-      "bbox": [
-        127.111655,
-        37.574481,
-        127.163147,
-        37.640627
-      ]
+      "sigungu": "구리시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-guri",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-gwacheon",
-      "sido_code": "41",
+      "bbox": [
+        126.986794,
+        37.418806,
+        127.014146,
+        37.452318
+      ],
       "sido": "경기도",
-      "sigungu": "과천시",
       "count": 72,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.0,
       "center": {
         "lat": 37.429698,
         "lng": 126.991335
       },
-      "bbox": [
-        126.986794,
-        37.418745,
-        127.028935,
-        37.453154
-      ]
-    },
-    {
-      "region_id": "41-gwangju",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "광주시",
-      "count": 589,
+      "sigungu": "과천시",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.8812,
+      "region_id": "41-gwacheon",
+      "sido_code": "41",
+      "r1_coverage": 0.0
+    },
+    {
+      "bbox": [
+        127.154886,
+        37.301485,
+        127.407006,
+        37.5078
+      ],
+      "sido": "경기도",
+      "count": 589,
       "center": {
         "lat": 37.395278,
         "lng": 127.266901
       },
-      "bbox": [
-        127.143304,
-        37.2763,
-        127.435298,
-        37.531436
-      ]
-    },
-    {
-      "region_id": "41-gwangmyeong",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "광명시",
-      "count": 280,
+      "sigungu": "광주시",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.8964,
+      "region_id": "41-gwangju",
+      "sido_code": "41",
+      "r1_coverage": 0.8812
+    },
+    {
+      "bbox": [
+        126.845373,
+        37.415984,
+        126.894801,
+        37.491309
+      ],
+      "sido": "경기도",
+      "count": 280,
       "center": {
         "lat": 37.463219,
         "lng": 126.8685
       },
-      "bbox": [
-        126.831277,
-        37.412936,
-        126.895667,
-        37.493846
-      ]
+      "sigungu": "광명시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "41-gwangmyeong",
+      "sido_code": "41",
+      "r1_coverage": 0.8964
     },
     {
-      "region_id": "41-hanam",
-      "sido_code": "41",
+      "bbox": [
+        127.147433,
+        37.474806,
+        127.233872,
+        37.578524
+      ],
       "sido": "경기도",
-      "sigungu": "하남시",
       "count": 2420,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.54154,
         "lng": 127.195052
       },
-      "bbox": [
-        127.107011,
-        37.30378,
-        127.9506,
-        37.908402
-      ]
-    },
-    {
-      "region_id": "41-hwaseong",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "화성시",
-      "count": 546,
+      "sigungu": "하남시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "41-hanam",
+      "sido_code": "41",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.667814,
+        37.068693,
+        127.123897,
+        37.283945
+      ],
+      "sido": "경기도",
+      "count": 546,
       "center": {
         "lat": 37.187195,
         "lng": 126.965753
       },
-      "bbox": [
-        126.617019,
-        37.04307,
-        127.13853,
-        37.402009
-      ]
+      "sigungu": "화성시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-hwaseong",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-icheon",
-      "sido_code": "41",
+      "bbox": [
+        127.287935,
+        37.094288,
+        127.618838,
+        37.337918
+      ],
       "sido": "경기도",
-      "sigungu": "이천시",
       "count": 302,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.6358,
       "center": {
         "lat": 37.247507,
         "lng": 127.458481
       },
-      "bbox": [
-        127.24749,
-        37.07003,
-        127.631785,
-        37.340097
-      ]
-    },
-    {
-      "region_id": "41-namyangju",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "남양주",
-      "count": 118,
+      "sigungu": "이천시",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.8305,
+      "region_id": "41-icheon",
+      "sido_code": "41",
+      "r1_coverage": 0.6358
+    },
+    {
+      "bbox": [
+        127.105184,
+        37.513292,
+        127.318111,
+        37.742519
+      ],
+      "sido": "경기도",
+      "count": 118,
       "center": {
         "lat": 37.613231,
         "lng": 127.205426
       },
-      "bbox": [
-        127.105184,
-        35.597447,
-        127.345863,
-        37.74463
-      ]
+      "sigungu": "남양주",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "41-namyangju",
+      "sido_code": "41",
+      "r1_coverage": 0.8305
     },
     {
-      "region_id": "41-osan",
-      "sido_code": "41",
+      "bbox": [
+        127.03125,
+        37.130088,
+        127.079043,
+        37.196784
+      ],
       "sido": "경기도",
-      "sigungu": "오산시",
       "count": 132,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.158096,
         "lng": 127.062718
       },
-      "bbox": [
-        127.017533,
-        37.129526,
-        127.09099,
-        37.197912
-      ]
-    },
-    {
-      "region_id": "41-paju",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "파주시",
-      "count": 664,
+      "sigungu": "오산시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "41-osan",
+      "sido_code": "41",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.688822,
+        37.705926,
+        126.886339,
+        37.90626
+      ],
+      "sido": "경기도",
+      "count": 664,
       "center": {
         "lat": 37.771967,
         "lng": 126.776464
       },
-      "bbox": [
-        126.684076,
-        37.701705,
-        126.947316,
-        37.957171
-      ]
+      "sigungu": "파주시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-paju",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-pocheon",
-      "sido_code": "41",
+      "bbox": [
+        127.12246,
+        37.768316,
+        127.36873,
+        38.157701
+      ],
       "sido": "경기도",
-      "sigungu": "포천시",
       "count": 536,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.911737,
         "lng": 127.220442
       },
-      "bbox": [
-        127.1143,
-        37.01865,
-        127.5952,
-        38.1665
-      ]
+      "sigungu": "포천시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "41-pocheon",
+      "sido_code": "41",
+      "r1_coverage": null
     },
     {
-      "region_id": "41-pyeongtaek",
-      "sido_code": "41",
+      "bbox": [
+        126.843427,
+        36.920326,
+        127.144896,
+        37.109344
+      ],
       "sido": "경기도",
-      "sigungu": "평택시",
       "count": 514,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9066,
       "center": {
         "lat": 37.014027,
         "lng": 127.049668
       },
-      "bbox": [
-        126.833602,
-        36.917022,
-        127.151236,
-        37.134386
-      ]
-    },
-    {
-      "region_id": "41-seongnam",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "성남시",
-      "count": 1308,
+      "sigungu": "평택시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "41-pyeongtaek",
+      "sido_code": "41",
+      "r1_coverage": 0.9066
+    },
+    {
+      "bbox": [
+        127.068004,
+        37.339162,
+        127.179013,
+        37.468508
+      ],
+      "sido": "경기도",
+      "count": 1308,
       "center": {
         "lat": 37.405763,
         "lng": 127.128948
       },
-      "bbox": [
-        127.047033,
-        37.335837,
-        127.183015,
-        37.47381
-      ]
+      "sigungu": "성남시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-seongnam",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-siheung",
-      "sido_code": "41",
+      "bbox": [
+        126.688088,
+        37.334303,
+        126.862081,
+        37.45159
+      ],
       "sido": "경기도",
-      "sigungu": "시흥시",
       "count": 408,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.384366,
         "lng": 126.7751
       },
-      "bbox": [
-        126.683672,
-        37.321063,
-        126.865131,
-        37.458022
-      ]
+      "sigungu": "시흥시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "41-siheung",
+      "sido_code": "41",
+      "r1_coverage": null
     },
     {
-      "region_id": "41-suwon",
-      "sido_code": "41",
+      "bbox": [
+        126.948281,
+        37.238682,
+        127.081092,
+        37.309871
+      ],
       "sido": "경기도",
-      "sigungu": "수원시",
       "count": 437,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.276141,
         "lng": 127.01705
       },
-      "bbox": [
-        126.942874,
-        37.236487,
-        127.08454,
-        37.336099
-      ]
+      "sigungu": "수원시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-suwon",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "41-uijeongbu",
-      "sido_code": "41",
+      "bbox": [
+        127.023836,
+        37.712683,
+        127.103449,
+        37.759489
+      ],
       "sido": "경기도",
-      "sigungu": "의정부시",
       "count": 49,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 37.740861,
         "lng": 127.051052
       },
-      "bbox": [
-        127.023836,
-        37.711992,
-        127.113735,
-        37.76013
-      ]
-    },
-    {
-      "region_id": "41-uiwang",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "의왕시",
-      "count": 523,
+      "sigungu": "의정부시",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
-      "center": {
-        "lat": 37.3448,
-        "lng": 126.9682
-      },
+      "region_id": "41-uijeongbu",
+      "sido_code": "41",
+      "r1_coverage": null
+    },
+    {
       "bbox": [
         126.9682,
         37.3448,
         126.9682,
         37.3448
-      ]
-    },
-    {
-      "region_id": "41-yangju",
-      "sido_code": "41",
+      ],
       "sido": "경기도",
-      "sigungu": "양주시",
-      "count": 100,
+      "count": 523,
+      "center": {
+        "lat": 37.3448,
+        "lng": 126.9682
+      },
+      "sigungu": "의왕시",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "41-uiwang",
+      "sido_code": "41",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        126.940707,
+        37.717831,
+        127.096742,
+        37.907951
+      ],
+      "sido": "경기도",
+      "count": 100,
       "center": {
         "lat": 37.817934,
         "lng": 127.044972
       },
-      "bbox": [
-        126.939352,
-        37.715941,
-        127.107157,
-        37.921919
-      ]
-    },
-    {
-      "region_id": "41-yangpyeong",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "양평군",
-      "count": 451,
+      "sigungu": "양주시",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "41-yangju",
+      "sido_code": "41",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.2912,
+        37.2949,
+        127.765122,
+        37.642361
+      ],
+      "sido": "경기도",
+      "count": 451,
       "center": {
         "lat": 37.498128,
         "lng": 127.487666
       },
-      "bbox": [
-        127.2909,
-        37.254,
-        127.799364,
-        37.644382
-      ]
+      "sigungu": "양평군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "41-yangpyeong",
+      "sido_code": "41",
+      "r1_coverage": null
     },
     {
-      "region_id": "41-yeoju",
-      "sido_code": "41",
+      "bbox": [
+        127.531368,
+        37.201654,
+        127.711073,
+        37.390886
+      ],
       "sido": "경기도",
-      "sigungu": "여주시",
       "count": 494,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.290888,
         "lng": 127.626576
       },
-      "bbox": [
-        127.442956,
-        37.201133,
-        127.711362,
-        37.402063
-      ]
-    },
-    {
-      "region_id": "41-yeoncheon",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "연천군",
-      "count": 75,
+      "sigungu": "여주시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "41-yeoju",
+      "sido_code": "41",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.878415,
+        37.981172,
+        127.136743,
+        38.183414
+      ],
+      "sido": "경기도",
+      "count": 75,
       "center": {
         "lat": 38.051748,
         "lng": 127.045387
       },
-      "bbox": [
-        126.861923,
-        37.979591,
-        127.141025,
-        38.184307
-      ]
-    },
-    {
-      "region_id": "41-yongin",
-      "sido_code": "41",
-      "sido": "경기도",
-      "sigungu": "용인시",
-      "count": 559,
+      "sigungu": "연천군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "41-yeoncheon",
+      "sido_code": "41",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.066818,
+        37.154274,
+        127.281583,
+        37.342378
+      ],
+      "sido": "경기도",
+      "count": 559,
       "center": {
         "lat": 37.277496,
         "lng": 127.140269
       },
-      "bbox": [
-        127.054737,
-        37.115704,
-        127.375829,
-        37.357536
-      ]
+      "sigungu": "용인시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "41-yongin",
+      "sido_code": "41",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "43-boeun",
-      "sido_code": "43",
-      "sido": "충청북도",
-      "sigungu": "보은군",
-      "count": 111,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
-      "center": {
-        "lat": 35.0,
-        "lng": 128.0
-      },
       "bbox": [
         128.0,
         35.0,
         128.0,
         35.0
-      ]
+      ],
+      "sido": "충청북도",
+      "count": 111,
+      "center": {
+        "lat": 35.0,
+        "lng": 128.0
+      },
+      "sigungu": "보은군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "43-boeun",
+      "sido_code": "43",
+      "r1_coverage": null
     },
     {
-      "region_id": "43-cheongju",
-      "sido_code": "43",
+      "bbox": [
+        127.357511,
+        36.510103,
+        127.548574,
+        36.739485
+      ],
       "sido": "충청북도",
-      "sigungu": "청주시",
       "count": 548,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.625545,
         "lng": 127.456136
       },
-      "bbox": [
-        127.323268,
-        36.486509,
-        127.658419,
-        36.758476
-      ]
-    },
-    {
-      "region_id": "43-chungju",
-      "sido_code": "43",
-      "sido": "충청북도",
-      "sigungu": "충주시",
-      "count": 206,
+      "sigungu": "청주시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "43-cheongju",
+      "sido_code": "43",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.73652,
+        36.843574,
+        128.06703,
+        37.109769
+      ],
+      "sido": "충청북도",
+      "count": 206,
       "center": {
         "lat": 36.980506,
         "lng": 127.913454
       },
-      "bbox": [
-        127.7363,
-        36.839262,
-        128.068689,
-        37.11044
-      ]
-    },
-    {
-      "region_id": "43-danyang",
-      "sido_code": "43",
-      "sido": "충청북도",
-      "sigungu": "단양군",
-      "count": 315,
+      "sigungu": "충주시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "43-chungju",
+      "sido_code": "43",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.280254,
+        36.905093,
+        128.492922,
+        37.100166
+      ],
+      "sido": "충청북도",
+      "count": 315,
       "center": {
         "lat": 36.993504,
         "lng": 128.356539
       },
-      "bbox": [
-        128.273657,
-        36.894216,
-        128.510821,
-        37.10299
-      ]
+      "sigungu": "단양군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "43-danyang",
+      "sido_code": "43",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "43-eumseong",
-      "sido_code": "43",
+      "bbox": [
+        127.455219,
+        36.875068,
+        127.7696,
+        37.118118
+      ],
       "sido": "충청북도",
-      "sigungu": "음성군",
       "count": 65,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.978725,
         "lng": 127.60816
       },
-      "bbox": [
-        127.448726,
-        36.875068,
-        127.770283,
-        37.118705
-      ]
-    },
-    {
-      "region_id": "43-goesan",
-      "sido_code": "43",
-      "sido": "충청북도",
-      "sigungu": "괴산군",
-      "count": 128,
+      "sigungu": "음성군",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "43-eumseong",
+      "sido_code": "43",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.637918,
+        36.658022,
+        128.027364,
+        36.890307
+      ],
+      "sido": "충청북도",
+      "count": 128,
       "center": {
         "lat": 36.78297,
         "lng": 127.804353
       },
-      "bbox": [
-        127.636999,
-        36.655167,
-        128.032841,
-        36.900328
-      ]
+      "sigungu": "괴산군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "43-goesan",
+      "sido_code": "43",
+      "r1_coverage": null
     },
     {
-      "region_id": "43-jecheon",
-      "sido_code": "43",
+      "bbox": [
+        128.090088,
+        37.077745,
+        128.285624,
+        37.1939
+      ],
       "sido": "충청북도",
-      "sigungu": "제천시",
       "count": 355,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8056,
       "center": {
         "lat": 37.129595,
         "lng": 128.198089
       },
-      "bbox": [
-        127.987757,
-        36.843416,
-        128.298078,
-        37.236011
-      ]
+      "sigungu": "제천시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "43-jecheon",
+      "sido_code": "43",
+      "r1_coverage": 0.8056
     },
     {
-      "region_id": "43-jeungpyeong",
-      "sido_code": "43",
+      "bbox": [
+        127.566874,
+        36.705858,
+        127.651149,
+        36.834643
+      ],
       "sido": "충청북도",
-      "sigungu": "증평군",
       "count": 196,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.793109,
         "lng": 127.568676
       },
-      "bbox": [
-        126.66859,
-        36.45412,
-        128.66028,
-        37.53959
-      ]
-    },
-    {
-      "region_id": "43-jincheon",
-      "sido_code": "43",
-      "sido": "충청북도",
-      "sigungu": "진천군",
-      "count": 297,
+      "sigungu": "증평군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "43-jeungpyeong",
+      "sido_code": "43",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.320406,
+        36.76228,
+        127.555309,
+        36.995594
+      ],
+      "sido": "충청북도",
+      "count": 297,
       "center": {
         "lat": 36.880459,
         "lng": 127.454192
       },
-      "bbox": [
-        127.304124,
-        36.751118,
-        127.568625,
-        37.001824
-      ]
+      "sigungu": "진천군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "43-jincheon",
+      "sido_code": "43",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "43-okcheon",
-      "sido_code": "43",
+      "bbox": [
+        127.524456,
+        36.241099,
+        127.792955,
+        36.39452
+      ],
       "sido": "충청북도",
-      "sigungu": "옥천군",
       "count": 274,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.30289,
         "lng": 127.597969
       },
-      "bbox": [
-        127.51608,
-        36.20651,
-        127.83304,
-        36.40669
-      ]
+      "sigungu": "옥천군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "43-okcheon",
+      "sido_code": "43",
+      "r1_coverage": null
     },
     {
-      "region_id": "43-yeongdong",
-      "sido_code": "43",
+      "bbox": [
+        127.633404,
+        36.021536,
+        127.999199,
+        36.264563
+      ],
       "sido": "충청북도",
-      "sigungu": "영동군",
       "count": 131,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.17128,
         "lng": 127.78879
       },
-      "bbox": [
-        127.58544,
-        36.020068,
-        128.016623,
-        36.283902
-      ]
-    },
-    {
-      "region_id": "44-asan",
-      "sido_code": "44",
-      "sido": "충청남도",
-      "sigungu": "아산시",
-      "count": 169,
+      "sigungu": "영동군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9763,
+      "region_id": "43-yeongdong",
+      "sido_code": "43",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.851689,
+        36.729563,
+        127.098656,
+        36.928572
+      ],
+      "sido": "충청남도",
+      "count": 169,
       "center": {
         "lat": 36.797051,
         "lng": 126.991472
       },
-      "bbox": [
-        126.831285,
-        36.722802,
-        127.108732,
-        36.929757
-      ]
-    },
-    {
-      "region_id": "44-boryeong",
-      "sido_code": "44",
-      "sido": "충청남도",
-      "sigungu": "보령시",
-      "count": 262,
+      "sigungu": "아산시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "44-asan",
+      "sido_code": "44",
+      "r1_coverage": 0.9763
+    },
+    {
+      "bbox": [
+        126.353798,
+        36.199016,
+        126.676516,
+        36.478831
+      ],
+      "sido": "충청남도",
+      "count": 262,
       "center": {
         "lat": 36.334868,
         "lng": 126.561157
       },
-      "bbox": [
-        126.077452,
-        36.18113,
-        126.692149,
-        36.507755
-      ]
+      "sigungu": "보령시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "44-boryeong",
+      "sido_code": "44",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "44-buyeo",
-      "sido_code": "44",
+      "bbox": [
+        126.703474,
+        36.135425,
+        127.032353,
+        36.338363
+      ],
       "sido": "충청남도",
-      "sigungu": "부여군",
       "count": 518,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.7452,
       "center": {
         "lat": 36.260987,
         "lng": 126.875952
       },
-      "bbox": [
-        126.535829,
-        36.134986,
-        127.05354,
-        36.338641
-      ]
-    },
-    {
-      "region_id": "44-cheonan",
-      "sido_code": "44",
-      "sido": "충청남도",
-      "sigungu": "천안시",
-      "count": 273,
+      "sigungu": "부여군",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.7985,
+      "region_id": "44-buyeo",
+      "sido_code": "44",
+      "r1_coverage": 0.7452
+    },
+    {
+      "bbox": [
+        127.090613,
+        36.698541,
+        127.325958,
+        36.941077
+      ],
+      "sido": "충청남도",
+      "count": 273,
       "center": {
         "lat": 36.808794,
         "lng": 127.159205
       },
-      "bbox": [
-        127.043279,
-        36.3194,
-        127.4564,
-        36.961744
-      ]
+      "sigungu": "천안시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "44-cheonan",
+      "sido_code": "44",
+      "r1_coverage": 0.7985
     },
     {
-      "region_id": "44-cheongyang",
-      "sido_code": "44",
+      "bbox": [
+        126.70394,
+        36.332126,
+        127.01185,
+        36.53189
+      ],
       "sido": "충청남도",
-      "sigungu": "청양군",
       "count": 195,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9487,
       "center": {
         "lat": 36.432009,
         "lng": 126.839327
       },
-      "bbox": [
-        126.700649,
-        36.328875,
-        127.016858,
-        36.539812
-      ]
+      "sigungu": "청양군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "44-cheongyang",
+      "sido_code": "44",
+      "r1_coverage": 0.9487
     },
     {
-      "region_id": "44-dangjin",
-      "sido_code": "44",
+      "bbox": [
+        126.502041,
+        36.762616,
+        126.825543,
+        37.044606
+      ],
       "sido": "충청남도",
-      "sigungu": "당진시",
       "count": 95,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.4947,
       "center": {
         "lat": 36.895174,
         "lng": 126.682699
       },
-      "bbox": [
-        126.462007,
-        36.762616,
-        126.826061,
-        37.047303
-      ]
-    },
-    {
-      "region_id": "44-geumsan",
-      "sido_code": "44",
-      "sido": "충청남도",
-      "sigungu": "금산군",
-      "count": 228,
+      "sigungu": "당진시",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.8246,
+      "region_id": "44-dangjin",
+      "sido_code": "44",
+      "r1_coverage": 0.4947
+    },
+    {
+      "bbox": [
+        127.2243,
+        36.0339,
+        127.5919,
+        36.1953
+      ],
+      "sido": "충청남도",
+      "count": 228,
       "center": {
         "lat": 36.10564,
         "lng": 127.470715
       },
-      "bbox": [
-        127.2104,
-        36.0131,
-        127.5919,
-        36.3736
-      ]
-    },
-    {
-      "region_id": "44-gongju",
-      "sido_code": "44",
-      "sido": "충청남도",
-      "sigungu": "공주시",
-      "count": 600,
+      "sigungu": "금산군",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.7733,
+      "region_id": "44-geumsan",
+      "sido_code": "44",
+      "r1_coverage": 0.8246
+    },
+    {
+      "bbox": [
+        127.09814,
+        36.42405,
+        127.189769,
+        36.498859
+      ],
+      "sido": "충청남도",
+      "count": 600,
       "center": {
         "lat": 36.473938,
         "lng": 127.119962
       },
-      "bbox": [
-        126.938061,
-        36.293259,
-        127.251228,
-        39.457515
-      ]
+      "sigungu": "공주시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "44-gongju",
+      "sido_code": "44",
+      "r1_coverage": 0.7733
     },
     {
-      "region_id": "44-gyeryong",
-      "sido_code": "44",
+      "bbox": [
+        127.211422,
+        36.247296,
+        127.2766,
+        36.300396
+      ],
       "sido": "충청남도",
-      "sigungu": "계룡시",
       "count": 249,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.300506,
         "lng": 127.235874
       },
-      "bbox": [
-        126.07682,
-        36.229181,
-        127.43299,
-        37.828146
-      ]
+      "sigungu": "계룡시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "44-gyeryong",
+      "sido_code": "44",
+      "r1_coverage": null
     },
     {
-      "region_id": "44-hongseong",
-      "sido_code": "44",
+      "bbox": [
+        126.466836,
+        36.48621,
+        126.757339,
+        36.649055
+      ],
       "sido": "충청남도",
-      "sigungu": "홍성군",
       "count": 111,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.575366,
         "lng": 126.62629
       },
-      "bbox": [
-        126.464584,
-        36.48099,
-        126.764272,
-        36.649909
-      ]
+      "sigungu": "홍성군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "44-hongseong",
+      "sido_code": "44",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "44-nonsan",
-      "sido_code": "44",
+      "bbox": [
+        127.011402,
+        36.105647,
+        127.264004,
+        36.295116
+      ],
       "sido": "충청남도",
-      "sigungu": "논산시",
       "count": 205,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8341,
       "center": {
         "lat": 36.193763,
         "lng": 127.1049
       },
-      "bbox": [
-        127.00015,
-        36.086748,
-        127.302,
-        36.295611
-      ]
+      "sigungu": "논산시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "44-nonsan",
+      "sido_code": "44",
+      "r1_coverage": 0.8341
     },
     {
-      "region_id": "44-seocheon",
-      "sido_code": "44",
+      "bbox": [
+        126.500349,
+        36.009394,
+        126.809934,
+        36.160704
+      ],
       "sido": "충청남도",
-      "sigungu": "서천군",
       "count": 92,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.078532,
         "lng": 126.69503
       },
-      "bbox": [
-        126.499274,
-        36.008326,
-        126.861743,
-        36.163231
-      ]
+      "sigungu": "서천군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "44-seocheon",
+      "sido_code": "44",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "44-seosan",
-      "sido_code": "44",
+      "bbox": [
+        126.350097,
+        36.647546,
+        126.59297,
+        37.002449
+      ],
       "sido": "충청남도",
-      "sigungu": "서산시",
       "count": 150,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.86,
       "center": {
         "lat": 36.787849,
         "lng": 126.45811
       },
-      "bbox": [
-        126.00001,
-        36.00001,
-        126.605171,
-        37.004161
-      ]
+      "sigungu": "서산시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "44-seosan",
+      "sido_code": "44",
+      "r1_coverage": 0.86
     },
     {
-      "region_id": "44-taean",
-      "sido_code": "44",
+      "bbox": [
+        126.140951,
+        36.406104,
+        126.423693,
+        36.956368
+      ],
       "sido": "충청남도",
-      "sigungu": "태안군",
       "count": 284,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.72896,
         "lng": 126.292198
       },
-      "bbox": [
-        126.137152,
-        36.399567,
-        126.427007,
-        36.966537
-      ]
+      "sigungu": "태안군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "44-taean",
+      "sido_code": "44",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "44-yesan",
-      "sido_code": "44",
+      "bbox": [
+        126.627365,
+        36.547028,
+        126.892174,
+        36.754336
+      ],
       "sido": "충청남도",
-      "sigungu": "예산군",
       "count": 62,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.677201,
         "lng": 126.78798
       },
-      "bbox": [
-        126.622669,
-        36.544312,
-        127.01764,
-        37.042211
-      ]
+      "sigungu": "예산군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "44-yesan",
+      "sido_code": "44",
+      "r1_coverage": null
     },
     {
-      "region_id": "47-andong",
-      "sido_code": "47",
+      "bbox": [
+        128.555873,
+        36.45598,
+        128.899981,
+        36.695075
+      ],
       "sido": "경상북도",
-      "sigungu": "안동시",
       "count": 237,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9578,
       "center": {
         "lat": 36.570321,
         "lng": 128.725575
       },
-      "bbox": [
-        128.45203,
-        36.34792,
-        128.94798,
-        36.7474
-      ]
-    },
-    {
-      "region_id": "47-bonghwa",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "봉화군",
-      "count": 54,
+      "sigungu": "안동시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9815,
+      "region_id": "47-andong",
+      "sido_code": "47",
+      "r1_coverage": 0.9578
+    },
+    {
+      "bbox": [
+        128.728141,
+        36.788165,
+        129.073966,
+        37.048465
+      ],
+      "sido": "경상북도",
+      "count": 54,
       "center": {
         "lat": 36.906158,
         "lng": 128.831801
       },
-      "bbox": [
-        128.725476,
-        36.787678,
-        129.083883,
-        37.048635
-      ]
-    },
-    {
-      "region_id": "47-cheongdo",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "청도군",
-      "count": 59,
+      "sigungu": "봉화군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "47-bonghwa",
+      "sido_code": "47",
+      "r1_coverage": 0.9815
+    },
+    {
+      "bbox": [
+        128.54962,
+        35.604342,
+        128.956458,
+        35.716428
+      ],
+      "sido": "경상북도",
+      "count": 59,
       "center": {
         "lat": 35.667022,
         "lng": 128.732882
       },
-      "bbox": [
-        128.54962,
-        35.571081,
-        128.956458,
-        35.716428
-      ]
-    },
-    {
-      "region_id": "47-cheongsong",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "청송군",
-      "count": 155,
+      "sigungu": "청도군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9806,
+      "region_id": "47-cheongdo",
+      "sido_code": "47",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.894914,
+        36.206623,
+        129.204835,
+        36.539386
+      ],
+      "sido": "경상북도",
+      "count": 155,
       "center": {
         "lat": 36.379847,
         "lng": 129.036918
       },
-      "bbox": [
-        128.875032,
-        36.199782,
-        129.207423,
-        36.54039
-      ]
-    },
-    {
-      "region_id": "47-chilgok",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "칠곡군",
-      "count": 41,
+      "sigungu": "청송군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "47-cheongsong",
+      "sido_code": "47",
+      "r1_coverage": 0.9806
+    },
+    {
+      "bbox": [
+        128.342043,
+        35.956169,
+        128.553476,
+        36.085434
+      ],
+      "sido": "경상북도",
+      "count": 41,
       "center": {
         "lat": 36.046083,
         "lng": 128.455665
       },
-      "bbox": [
-        128.341762,
-        35.956138,
-        128.553487,
-        36.98668
-      ]
+      "sigungu": "칠곡군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "47-chilgok",
+      "sido_code": "47",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "47-gimcheon",
-      "sido_code": "47",
+      "bbox": [
+        128.022252,
+        36.020352,
+        128.256204,
+        36.190376
+      ],
       "sido": "경상북도",
-      "sigungu": "김천시",
       "count": 296,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.115033,
         "lng": 128.111507
       },
-      "bbox": [
-        127.918,
-        35.8643,
-        128.2695,
-        36.2142
-      ]
+      "sigungu": "김천시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "47-gimcheon",
+      "sido_code": "47",
+      "r1_coverage": null
     },
     {
-      "region_id": "47-goryeong",
-      "sido_code": "47",
+      "bbox": [
+        128.183373,
+        35.638793,
+        128.452104,
+        35.835991
+      ],
       "sido": "경상북도",
-      "sigungu": "고령군",
       "count": 102,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9857,
       "center": {
         "lat": 35.731559,
         "lng": 128.293384
       },
-      "bbox": [
-        128.16121,
-        35.618268,
-        128.455174,
-        35.84032
-      ]
-    },
-    {
-      "region_id": "47-gumi",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "구미시",
-      "count": 773,
+      "sigungu": "고령군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "47-goryeong",
+      "sido_code": "47",
+      "r1_coverage": 0.9857
+    },
+    {
+      "bbox": [
+        128.14161,
+        36.087275,
+        128.494336,
+        36.339074
+      ],
+      "sido": "경상북도",
+      "count": 773,
       "center": {
         "lat": 36.214487,
         "lng": 128.335071
       },
-      "bbox": [
-        128.103089,
-        36.068756,
-        128.93493,
-        36.947869
-      ]
-    },
-    {
-      "region_id": "47-gyeongju",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "경주시",
-      "count": 3762,
+      "sigungu": "구미시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9968,
+      "region_id": "47-gumi",
+      "sido_code": "47",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        129.047978,
+        35.668021,
+        129.505456,
+        36.003912
+      ],
+      "sido": "경상북도",
+      "count": 3762,
       "center": {
         "lat": 35.836493,
         "lng": 129.251871
       },
-      "bbox": [
-        126.9067,
-        35.55349,
-        129.5103,
-        37.5667
-      ]
-    },
-    {
-      "region_id": "47-gyeongsan",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "경산시",
-      "count": 57,
+      "sigungu": "경주시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9123,
+      "region_id": "47-gyeongju",
+      "sido_code": "47",
+      "r1_coverage": 0.9968
+    },
+    {
+      "bbox": [
+        128.720346,
+        35.781447,
+        128.87555,
+        35.929066
+      ],
+      "sido": "경상북도",
+      "count": 57,
       "center": {
         "lat": 35.849189,
         "lng": 128.773403
       },
-      "bbox": [
-        128.713185,
-        35.766427,
-        128.875925,
-        35.946288
-      ]
-    },
-    {
-      "region_id": "47-mungyeong",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "문경시",
-      "count": 50,
+      "sigungu": "경산시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "47-gyeongsan",
+      "sido_code": "47",
+      "r1_coverage": 0.9123
+    },
+    {
+      "bbox": [
+        128.031582,
+        36.584052,
+        128.287777,
+        36.769606
+      ],
+      "sido": "경상북도",
+      "count": 50,
       "center": {
         "lat": 36.635224,
         "lng": 128.167066
       },
-      "bbox": [
-        128.003466,
-        36.58208,
-        128.314998,
-        36.773377
-      ]
+      "sigungu": "문경시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "47-mungyeong",
+      "sido_code": "47",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "47-pohang",
-      "sido_code": "47",
+      "bbox": [
+        129.09542,
+        35.897762,
+        129.566409,
+        36.249511
+      ],
       "sido": "경상북도",
-      "sigungu": "포항시",
       "count": 327,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.7737,
       "center": {
         "lat": 36.048399,
         "lng": 129.368575
       },
-      "bbox": [
-        129.085029,
-        35.869645,
-        129.573495,
-        36.258966
-      ]
+      "sigungu": "포항시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "47-pohang",
+      "sido_code": "47",
+      "r1_coverage": 0.7737
     },
     {
-      "region_id": "47-sangju",
-      "sido_code": "47",
+      "bbox": [
+        127.889966,
+        36.285062,
+        128.308346,
+        36.582032
+      ],
       "sido": "경상북도",
-      "sigungu": "상주시",
       "count": 468,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.435822,
         "lng": 128.139216
       },
-      "bbox": [
-        127.827782,
-        36.277039,
-        128.308346,
-        36.628092
-      ]
-    },
-    {
-      "region_id": "47-seongju",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "성주군",
-      "count": 645,
+      "sigungu": "상주시",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "47-sangju",
+      "sido_code": "47",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        128.096453,
+        35.800752,
+        128.388342,
+        36.026071
+      ],
+      "sido": "경상북도",
+      "count": 645,
       "center": {
         "lat": 35.918625,
         "lng": 128.307261
       },
-      "bbox": [
-        127.919,
-        35.34575,
-        131.262476,
-        38.972334
-      ]
+      "sigungu": "성주군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "47-seongju",
+      "sido_code": "47",
+      "r1_coverage": null
     },
     {
-      "region_id": "47-uiseong",
-      "sido_code": "47",
+      "bbox": [
+        128.353855,
+        36.225128,
+        128.826168,
+        36.493836
+      ],
       "sido": "경상북도",
-      "sigungu": "의성군",
       "count": 149,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.35188,
         "lng": 128.617086
       },
-      "bbox": [
-        128.350381,
-        36.210889,
-        128.875731,
-        36.507711
-      ]
+      "sigungu": "의성군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "47-uiseong",
+      "sido_code": "47",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "47-uljin",
-      "sido_code": "47",
+      "bbox": [
+        129.247482,
+        36.677911,
+        129.538116,
+        37.111313
+      ],
       "sido": "경상북도",
-      "sigungu": "울진군",
       "count": 71,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.7746,
       "center": {
         "lat": 36.912103,
         "lng": 129.404794
       },
-      "bbox": [
-        129.247261,
-        36.676891,
-        129.695488,
-        37.12615
-      ]
-    },
-    {
-      "region_id": "47-ulreung",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "울릉군",
-      "count": 52,
+      "sigungu": "울진군",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.0769,
+      "region_id": "47-uljin",
+      "sido_code": "47",
+      "r1_coverage": 0.7746
+    },
+    {
+      "bbox": [
+        130.799255,
+        37.460256,
+        130.918043,
+        37.543806
+      ],
+      "sido": "경상북도",
+      "count": 52,
       "center": {
         "lat": 37.495546,
         "lng": 130.882538
       },
-      "bbox": [
-        130.797545,
-        37.459764,
-        130.919205,
-        37.546091
-      ]
+      "sigungu": "울릉군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "47-ulreung",
+      "sido_code": "47",
+      "r1_coverage": 0.0769
     },
     {
-      "region_id": "47-yecheon",
-      "sido_code": "47",
+      "bbox": [
+        128.278696,
+        36.508625,
+        128.527951,
+        36.771396
+      ],
       "sido": "경상북도",
-      "sigungu": "예천군",
       "count": 131,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.648282,
         "lng": 128.424512
       },
-      "bbox": [
-        128.277235,
-        36.508348,
-        128.528673,
-        36.80298
-      ]
-    },
-    {
-      "region_id": "47-yeongcheon",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "영천시",
-      "count": 571,
+      "sigungu": "예천군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.993,
+      "region_id": "47-yecheon",
+      "sido_code": "47",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.47215,
+        35.53511,
+        129.0637,
+        36.13036
+      ],
+      "sido": "경상북도",
+      "count": 571,
       "center": {
         "lat": 35.814935,
         "lng": 128.756837
       },
-      "bbox": [
-        128.4255,
-        35.5209,
-        129.381443,
-        36.233577
-      ]
+      "sigungu": "영천시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "47-yeongcheon",
+      "sido_code": "47",
+      "r1_coverage": 0.993
     },
     {
-      "region_id": "47-yeongdeok",
-      "sido_code": "47",
+      "bbox": [
+        129.26113,
+        36.27993,
+        129.441807,
+        36.602398
+      ],
       "sido": "경상북도",
-      "sigungu": "영덕군",
       "count": 78,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 36.436933,
         "lng": 129.383347
       },
-      "bbox": [
-        129.191963,
-        36.27993,
-        129.4423,
-        36.60246
-      ]
+      "sigungu": "영덕군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "47-yeongdeok",
+      "sido_code": "47",
+      "r1_coverage": null
     },
     {
-      "region_id": "47-yeongju",
-      "sido_code": "47",
+      "bbox": [
+        128.479378,
+        36.724982,
+        128.688606,
+        36.998487
+      ],
       "sido": "경상북도",
-      "sigungu": "영주시",
       "count": 169,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 36.857499,
         "lng": 128.599961
       },
-      "bbox": [
-        128.459203,
-        36.717341,
-        128.69688,
-        36.998487
-      ]
-    },
-    {
-      "region_id": "47-yeongyang",
-      "sido_code": "47",
-      "sido": "경상북도",
-      "sigungu": "영양군",
-      "count": 40,
+      "sigungu": "영주시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "47-yeongju",
+      "sido_code": "47",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        129.04224,
+        36.526013,
+        129.265079,
+        36.832194
+      ],
+      "sido": "경상북도",
+      "count": 40,
       "center": {
         "lat": 36.663691,
         "lng": 129.126152
       },
-      "bbox": [
-        129.041473,
-        36.515002,
-        129.269422,
-        36.838397
-      ]
-    },
-    {
-      "region_id": "48-changnyeong",
-      "sido_code": "48",
-      "sido": "경상남도",
-      "sigungu": "창녕군",
-      "count": 148,
+      "sigungu": "영양군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9704,
+      "region_id": "47-yeongyang",
+      "sido_code": "47",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.38358,
+        35.390047,
+        128.64526,
+        35.613718
+      ],
+      "sido": "경상남도",
+      "count": 148,
       "center": {
         "lat": 35.517094,
         "lng": 128.485778
       },
-      "bbox": [
-        128.38343,
-        35.387218,
-        128.64526,
-        35.628738
-      ]
+      "sigungu": "창녕군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "48-changnyeong",
+      "sido_code": "48",
+      "r1_coverage": 0.9704
     },
     {
-      "region_id": "48-changwon",
-      "sido_code": "48",
+      "bbox": [
+        128.37701,
+        35.08855,
+        128.810902,
+        35.347876
+      ],
       "sido": "경상남도",
-      "sigungu": "창원시",
       "count": 638,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8527,
       "center": {
         "lat": 35.210974,
         "lng": 128.609049
       },
-      "bbox": [
-        128.36089,
-        35.067588,
-        128.821456,
-        35.37448
-      ]
+      "sigungu": "창원시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "48-changwon",
+      "sido_code": "48",
+      "r1_coverage": 0.8527
     },
     {
-      "region_id": "48-geoje",
-      "sido_code": "48",
+      "bbox": [
+        128.480517,
+        34.727342,
+        128.731914,
+        35.00885
+      ],
       "sido": "경상남도",
-      "sigungu": "거제시",
       "count": 606,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 34.878763,
         "lng": 128.64444
       },
-      "bbox": [
-        128.465065,
-        34.715077,
-        128.737751,
-        35.029749
-      ]
-    },
-    {
-      "region_id": "48-gimhae",
-      "sido_code": "48",
-      "sido": "경상남도",
-      "sigungu": "김해시",
-      "count": 580,
+      "sigungu": "거제시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9466,
+      "region_id": "48-geoje",
+      "sido_code": "48",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.716135,
+        35.166387,
+        128.993568,
+        35.34672
+      ],
+      "sido": "경상남도",
+      "count": 580,
       "center": {
         "lat": 35.23913,
         "lng": 128.852613
       },
-      "bbox": [
-        128.708362,
-        35.162388,
-        129.00375,
-        35.371702
-      ]
+      "sigungu": "김해시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "48-gimhae",
+      "sido_code": "48",
+      "r1_coverage": 0.9466
     },
     {
-      "region_id": "48-goseong",
-      "sido_code": "48",
+      "bbox": [
+        128.12241,
+        34.907925,
+        128.421475,
+        35.10753
+      ],
       "sido": "경상남도",
-      "sigungu": "고성군",
       "count": 87,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.008533,
         "lng": 128.304206
       },
-      "bbox": [
-        128.1219,
-        34.9075,
-        128.4253,
-        35.9919
-      ]
+      "sigungu": "고성군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "48-goseong",
+      "sido_code": "48",
+      "r1_coverage": null
     },
     {
-      "region_id": "48-hadong",
-      "sido_code": "48",
+      "bbox": [
+        127.614665,
+        34.950007,
+        127.918204,
+        35.287068
+      ],
       "sido": "경상남도",
-      "sigungu": "하동군",
       "count": 344,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.5846,
       "center": {
         "lat": 35.112908,
         "lng": 127.790127
       },
-      "bbox": [
-        127.60859,
-        34.94973,
-        127.927285,
-        35.6221
-      ]
+      "sigungu": "하동군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "48-hadong",
+      "sido_code": "48",
+      "r1_coverage": 0.5846
     },
     {
-      "region_id": "48-haman",
-      "sido_code": "48",
+      "bbox": [
+        128.232297,
+        35.160865,
+        128.526668,
+        35.388897
+      ],
       "sido": "경상남도",
-      "sigungu": "함안군",
       "count": 80,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.261265,
         "lng": 128.388137
       },
-      "bbox": [
-        128.225302,
-        35.15193,
-        128.527753,
-        35.392211
-      ]
+      "sigungu": "함안군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "48-haman",
+      "sido_code": "48",
+      "r1_coverage": null
     },
     {
-      "region_id": "48-hamyang",
-      "sido_code": "48",
+      "bbox": [
+        127.636363,
+        35.393132,
+        127.813787,
+        35.702498
+      ],
       "sido": "경상남도",
-      "sigungu": "함양군",
       "count": 84,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.869,
       "center": {
         "lat": 35.546395,
         "lng": 127.730793
       },
-      "bbox": [
-        127.635672,
-        35.376784,
-        127.814034,
-        35.702498
-      ]
+      "sigungu": "함양군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "48-hamyang",
+      "sido_code": "48",
+      "r1_coverage": 0.869
     },
     {
-      "region_id": "48-hapcheon",
-      "sido_code": "48",
+      "bbox": [
+        127.991611,
+        35.391696,
+        128.358337,
+        35.774886
+      ],
       "sido": "경상남도",
-      "sigungu": "합천군",
       "count": 608,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 0.9984,
       "center": {
         "lat": 35.570651,
         "lng": 128.159665
       },
-      "bbox": [
-        127.967939,
-        35.370819,
-        128.36397,
-        35.799262
-      ]
+      "sigungu": "합천군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "48-hapcheon",
+      "sido_code": "48",
+      "r1_coverage": 0.9984
     },
     {
-      "region_id": "48-jinju",
-      "sido_code": "48",
+      "bbox": [
+        128.035549,
+        35.113287,
+        128.169399,
+        35.246283
+      ],
       "sido": "경상남도",
-      "sigungu": "진주시",
       "count": 214,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8458,
       "center": {
         "lat": 35.183759,
         "lng": 128.105363
       },
-      "bbox": [
-        127.932184,
-        35.112532,
-        128.326332,
-        35.299222
-      ]
+      "sigungu": "진주시",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "48-jinju",
+      "sido_code": "48",
+      "r1_coverage": 0.8458
     },
     {
-      "region_id": "48-milyang",
-      "sido_code": "48",
+      "bbox": [
+        128.688264,
+        35.446928,
+        128.784091,
+        35.532573
+      ],
       "sido": "경상남도",
-      "sigungu": "밀양시",
       "count": 684,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.486182,
         "lng": 128.757467
       },
-      "bbox": [
-        128.60368,
-        35.350572,
-        128.995216,
-        35.585677
-      ]
+      "sigungu": "밀양시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "48-milyang",
+      "sido_code": "48",
+      "r1_coverage": null
     },
     {
-      "region_id": "48-namhae",
-      "sido_code": "48",
+      "bbox": [
+        127.830126,
+        34.708614,
+        128.052966,
+        34.941297
+      ],
       "sido": "경상남도",
-      "sigungu": "남해군",
       "count": 475,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 34.815915,
         "lng": 127.938009
       },
-      "bbox": [
-        127.818728,
-        34.707693,
-        128.059879,
-        34.941942
-      ]
+      "sigungu": "남해군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "48-namhae",
+      "sido_code": "48",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "48-sacheon",
-      "sido_code": "48",
+      "bbox": [
+        127.941585,
+        34.925026,
+        128.13224,
+        35.130972
+      ],
       "sido": "경상남도",
-      "sigungu": "사천시",
       "count": 446,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 34.995388,
         "lng": 128.059149
       },
-      "bbox": [
-        127.920795,
-        34.903797,
-        128.1336,
-        35.134172
-      ]
+      "sigungu": "사천시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "48-sacheon",
+      "sido_code": "48",
+      "r1_coverage": null
     },
     {
-      "region_id": "48-sancheong",
-      "sido_code": "48",
+      "bbox": [
+        127.451499,
+        35.160924,
+        128.045389,
+        35.498089
+      ],
       "sido": "경상남도",
-      "sigungu": "산청군",
       "count": 105,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8952,
       "center": {
         "lat": 35.295217,
         "lng": 127.714518
       },
-      "bbox": [
-        127.426088,
-        35.153411,
-        128.24309,
-        35.790153
-      ]
-    },
-    {
-      "region_id": "48-tongyeong",
-      "sido_code": "48",
-      "sido": "경상남도",
-      "sigungu": "통영시",
-      "count": 387,
+      "sigungu": "산청군",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.0,
+      "region_id": "48-sancheong",
+      "sido_code": "48",
+      "r1_coverage": 0.8952
+    },
+    {
+      "bbox": [
+        128.183166,
+        34.632722,
+        128.548427,
+        34.958471
+      ],
+      "sido": "경상남도",
+      "count": 387,
       "center": {
         "lat": 34.836204,
         "lng": 128.400773
       },
-      "bbox": [
-        128.137243,
-        34.620049,
-        128.575308,
-        34.965096
-      ]
-    },
-    {
-      "region_id": "48-uiryeong",
-      "sido_code": "48",
-      "sido": "경상남도",
-      "sigungu": "의령군",
-      "count": 70,
+      "sigungu": "통영시",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.1714,
+      "region_id": "48-tongyeong",
+      "sido_code": "48",
+      "r1_coverage": 0.0
+    },
+    {
+      "bbox": [
+        128.110545,
+        35.276884,
+        128.38675,
+        35.475996
+      ],
+      "sido": "경상남도",
+      "count": 70,
       "center": {
         "lat": 35.360378,
         "lng": 128.270472
       },
-      "bbox": [
-        128.108304,
-        35.274512,
-        128.388452,
-        35.484118
-      ]
+      "sigungu": "의령군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "48-uiryeong",
+      "sido_code": "48",
+      "r1_coverage": 0.1714
     },
     {
-      "region_id": "48-yangsan",
-      "sido_code": "48",
+      "bbox": [
+        128.99,
+        35.31859,
+        129.164,
+        35.50147
+      ],
       "sido": "경상남도",
-      "sigungu": "양산시",
       "count": 154,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.358584,
         "lng": 129.041838
       },
-      "bbox": [
-        128.985,
-        35.314,
-        129.165,
-        35.502
-      ]
+      "sigungu": "양산시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "48-yangsan",
+      "sido_code": "48",
+      "r1_coverage": null
     },
     {
-      "region_id": "50-jeju",
-      "sido_code": "50",
+      "bbox": [
+        126.17391,
+        33.303953,
+        126.960455,
+        33.556625
+      ],
       "sido": "제주특별자치도",
-      "sigungu": "제주시",
       "count": 1748,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 33.482004,
         "lng": 126.528341
       },
-      "bbox": [
-        126.163345,
-        33.291114,
-        126.968305,
-        33.963669
-      ]
+      "sigungu": "제주시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "50-jeju",
+      "sido_code": "50",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "50-seogwipo",
-      "sido_code": "50",
+      "bbox": [
+        126.227643,
+        33.207386,
+        126.935542,
+        33.472475
+      ],
       "sido": "제주특별자치도",
-      "sigungu": "서귀포시",
       "count": 1647,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 33.289284,
         "lng": 126.569493
       },
-      "bbox": [
-        126.171035,
-        33.116537,
-        126.939749,
-        33.478763
-      ]
+      "sigungu": "서귀포시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "50-seogwipo",
+      "sido_code": "50",
+      "r1_coverage": null
     },
     {
-      "region_id": "51-cheolwon",
-      "sido_code": "51",
+      "bbox": [
+        127.200402,
+        38.144922,
+        127.470953,
+        38.298183
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "철원군",
       "count": 146,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.589,
       "center": {
         "lat": 38.204037,
         "lng": 127.315969
       },
-      "bbox": [
-        127.200402,
-        38.144126,
-        127.54311,
-        38.307448
-      ]
+      "sigungu": "철원군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "51-cheolwon",
+      "sido_code": "51",
+      "r1_coverage": 0.589
     },
     {
-      "region_id": "51-chuncheon",
-      "sido_code": "51",
+      "bbox": [
+        127.633645,
+        37.787456,
+        127.785523,
+        37.951602
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "춘천시",
       "count": 1802,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.87274,
         "lng": 127.727748
       },
-      "bbox": [
-        127.511094,
-        37.682437,
-        127.951675,
-        38.051844
-      ]
-    },
-    {
-      "region_id": "51-donghae",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "동해시",
-      "count": 110,
+      "sigungu": "춘천시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-chuncheon",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        129.019505,
+        37.463233,
+        129.157297,
+        37.600422
+      ],
+      "sido": "강원특별자치도",
+      "count": 110,
       "center": {
         "lat": 37.51209,
         "lng": 129.076109
       },
-      "bbox": [
-        126.6072,
-        34.56836,
-        129.158922,
-        37.600422
-      ]
-    },
-    {
-      "region_id": "51-gangreung",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "강릉시",
-      "count": 1049,
+      "sigungu": "동해시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-donghae",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.825652,
+        37.691412,
+        128.998166,
+        37.891221
+      ],
+      "sido": "강원특별자치도",
+      "count": 1049,
       "center": {
         "lat": 37.770647,
         "lng": 128.89281
       },
-      "bbox": [
-        126.857308,
-        35.229225,
-        129.054292,
-        37.914928
-      ]
+      "sigungu": "강릉시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "51-gangreung",
+      "sido_code": "51",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "51-goseong",
-      "sido_code": "51",
+      "bbox": [
+        128.374316,
+        38.240412,
+        128.565556,
+        38.585022
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "고성군",
       "count": 103,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.1782,
       "center": {
         "lat": 38.3755,
         "lng": 128.482112
       },
-      "bbox": [
-        128.3582,
-        38.22679,
-        128.5743,
-        38.58668
-      ]
+      "sigungu": "고성군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "51-goseong",
+      "sido_code": "51",
+      "r1_coverage": 0.1782
     },
     {
-      "region_id": "51-hoengseong",
-      "sido_code": "51",
+      "bbox": [
+        127.84849,
+        37.360213,
+        128.275723,
+        37.598697
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "횡성군",
       "count": 133,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.501367,
         "lng": 128.031153
       },
-      "bbox": [
-        127.062469,
-        37.360079,
-        128.296866,
-        37.599589
-      ]
-    },
-    {
-      "region_id": "51-hongcheon",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "홍천군",
-      "count": 164,
+      "sigungu": "횡성군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-hoengseong",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.603674,
+        37.603995,
+        128.413111,
+        37.866429
+      ],
+      "sido": "강원특별자치도",
+      "count": 164,
       "center": {
         "lat": 37.713234,
         "lng": 127.948392
       },
-      "bbox": [
-        127.598825,
-        37.589842,
-        128.450966,
-        37.868712
-      ]
-    },
-    {
-      "region_id": "51-hwacheon",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "화천군",
-      "count": 83,
+      "sigungu": "홍천군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-hongcheon",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.521013,
+        38.052006,
+        127.989039,
+        38.211914
+      ],
+      "sido": "강원특별자치도",
+      "count": 83,
       "center": {
         "lat": 38.111827,
         "lng": 127.681186
       },
-      "bbox": [
-        126.972534,
-        37.549979,
-        127.989039,
-        38.213168
-      ]
-    },
-    {
-      "region_id": "51-inje",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "인제군",
-      "count": 84,
+      "sigungu": "화천군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-hwacheon",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.079308,
+        37.869105,
+        128.354936,
+        38.250492
+      ],
+      "sido": "강원특별자치도",
+      "count": 84,
       "center": {
         "lat": 38.055531,
         "lng": 128.20883
       },
-      "bbox": [
-        128.077137,
-        37.866666,
-        128.366113,
-        38.252323
-      ]
-    },
-    {
-      "region_id": "51-jeongseon",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "정선군",
-      "count": 135,
+      "sigungu": "인제군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-inje",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.613122,
+        37.189866,
+        128.873195,
+        37.518225
+      ],
+      "sido": "강원특별자치도",
+      "count": 135,
       "center": {
         "lat": 37.350542,
         "lng": 128.724126
       },
-      "bbox": [
-        128.584426,
-        37.148435,
-        128.899265,
-        37.530513
-      ]
+      "sigungu": "정선군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "51-jeongseon",
+      "sido_code": "51",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "51-pyeongchang",
-      "sido_code": "51",
+      "bbox": [
+        128.30415,
+        37.303167,
+        128.723511,
+        37.74039
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "평창군",
       "count": 153,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8824,
       "center": {
         "lat": 37.524674,
         "lng": 128.469984
       },
-      "bbox": [
-        128.302318,
-        37.277857,
-        128.753315,
-        37.787012
-      ]
+      "sigungu": "평창군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "51-pyeongchang",
+      "sido_code": "51",
+      "r1_coverage": 0.8824
     },
     {
-      "region_id": "51-samcheok",
-      "sido_code": "51",
+      "bbox": [
+        128.885745,
+        37.127114,
+        129.335898,
+        37.475637
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "삼척시",
       "count": 106,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.340572,
         "lng": 129.168956
       },
-      "bbox": [
-        128.874381,
-        37.096454,
-        129.343312,
-        37.765602
-      ]
-    },
-    {
-      "region_id": "51-sokcho",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "속초시",
-      "count": 86,
+      "sigungu": "삼척시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-samcheok",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.511724,
+        38.165245,
+        128.60832,
+        38.222845
+      ],
+      "sido": "강원특별자치도",
+      "count": 86,
       "center": {
         "lat": 38.198816,
         "lng": 128.574308
       },
-      "bbox": [
-        128.489796,
-        38.163129,
-        128.608504,
-        38.223658
-      ]
-    },
-    {
-      "region_id": "51-taebaek",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "태백시",
-      "count": 113,
+      "sigungu": "속초시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9912,
+      "region_id": "51-sokcho",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        128.945724,
+        37.092789,
+        129.045673,
+        37.229768
+      ],
+      "sido": "강원특별자치도",
+      "count": 113,
       "center": {
         "lat": 37.154869,
         "lng": 128.98828
       },
-      "bbox": [
-        128.099268,
-        37.086021,
-        129.06789,
-        37.238954
-      ]
-    },
-    {
-      "region_id": "51-wonju",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "원주시",
-      "count": 1000,
+      "sigungu": "태백시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.966,
+      "region_id": "51-taebaek",
+      "sido_code": "51",
+      "r1_coverage": 0.9912
+    },
+    {
+      "bbox": [
+        127.763526,
+        37.170797,
+        128.080054,
+        37.437365
+      ],
+      "sido": "강원특별자치도",
+      "count": 1000,
       "center": {
         "lat": 37.334764,
         "lng": 127.93214
       },
-      "bbox": [
-        127.74983,
-        37.153339,
-        128.201604,
-        37.468347
-      ]
+      "sigungu": "원주시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "51-wonju",
+      "sido_code": "51",
+      "r1_coverage": 0.966
     },
     {
-      "region_id": "51-yanggu",
-      "sido_code": "51",
+      "bbox": [
+        127.945794,
+        38.0689,
+        128.1468,
+        38.290899
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "양구군",
       "count": 161,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 38.145041,
         "lng": 128.01425
       },
-      "bbox": [
-        127.928753,
-        38.06885,
-        128.1474,
-        38.291091
-      ]
-    },
-    {
-      "region_id": "51-yangyang",
-      "sido_code": "51",
-      "sido": "강원특별자치도",
-      "sigungu": "양양군",
-      "count": 211,
+      "sigungu": "양구군",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "51-yanggu",
+      "sido_code": "51",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        128.491479,
+        37.89707,
+        128.847585,
+        38.15249
+      ],
+      "sido": "강원특별자치도",
+      "count": 211,
       "center": {
         "lat": 38.043571,
         "lng": 128.64578
       },
-      "bbox": [
-        128.404289,
-        37.896627,
-        128.847599,
-        38.1534
-      ]
+      "sigungu": "양양군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "51-yangyang",
+      "sido_code": "51",
+      "r1_coverage": null
     },
     {
-      "region_id": "51-yeongwol",
-      "sido_code": "51",
+      "bbox": [
+        128.253742,
+        37.125499,
+        128.827198,
+        37.349981
+      ],
       "sido": "강원특별자치도",
-      "sigungu": "영월군",
       "count": 141,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 37.196709,
         "lng": 128.459664
       },
-      "bbox": [
-        128.190103,
-        37.07966,
-        128.84024,
-        37.37103
-      ]
-    },
-    {
-      "region_id": "52-buan",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "부안군",
-      "count": 88,
+      "sigungu": "영월군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "51-yeongwol",
+      "sido_code": "51",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.285372,
+        35.581327,
+        126.790828,
+        35.779894
+      ],
+      "sido": "전북특별자치도",
+      "count": 88,
       "center": {
         "lat": 35.679473,
         "lng": 126.649336
       },
-      "bbox": [
-        126.285327,
-        35.581157,
-        126.814974,
-        35.784154
-      ]
+      "sigungu": "부안군",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "52-buan",
+      "sido_code": "52",
+      "r1_coverage": 1.0
     },
     {
-      "region_id": "52-gimje",
-      "sido_code": "52",
+      "bbox": [
+        126.742045,
+        35.714359,
+        126.996829,
+        35.903379
+      ],
       "sido": "전북특별자치도",
-      "sigungu": "김제시",
       "count": 124,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.806351,
         "lng": 126.895522
       },
-      "bbox": [
-        126.742008,
-        35.714359,
-        127.012996,
-        35.908301
-      ]
+      "sigungu": "김제시",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "52-gimje",
+      "sido_code": "52",
+      "r1_coverage": null
     },
     {
-      "region_id": "52-gochang",
-      "sido_code": "52",
+      "bbox": [
+        126.439149,
+        35.339718,
+        126.742206,
+        35.539664
+      ],
       "sido": "전북특별자치도",
-      "sigungu": "고창군",
       "count": 156,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.8889,
       "center": {
         "lat": 35.449236,
         "lng": 126.637936
       },
-      "bbox": [
-        126.436152,
-        35.338541,
-        126.743341,
-        35.540183
-      ]
+      "sigungu": "고창군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "52-gochang",
+      "sido_code": "52",
+      "r1_coverage": 0.8889
     },
     {
-      "region_id": "52-gunsan",
-      "sido_code": "52",
+      "bbox": [
+        126.560684,
+        35.911889,
+        126.876043,
+        36.030974
+      ],
       "sido": "전북특별자치도",
-      "sigungu": "군산시",
       "count": 384,
-      "available": false,
-      "r1_status": "confirmed",
-      "r1_coverage": 1.0,
       "center": {
         "lat": 35.970884,
         "lng": 126.711607
       },
-      "bbox": [
-        125.97993,
-        35.735537,
-        126.899286,
-        36.120552
-      ]
-    },
-    {
-      "region_id": "52-iksan",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "익산시",
-      "count": 248,
+      "sigungu": "군산시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "52-gunsan",
+      "sido_code": "52",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        126.876084,
+        35.925931,
+        127.095033,
+        36.132046
+      ],
+      "sido": "전북특별자치도",
+      "count": 248,
       "center": {
         "lat": 35.984313,
         "lng": 126.977724
       },
-      "bbox": [
-        126.872176,
-        35.900734,
-        127.102844,
-        36.138055
-      ]
-    },
-    {
-      "region_id": "52-imsil",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "임실군",
-      "count": 37,
+      "sigungu": "익산시",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 1.0,
+      "region_id": "52-iksan",
+      "sido_code": "52",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.156144,
+        35.507374,
+        127.358134,
+        35.684056
+      ],
+      "sido": "전북특별자치도",
+      "count": 37,
       "center": {
         "lat": 35.600323,
         "lng": 127.257164
       },
-      "bbox": [
-        127.155527,
-        35.507236,
-        127.358401,
-        35.684118
-      ]
-    },
-    {
-      "region_id": "52-jangsu",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "장수군",
-      "count": 159,
+      "sigungu": "임실군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9748,
+      "region_id": "52-imsil",
+      "sido_code": "52",
+      "r1_coverage": 1.0
+    },
+    {
+      "bbox": [
+        127.394047,
+        35.531408,
+        127.62726,
+        35.790191
+      ],
+      "sido": "전북특별자치도",
+      "count": 159,
       "center": {
         "lat": 35.663747,
         "lng": 127.534218
       },
-      "bbox": [
-        127.3912,
-        35.530748,
-        127.636138,
-        35.807832
-      ]
-    },
-    {
-      "region_id": "52-jeongeup",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "정읍시",
-      "count": 488,
+      "sigungu": "장수군",
       "available": false,
       "r1_status": "confirmed",
-      "r1_coverage": 0.9693,
+      "region_id": "52-jangsu",
+      "sido_code": "52",
+      "r1_coverage": 0.9748
+    },
+    {
+      "bbox": [
+        126.772196,
+        35.503437,
+        127.042513,
+        35.715017
+      ],
+      "sido": "전북특별자치도",
+      "count": 488,
       "center": {
         "lat": 35.592552,
         "lng": 126.876965
       },
-      "bbox": [
-        126.77203,
-        35.485579,
-        127.106102,
-        35.723894
-      ]
+      "sigungu": "정읍시",
+      "available": false,
+      "r1_status": "confirmed",
+      "region_id": "52-jeongeup",
+      "sido_code": "52",
+      "r1_coverage": 0.9693
     },
     {
-      "region_id": "52-jeonju",
-      "sido_code": "52",
+      "bbox": [
+        127.06912,
+        35.791443,
+        127.175706,
+        35.874521
+      ],
       "sido": "전북특별자치도",
-      "sigungu": "전주시",
       "count": 101,
-      "available": false,
-      "r1_status": "provisional",
-      "r1_coverage": 0.5743,
       "center": {
         "lat": 35.859634,
         "lng": 127.13507
       },
-      "bbox": [
-        127.062,
-        35.790728,
-        127.175706,
-        38.81112
-      ]
-    },
-    {
-      "region_id": "52-jinan",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "진안군",
-      "count": 49,
+      "sigungu": "전주시",
       "available": false,
       "r1_status": "provisional",
-      "r1_coverage": 0.898,
+      "region_id": "52-jeonju",
+      "sido_code": "52",
+      "r1_coverage": 0.5743
+    },
+    {
+      "bbox": [
+        127.323089,
+        35.686325,
+        127.603687,
+        35.978766
+      ],
+      "sido": "전북특별자치도",
+      "count": 49,
       "center": {
         "lat": 35.820041,
         "lng": 127.438498
       },
-      "bbox": [
-        127.322898,
-        35.68077,
-        127.614511,
-        35.979942
-      ]
+      "sigungu": "진안군",
+      "available": false,
+      "r1_status": "provisional",
+      "region_id": "52-jinan",
+      "sido_code": "52",
+      "r1_coverage": 0.898
     },
     {
-      "region_id": "52-muju",
-      "sido_code": "52",
+      "bbox": [
+        127.554195,
+        35.828815,
+        127.882542,
+        36.048628
+      ],
       "sido": "전북특별자치도",
-      "sigungu": "무주군",
       "count": 283,
-      "available": false,
-      "r1_status": "no_ssid",
-      "r1_coverage": null,
       "center": {
         "lat": 35.949726,
         "lng": 127.698972
       },
-      "bbox": [
-        127.548772,
-        35.818555,
-        127.898597,
-        36.055137
-      ]
-    },
-    {
-      "region_id": "52-namwon",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "남원시",
-      "count": 343,
+      "sigungu": "무주군",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "52-muju",
+      "sido_code": "52",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.227822,
+        35.255034,
+        127.623537,
+        35.515415
+      ],
+      "sido": "전북특별자치도",
+      "count": 343,
       "center": {
         "lat": 35.406003,
         "lng": 127.394224
       },
-      "bbox": [
-        127.201592,
-        35.255034,
-        127.641297,
-        35.547106
-      ]
-    },
-    {
-      "region_id": "52-sunchang",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "순창군",
-      "count": 45,
+      "sigungu": "남원시",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "52-namwon",
+      "sido_code": "52",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        126.9685,
+        35.34418,
+        127.238512,
+        35.524
+      ],
+      "sido": "전북특별자치도",
+      "count": 45,
       "center": {
         "lat": 35.399184,
         "lng": 127.13126
       },
-      "bbox": [
-        126.9685,
-        35.34,
-        127.2397,
-        35.524
-      ]
-    },
-    {
-      "region_id": "52-wanju",
-      "sido_code": "52",
-      "sido": "전북특별자치도",
-      "sigungu": "완주군",
-      "count": 209,
+      "sigungu": "순창군",
       "available": false,
       "r1_status": "no_ssid",
-      "r1_coverage": null,
+      "region_id": "52-sunchang",
+      "sido_code": "52",
+      "r1_coverage": null
+    },
+    {
+      "bbox": [
+        127.022475,
+        35.726148,
+        127.305422,
+        36.092568
+      ],
+      "sido": "전북특별자치도",
+      "count": 209,
       "center": {
         "lat": 35.919044,
         "lng": 127.170262
       },
-      "bbox": [
-        127.014155,
-        35.66139,
-        127.33931,
-        36.093724
-      ]
+      "sigungu": "완주군",
+      "available": false,
+      "r1_status": "no_ssid",
+      "region_id": "52-wanju",
+      "sido_code": "52",
+      "r1_coverage": null
     }
-  ]
+  ],
+  "default_region_id": "41-goyang"
 }

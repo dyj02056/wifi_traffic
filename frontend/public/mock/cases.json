@@ -1,0 +1,22 @@
+{
+  "label": "같은 원리 사례 — 국내 공공와이파이 사건 아님",
+  "cases": [
+    {
+      "id": "mock-case",
+      "title": "[샘플] 가상 사례 카드",
+      "summary": "화면 배치 확인용 가상 사례입니다.",
+      "principle": "가짜 AP(이블 트윈) 원리 설명 자리",
+      "related_rules": [
+        "R1",
+        "R5"
+      ],
+      "source": {
+        "name": "가상 출처",
+        "dataset_id": null,
+        "url": "contracts/mock",
+        "published_at": "2026-10-13",
+        "retrieved_at": "2026-10-20"
+      }
+    }
+  ]
+}

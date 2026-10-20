@@ -20,7 +20,7 @@
   - SSID 빈값 27,616행(29.3%) → 제외하지 않고 R1 '불명'(가정 0.5) + `R1_ssid_missing` flag
   - 한 칸에 SSID 여러 개(쉼표 구분) 4,265행, 예: `SEOUL, SEOUL_Secure`
   - **구로구 1,259행 전부 SSID = `SEOUL, SEOUL_Secure`** → 시연 지역에서 R1·R5가 모든 지점에서 같은 값이 됨
-  - 시도명 `전남광주통합특별시`(9,546행) 시도코드 미등록 → **공식 코드 확인 전까지 clean에서 제외, 경고 출력**(사용자 결정 2026-10-20, `schema.py PENDING_SIDO`)
+  - 시도명 `전남광주통합특별시`(9,546행) 시도코드 미등록 → **공식 코드 확인 전까지 clean에서 제외, 경고 출력**(사용자 결정 2026-10-20, `schema.py PENDING_SIDO`) → **2026-10-21 공식 코드 12 확인·등록, 포함**(requests #37)
   - D2 구로구 파일에 `wifi접속환경` 컬럼 없음(실내외구분·서비스구분·망종류는 있음), X좌표=위도·Y좌표=경도
 
 ### clean·score 1차 실행 (2026-10-20, APP_MODE=dev, 라벨 미확정 → 점수는 임시·무효)
@@ -52,3 +52,14 @@
 ## M3 채점·번들 — 코드 준비 완료, 실데이터 대기
 ## M4a 정적 초안 — 코드 완료(mock으로 흐름 1~3 동작 확인), 실데이터 확인 대기
 ## M5 부가 — 코드 준비 완료(validate_guro·fetch_background는 실제 파일·엔드포인트 확인 필요, cases.yaml 작성 필요)
+
+## 마감 체크리스트 (발표 2026-10-21 16:00 KST)
+- [ ] 커밋(feat/decisions-and-frontend) → main 병합 → GitHub 푸시 (사용자 확인 후)
+- [ ] Vercel 배포: backend API(환경변수 DATABASE_URL·SESSION_SECRET·GOOGLE_CLIENT_ID·CORS_ORIGINS), frontend(NEXT_PUBLIC_*)
+- [ ] GitHub Secret `DATABASE_URL`(매일 수집 Actions)
+- [ ] 카카오(JS SDK 도메인)·구글(승인된 자바스크립트 원본)·네이버(서비스 URL·Callback)에 배포 주소 등록
+- [ ] 배포 주소에서 시연 시나리오 1회 + API 끈 상태 정적 백업 확인
+- [ ] 사례 카드 요약 4건(cases.yaml drafts → cases) — 지금 cases.json 0건
+- [ ] 발표자료 갱신(requests #35 목록)
+- [ ] (시간 남으면) 마커 묶어 보이기(19번), 광주·전남 잘못된 '신규 설치' 이력 9,546건 삭제
+

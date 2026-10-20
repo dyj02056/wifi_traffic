@@ -42,7 +42,7 @@
             "additionalProperties": false
           },
           "bbox": {"type": "array", "items": {"type": "number"}, "minItems": 4, "maxItems": 4,
-                   "description": "[minLng, minLat, maxLng, maxLat]"}
+                   "description": "[minLng, minLat, maxLng, maxLat] — 지역을 처음 열 때 화면에 꽉 차게 보여 줄 범위. 같은 간격 일직선 이상 좌표를 빼고, 지점이 몰린 중심부(중앙값에서 75% 거리의 3배, 최소 5km 안)를 위·경도 양쪽 1%씩 제외해 잡음. 범위 밖 지점도 지도에는 그려짐"}
         },
         "additionalProperties": false
       }

@@ -262,3 +262,56 @@ class ExplainResponse(Strict):
     cached: bool
     explanation: Explanation
     ai_rejected_reasons: list[str]
+
+
+# ── 회원·GPS (contracts 밖, API 전용 — docs/requests.md #18·#19) ─────
+class NearestResponse(Strict):
+    region_id: str
+    distance_m: float | None
+    method: Literal["postgis", "region_center"]
+
+
+class GoogleLogin(Strict):
+    credential: str
+
+
+class NaverLogin(Strict):
+    access_token: str
+
+
+class User(Strict):
+    id: int
+    provider: Literal["google", "naver", "dev"]
+    display_name: str
+    sido: str | None
+    sigungu: str | None
+    region_id: str | None
+
+
+class AuthResponse(Strict):
+    token: str
+    user: User
+    needs_region: bool
+
+
+class RegionUpdate(Strict):
+    region_id: str | None = None   # 시군구까지 고르면 region_id
+    sido_code: str | None = None   # 시도만 고르면 sido_code (예: "41")
+
+
+class SearchHit(Strict):
+    key: str
+    region_id: str
+    sido: str
+    sigungu: str
+    name: str
+    address: str | None
+    place_detail: str | None
+    lat: float
+    lng: float
+
+
+class SearchResponse(Strict):
+    query: str
+    method: Literal["db", "names"]
+    hits: list[SearchHit]

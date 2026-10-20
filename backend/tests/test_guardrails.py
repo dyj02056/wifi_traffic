@@ -78,3 +78,35 @@ def test_ai_output_valid_is_used():
     text = "샘플 정류장의 위험요인 점수는 30점입니다. SSID가 개방형 목록에 있어 보안접속이 되지 않습니다. 보안접속 SSID가 보이면 그쪽으로 연결하세요."
     exp, problems = explain(_detail(), use_ai=True, client=_FakeClient(text))
     assert exp["source"] == "ai" and problems == []
+
+
+def _bd(**reasons):
+    """R1~R8 breakdown. reasons: {"R1": (points, reason)}"""
+    out = []
+    for i in range(1, 9):
+        rid = f"R{i}"
+        pts, reason = reasons.get(rid, (0.0, "해당 없음"))
+        out.append({"id": rid, "name": f"규칙{i}", "ratio": 1.0 if pts else 0.0, "points": pts, "max_points": 30,
+                    "is_assumption": False, "reason": reason})
+    return out
+
+
+def test_template_names_top_two_factors():
+    d = _detail()
+    d["breakdown"] = _bd(R1=(30.0, "SSID가 개방형 목록에 있음"), R4=(15.0, "설치 후 약 11.4년 경과"),
+                         R8=(2.0, "데이터 기준일자 후 3일 경과"))
+    text = template_explanation(d)["text"]
+    assert "개방형 와이파이이고, 설치한 지 약 11.4년 된 장비입니다." in text
+    assert "기준일" not in text   # 세 번째 요인은 말하지 않음
+    assert G.check_explanation(text, allowed_numbers_for(build_payload(d))) == []
+
+
+def test_template_marks_assumed_and_no_factor():
+    d = _detail()
+    d["breakdown"] = _bd(R4=(7.5, "설치연월 정보 없음(가정 비율 적용)"))
+    assert "설치 시기를 알 수 없는 장비(정보가 없어 추정)입니다." in template_explanation(d)["text"]
+    d["breakdown"] = _bd()
+    d["score"] = 0.0
+    text = template_explanation(d)["text"]
+    assert "눈에 띄는 위험요인은 없습니다." in text
+    assert G.sentence_count(text) == 3
