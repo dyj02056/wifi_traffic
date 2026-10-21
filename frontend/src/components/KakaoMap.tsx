@@ -5,6 +5,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { config } from "@/lib/config";
+import { fmt } from "./format";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 declare global {
@@ -41,7 +42,7 @@ interface Props {
 
 // 같은 좌표(한 건물의 보안·개방 SSID 등)는 마커 하나로 묶는다. 겹쳐 그리면 나중에 그린 마커가 덮어서
 // 순위·상세의 점수와 지도 색이 어긋나 보였다. 대표: 선택한 지점이 있으면 그 지점, 없으면 보이는 것 중 가장 위험한 곳
-interface Group { keys: string[]; name: string; el: HTMLDivElement; overlay: any; pos: any }
+interface Group { keys: string[]; name: string; el: HTMLDivElement; score: HTMLElement; overlay: any; pos: any }
 
 function pickRep(keys: string[], p: Pick<Props, "scoreOf" | "visibleOf">, selectedKey: string | null) {
   if (selectedKey && keys.includes(selectedKey)) return selectedKey;
@@ -53,9 +54,14 @@ function paint(gs: Map<string, Group>, p: Props) {
   for (const g of gs.values()) {
     const { el } = g;
     const key = pickRep(g.keys, p, p.selectedKey);
-    const shown = g.keys.filter(p.visibleOf).length;
+    const vis = g.keys.filter(p.visibleOf);
+    const shown = vis.length;
     el.dataset.key = key;
-    el.dataset.name = shown > 1 ? `${g.name} · 같은 장소 AP ${shown}대` : g.name;
+    // 이름표: 이름 + 그 자리에서 가장 높은 점수(그 점수의 등급 색)
+    const top = pickRep(g.keys, p, null);
+    const ts = p.scoreOf(top);
+    g.score.textContent = ts != null ? fmt(ts) : "";
+    g.score.style.color = p.colorOf(top);
     el.style.background = p.colorOf(key);
     const level = p.levelOf(key);
     // 등급이 바뀐 마커만 한 번 튀어 오르게 (애니메이션 다시 시작)
@@ -140,13 +146,21 @@ export function KakaoMap(p: Props) {
       const pulse = document.createElement("span");
       pulse.className = "kpulse";
       pulse.style.animationDelay = `${Math.round(Math.random() * 1800)}ms`;
-      el.append(pulse);
+      // 이름표(마우스를 올리면 보임): 이름 + 등급 색 점수. 점수만 색을 달리하려고 ::after 대신 실제 요소로 둔다
+      const label = document.createElement("span");
+      label.className = "klabel";
+      const score = document.createElement("b");
+      label.append(pt.name, " ", score);
+      el.append(pulse, label);
       // 누르면 지금 지도에 보이는 대표 지점을 고른다(같은 장소의 다른 AP는 상세에서 바꿔 볼 수 있다)
       el.addEventListener("click", () => (cb.current.picking ? cb.current.onPick?.(pt.lat, pt.lng) : cb.current.onSelect(el.dataset.key!)));
       const pos = new k.LatLng(pt.lat, pt.lng);
       const overlay = new k.CustomOverlay({ content: el, position: pos, xAnchor: 0.5, yAnchor: 0.5, zIndex: 2, clickable: true });
       overlay.setMap(map);
-      markers.current.set(gid, { keys: [pt.key], name: pt.name, el, overlay, pos });
+      // 마우스를 올린 마커를 맨 위로 — 이웃 마커가 이름표를 덮지 않게
+      el.addEventListener("mouseenter", () => overlay.setZIndex(5));
+      el.addEventListener("mouseleave", () => overlay.setZIndex(2));
+      markers.current.set(gid, { keys: [pt.key], name: pt.name, el, score, overlay, pos });
     }
     paint(markers.current, cb.current);
     if (!p.bbox) return;
