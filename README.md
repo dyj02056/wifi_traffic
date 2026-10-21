@@ -4,6 +4,8 @@
 
 전국 공공와이파이 지점마다 위험요인 점수(0~100)를 매겨 지도에 색으로 표시하고, 가중치 슬라이더로 채점 기준을 직접 바꿔 볼 수 있는 웹사이트. 설계 문서는 [plan.md](plan.md).
 
+![지도 화면 — 경기도 고양시 613곳, 신호등 마커·가중치 패널·추천 TOP 3·순위표](docs/images/map.jpg)
+
 | 배포 | 주소 |
 |---|---|
 | 화면 | https://wifi-traffic.vercel.app |
@@ -12,6 +14,26 @@
 시연 순서와 백업 전환은 [docs/demo_script.md](docs/demo_script.md).
 
 ## 주요 기능 (2026-10-21 기준)
+
+**기준을 바꾸면 지도 색과 순위가 바로 바뀝니다.** 보안접속(R1)·밀집도(R5)만 남기고 나머지 6개를 끄면 고양시는 낮음 382 · 주의 2 · 높음 229가 되고, 기본 기준 상위 20곳 중 3곳만 남습니다.
+
+![가중치 기준을 하나씩 끄면 마커 색·요약·순위표가 바뀌는 모습](docs/images/slider.gif)
+
+| 지점 상세 — R1~R8 근거와 점수 | 장소 검색과 '내 위치' 핀 |
+|---|---|
+| ![지점 상세](docs/images/point-detail.png) | ![검색과 내 위치](docs/images/search-location.jpg) |
+| **채점 기준** — 수식과 실제 지점 예시 계산 | **민감도 분석** — 기준별 등급 변경 비율 |
+| ![채점 기준](docs/images/rules.png) | ![민감도 분석](docs/images/sensitivity.png) |
+| **배경 통계·사례** — 점수에 반영하지 않음 | **데이터와 한계** — 알려진 한계 |
+| ![배경 통계](docs/images/context.png) | ![알려진 한계](docs/images/about-limits.png) |
+
+<details>
+<summary>인트로·로그인 화면</summary>
+
+![인트로 — 구글·네이버 로그인 또는 비회원](docs/images/intro.jpg)
+</details>
+
+화면은 배포 주소에서 비회원·경기도 고양시 기준으로 2026-10-21에 촬영했습니다.
 
 | 화면 | 기능 |
 |---|---|
