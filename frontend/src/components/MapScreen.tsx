@@ -66,7 +66,8 @@ export function MapScreen() {
   const [dimMap, setDimMap] = useState(true);   // 배경 지도 색을 30%만 남겨 마커가 먼저 보이게 (A′)
   const [focus, setFocus] = useState<{ lat: number; lng: number; level: number; seq: number } | null>(null);
   const focusOn = (lat: number, lng: number, level: number) => setFocus((f) => ({ lat, lng, level, seq: (f?.seq ?? 0) + 1 }));
-  const [myLocation, setMyLocation] = useState<{ lat: number; lng: number; accuracy: number } | null>(null);
+  const [myLocation, setMyLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [picking, setPicking] = useState(false);   // '내 위치' 버튼 → 다음 지도 클릭으로 내 위치 지정
 
   // 로그인 안 했으면 인트로로
   useEffect(() => {
@@ -160,24 +161,24 @@ export function MapScreen() {
     .filter((p) => { const n = p.name.trim(); if (seenNames.has(n)) return false; seenNames.add(n); return true; })
     .slice(0, 3);
 
+  // 내 위치는 지도에서 직접 찍는다. 브라우저 자동 위치는 PC(GPS 없음)에서 수 km씩 틀려 쓰지 않는다
   const onGps = () => {
-    if (!navigator.geolocation || !regions.data) return setGps({ busy: false, msg: "이 브라우저는 위치 기능을 지원하지 않습니다." });
-    setGps({ busy: true, msg: "위치를 확인하는 중…" });
-    navigator.geolocation.getCurrentPosition(async ({ coords }) => {
-      const rid = await nearestRegion(coords.latitude, coords.longitude, regions.data!);
-      const r = regions.data!.regions.find((x) => x.region_id === rid);
-      if (r?.available) {
-        chooseRegion(r.region_id);
-        setGps({ busy: false, msg: `내 위치 근처: ${r.sido} ${r.sigungu}` });
-      } else {
-        setGps({ busy: false, msg: r ? `${r.sido} ${r.sigungu}은 아직 데이터가 없습니다.` : "근처 지역을 찾지 못했습니다." });
-      }
-      // 지역을 바꾼 뒤(같은 지역이어도) 내 좌표로 이동·확대하고 핀을 찍는다 (level 3 ≈ 반경 수백 m)
-      setMyLocation({ lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy });
-      focusOn(coords.latitude, coords.longitude, 3);
-    }, (err) => setGps({ busy: false, msg: err.code === err.PERMISSION_DENIED ? "위치 권한이 거부되었습니다." : "위치를 가져오지 못했습니다." }),
-    { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
+    if (picking) return cancelPick();
+    setPicking(true);
+    setGps({ busy: false, msg: "지도에서 내 위치를 한 번 눌러 주세요 (취소: Esc)" });
   };
+  const cancelPick = () => { setPicking(false); setGps({ busy: false, msg: "" }); };
+  const onPick = (lat: number, lng: number) => {
+    setPicking(false);
+    setMyLocation({ lat, lng });
+    setGps({ busy: false, msg: "내 위치를 지정했습니다. 바꾸려면 '내 위치'를 다시 누르세요." });
+  };
+  useEffect(() => {
+    if (!picking) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setPicking(false); setGps({ busy: false, msg: "" }); } };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [picking]);
 
   if (meta.error || rules.error || regions.error) {
     return <div className="page"><TopNav /><div className="notice error">데이터를 불러오지 못했습니다. API 주소(NEXT_PUBLIC_API_BASE) 또는 정적 번들(public/data, scripts/sync_bundle.sh)을 확인하세요.
@@ -294,7 +295,7 @@ export function MapScreen() {
           <KakaoMap points={pts ?? NO_POINTS} bbox={region?.bbox ?? null} colorOf={colorOf} levelOf={levelOf} visibleOf={visibleOf}
             colorVersion={scores} selectedKey={st.selectedKey} changes={changes.data?.changes ?? NO_CHANGES}
             showChanges={st.showChanges} onSelect={st.selectPoint} onViewChange={(fn) => setInView(() => fn)} focus={focus}
-            myLocation={myLocation} />
+            myLocation={myLocation} picking={picking} onPick={onPick} />
           <Summary total={pts?.length ?? 0} counts={counts} grades={rules.data.grades} avg={n ? Math.floor((sum / n) * 100 + 0.5) / 100 : null} />
           {r1 === "provisional" && <div className="watermark"><span>임시(무효)</span></div>}
           {loadProblem && <div className="map-overlay" role="alert"><div className="load-problem">
@@ -303,10 +304,11 @@ export function MapScreen() {
             <button type="button" onClick={retry}>다시 시도</button>
           </div></div>}
           {!loadProblem && status.error && <div className="map-overlay"><div>{status.error === "TOO_FEW_RULES" ? "위험요인을 2개 이상 선택하세요" : "가중치 합이 0입니다"}</div></div>}
-          {gps.msg && <div className="gps-msg" role="status">{gps.msg}</div>}
+          {gps.msg && <div className={`gps-msg${picking ? " picking" : ""}`} role="status">{gps.msg}</div>}
           <button type="button" className="dim-btn" onClick={() => setDimMap((v) => !v)} aria-pressed={dimMap}
             title="배경 지도의 색을 흐리게 해 마커가 먼저 보이게 합니다">{dimMap ? "지도 색 원래대로" : "지도 색 흐리게"}</button>
-          <button type="button" className="gps-btn" onClick={onGps} disabled={gps.busy} title="누를 때만 위치 권한을 요청합니다">📍 내 위치</button>
+          <button type="button" className="gps-btn" onClick={onGps} aria-pressed={picking}
+            title="누른 뒤 지도에서 내 위치를 직접 찍습니다">{picking ? "✕ 취소" : "📍 내 위치"}</button>
         </div>
 
         <aside className="right-col">

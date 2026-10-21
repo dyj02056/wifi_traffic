@@ -356,7 +356,10 @@ ul.tips li { margin-bottom: 4px; }
   font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
 .gps-btn:disabled { opacity: .6; cursor: wait; }
 .gps-msg { position: absolute; right: var(--space-3); bottom: calc(var(--space-5) + 44px); z-index: 500;
-  background: var(--surface); padding: 6px 10px; border-radius: 6px; font-size: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+  background: var(--surface); padding: 6px 10px; border-radius: 6px; font-size: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  max-width: min(360px, calc(100% - 2 * var(--space-3))); }
+.gps-msg.picking { background: #7c3aed; color: #fff; font-weight: 700; }
+.gps-btn[aria-pressed="true"] { background: #7c3aed; color: #fff; border-color: #7c3aed; }
 .badge.static { background: #374151; color: #fff; }
 
 /* Radix 슬라이더 (키보드 조작 가능, plan.md §9.4) */

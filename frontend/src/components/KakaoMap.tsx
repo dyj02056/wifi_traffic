@@ -29,8 +29,11 @@ interface Props {
   onViewChange: (contains: (lat: number, lng: number) => boolean) => void;
   /** 검색 등으로 이 좌표로 이동·확대 (seq가 바뀔 때마다) */
   focus?: { lat: number; lng: number; level: number; seq: number } | null;
-  /** '내 위치' 버튼으로 받은 좌표 — 지점 마커와 구분되는 보라색 핀 + 정확도 원 */
-  myLocation?: { lat: number; lng: number; accuracy: number } | null;
+  /** 사용자가 지도에서 직접 찍은 내 위치 — 지점 마커와 구분되는 보라색 핀 */
+  myLocation?: { lat: number; lng: number } | null;
+  /** true면 다음 클릭(지도·지점 마커 어디든)을 내 위치 지정으로 쓴다 */
+  picking?: boolean;
+  onPick?: (lat: number, lng: number) => void;
 }
 
 function paint(ms: Map<string, { el: HTMLDivElement }>, colorOf: (k: string) => string,
@@ -59,7 +62,7 @@ export function KakaoMap(p: Props) {
   const mapRef = useRef<any>(null);
   const markers = useRef(new Map<string, { overlay: any; el: HTMLDivElement; pos: any }>());
   const ring = useRef<any>(null);
-  const myLoc = useRef<any[]>([]);
+  const myLoc = useRef<any>(null);
   const changeOverlays = useRef<any[]>([]);
   const cb = useRef(p);
   useLayoutEffect(() => { cb.current = p; });
@@ -75,6 +78,9 @@ export function KakaoMap(p: Props) {
       if (!elRef.current || mapRef.current) return;
       const map = new k.Map(elRef.current, { center: new k.LatLng(36.4, 127.8), level: 13 });
       map.addControl(new k.ZoomControl(), k.ControlPosition.LEFT);
+      k.event.addListener(map, "click", (e: any) => {
+        if (cb.current.picking) cb.current.onPick?.(e.latLng.getLat(), e.latLng.getLng());
+      });
       k.event.addListener(map, "idle", () => {
         const b = map.getBounds();
         cb.current.onViewChange((lat, lng) => b.contain(new k.LatLng(lat, lng)));
@@ -100,7 +106,7 @@ export function KakaoMap(p: Props) {
       el.style.background = cb.current.colorOf(pt.key);
       el.dataset.level = cb.current.levelOf(pt.key);
       el.dataset.name = pt.name;
-      el.addEventListener("click", () => cb.current.onSelect(pt.key));
+      el.addEventListener("click", () => (cb.current.picking ? cb.current.onPick?.(pt.lat, pt.lng) : cb.current.onSelect(pt.key)));
       const pos = new k.LatLng(pt.lat, pt.lng);
       const overlay = new k.CustomOverlay({ content: el, position: pos, xAnchor: 0.5, yAnchor: 0.5, zIndex: 2, clickable: true });
       overlay.setMap(map);
@@ -156,26 +162,25 @@ export function KakaoMap(p: Props) {
     return () => clearTimeout(t);
   }, [ready, p.focus, p.points]);
 
-  // 내 위치: 정확도 원 + 핀('나')과 '내 위치' 이름표. 지점 마커(신호등 색)·선택 고리(파랑)와 겹치지 않게 보라색, 맨 위에 그린다
+  // 내 위치: 핀('나')과 '내 위치' 이름표. 지점 마커(신호등 색)·선택 고리(파랑)와 겹치지 않게 보라색, 맨 위에 그린다
   useEffect(() => {
     const map = mapRef.current;
     if (!ready || !map) return;
-    const k = window.kakao.maps;
-    for (const o of myLoc.current) o.setMap(null);
-    myLoc.current = [];
+    myLoc.current?.setMap(null);
+    myLoc.current = null;
     if (!p.myLocation) return;
-    const { lat, lng, accuracy } = p.myLocation;
-    const pos = new k.LatLng(lat, lng);
-    if (accuracy > 0 && accuracy <= 1000) {
-      myLoc.current.push(new k.Circle({ center: pos, radius: accuracy, strokeWeight: 1.5, strokeColor: "#7c3aed",
-        strokeOpacity: 0.7, strokeStyle: "dash", fillColor: "#7c3aed", fillOpacity: 0.08, zIndex: 9 }));
-    }
     const el = document.createElement("div");
     el.className = "kmyloc";
     el.innerHTML = '<span class="kmyloc-label">내 위치</span><span class="kmyloc-halo"></span><span class="kmyloc-pin"><b>나</b></span>';
-    myLoc.current.push(new k.CustomOverlay({ content: el, position: pos, xAnchor: 0.5, yAnchor: 1, zIndex: 10 }));
-    for (const o of myLoc.current) o.setMap(map);
+    myLoc.current = new window.kakao.maps.CustomOverlay({ content: el, xAnchor: 0.5, yAnchor: 1, zIndex: 10,
+      position: new window.kakao.maps.LatLng(p.myLocation.lat, p.myLocation.lng) });
+    myLoc.current.setMap(map);
   }, [ready, p.myLocation]);
+
+  // 내 위치 찍기 모드: 십자 커서
+  useEffect(() => {
+    if (ready) mapRef.current?.setCursor(p.picking ? "crosshair" : "");
+  }, [ready, p.picking]);
 
   // 추가·삭제 레이어
   useEffect(() => {
