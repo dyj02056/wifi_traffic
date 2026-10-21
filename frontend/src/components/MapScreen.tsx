@@ -2,8 +2,10 @@
 // ★ 메인 지도 화면 (plan.md §9.3 /map + docs/requests.md #16 #18 #20 #23 #24)
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { nearestRegion } from "@/lib/api";
+import { useQueryClient } from "@tanstack/react-query";
+import { isApiUnavailable, nearestRegion, retryApi } from "@/lib/api";
 import { useSession } from "@/lib/auth";
+import { config } from "@/lib/config";
 import { useChanges, useDataSource, useDetail, useMeta, usePoints, useRegions, useRules } from "@/lib/queries";
 import { computeScore, type ScoreResult } from "@/lib/score";
 import type { RegionsDoc } from "@/lib/types";
@@ -32,11 +34,15 @@ function useDebounced<T>(value: T, ms: number): T {
   return v;
 }
 
-/** 첫 지역: ?region → 회원 가입 지역 → default_region_id(서초구 임시, #20) → 데이터 있는 첫 지역 (#18) */
-function pickInitial(regions: RegionsDoc, want: string | null, home: string | null | undefined) {
+/** 첫 지역: ?region → 회원 가입 지역 → default_region_id(서초구 임시, #20) → 데이터 있는 첫 지역 (#18)
+ *  정적 백업에는 일부 지역만 있다. 백업 중에 원하는 지역(?region·회원 지역)이 없으면 다른 지역으로 몰래 바꾸지 않고
+ *  missing으로 알린다(API가 돌아오면 그 지역을 보여 준다) */
+function pickInitial(regions: RegionsDoc, want: string | null, home: string | null | undefined, backup: boolean) {
   const avail = regions.regions.filter((r) => r.available);
   const has = (id?: string | null) => (id ? avail.find((r) => r.region_id === id)?.region_id : undefined);
-  return has(want) ?? has(home) ?? has(regions.default_region_id) ?? avail[0]?.region_id ?? null;
+  const target = want ?? home;
+  if (backup && target && !has(target)) return { id: null, missing: target };
+  return { id: has(want) ?? has(home) ?? has(regions.default_region_id) ?? avail[0]?.region_id ?? null, missing: null };
 }
 
 export function MapScreen() {
@@ -48,6 +54,12 @@ export function MapScreen() {
   const rules = useRules();
   const regions = useRegions();
   const st = useAppStore();
+  const queryClient = useQueryClient();
+  // 다시 시도: 백업 모드를 끝내고(API가 있으면) 실패했거나 백업에서 받은 문서를 다시 받는다
+  const retry = useCallback(() => {
+    retryApi();
+    void queryClient.invalidateQueries();
+  }, [queryClient]);
   const [picked, setPicked] = useState<string | null>(null);
   const [inView, setInView] = useState<((lat: number, lng: number) => boolean) | null>(null);
   const [gps, setGps] = useState<{ busy: boolean; msg: string }>({ busy: false, msg: "" });
@@ -65,9 +77,11 @@ export function MapScreen() {
   }, [rules.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const initial = useMemo(() => (regions.data && session !== undefined
-    ? pickInitial(regions.data, search.get("region"), session?.type === "member" ? session.user.region_id : null)
-    : null), [regions.data, session, search]);
-  const regionId = picked ?? initial;
+    ? pickInitial(regions.data, search.get("region"), session?.type === "member" ? session.user.region_id : null,
+      source === "static" && !!config.apiBase)
+    : null), [regions.data, session, search, source]);
+  const regionId = picked ?? initial?.id ?? null;
+  const missingRegion = picked ? null : initial?.missing ?? null;
 
   const chooseRegion = useCallback((rid: string) => {
     setPicked(rid);
@@ -162,7 +176,8 @@ export function MapScreen() {
   };
 
   if (meta.error || rules.error || regions.error) {
-    return <div className="page"><TopNav /><div className="notice error">데이터를 불러오지 못했습니다. API 주소(NEXT_PUBLIC_API_BASE) 또는 정적 번들(public/data, scripts/sync_bundle.sh)을 확인하세요.</div></div>;
+    return <div className="page"><TopNav /><div className="notice error">데이터를 불러오지 못했습니다. API 주소(NEXT_PUBLIC_API_BASE) 또는 정적 번들(public/data, scripts/sync_bundle.sh)을 확인하세요.
+      {" "}<button type="button" onClick={retry}>다시 시도</button></div></div>;
   }
   if (!meta.data || !rules.data || !regions.data || session === undefined) return <div className="page"><TopNav /><p className="loading">불러오는 중…</p></div>;
 
@@ -177,6 +192,18 @@ export function MapScreen() {
   );
   const avail = regions.data.regions.filter((r) => r.available);
   const sidos = [...new Map(avail.map((r) => [r.sido_code, r.sido])).entries()];
+  const missingName = (() => {
+    if (!missingRegion) return null;
+    const r = regions.data.regions.find((x) => x.region_id === missingRegion);
+    const u = session?.type === "member" && session.user.region_id === missingRegion ? session.user : null;
+    return r ? `${r.sido} ${r.sigungu}` : u ? `${u.sido ?? ""} ${u.sigungu ?? ""}`.trim() : missingRegion;
+  })();
+  // 지도 위 안내: 백업에 없는 지역 / 지점 데이터 실패 (빈 지도만 남아 멈춘 것처럼 보이지 않게)
+  const loadProblem = missingName
+    ? `${missingName} 데이터를 서버(API)에서 받지 못했습니다. 지금은 백업 데이터(일부 지역)만 쓸 수 있습니다.`
+    : points.error
+      ? (isApiUnavailable(points.error) ? points.error.message : "지점 데이터를 불러오지 못했습니다.")
+      : null;
 
   return (
     <div className="page">
@@ -190,11 +217,13 @@ export function MapScreen() {
                 const first = avail.find((r) => r.sido_code === e.target.value);
                 if (first) chooseRegion(first.region_id);
               }}>
+                {!region && <option value="">선택</option>}
                 {sidos.map(([c, nm]) => <option key={c} value={c}>{nm}</option>)}
               </select>
             </label>
             <label>시군구
               <select value={regionId ?? ""} onChange={(e) => chooseRegion(e.target.value)}>
+                {!region && <option value="">선택</option>}
                 {avail.filter((r) => r.sido_code === region?.sido_code).map((r) =>
                   <option key={r.region_id} value={r.region_id}>{r.sigungu} ({r.count.toLocaleString()})</option>)}
               </select>
@@ -263,7 +292,12 @@ export function MapScreen() {
             showChanges={st.showChanges} onSelect={st.selectPoint} onViewChange={(fn) => setInView(() => fn)} focus={focus} />
           <Summary total={pts?.length ?? 0} counts={counts} grades={rules.data.grades} avg={n ? Math.floor((sum / n) * 100 + 0.5) / 100 : null} />
           {r1 === "provisional" && <div className="watermark"><span>임시(무효)</span></div>}
-          {status.error && <div className="map-overlay"><div>{status.error === "TOO_FEW_RULES" ? "위험요인을 2개 이상 선택하세요" : "가중치 합이 0입니다"}</div></div>}
+          {loadProblem && <div className="map-overlay" role="alert"><div className="load-problem">
+            <p>{loadProblem}</p>
+            {missingName && <p className="hint">위 지역 선택에서 백업 지역을 볼 수도 있습니다.</p>}
+            <button type="button" onClick={retry}>다시 시도</button>
+          </div></div>}
+          {!loadProblem && status.error && <div className="map-overlay"><div>{status.error === "TOO_FEW_RULES" ? "위험요인을 2개 이상 선택하세요" : "가중치 합이 0입니다"}</div></div>}
           {gps.msg && <div className="gps-msg" role="status">{gps.msg}</div>}
           <button type="button" className="dim-btn" onClick={() => setDimMap((v) => !v)} aria-pressed={dimMap}
             title="배경 지도의 색을 흐리게 해 마커가 먼저 보이게 합니다">{dimMap ? "지도 색 원래대로" : "지도 색 흐리게"}</button>

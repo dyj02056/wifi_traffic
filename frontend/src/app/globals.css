@@ -104,6 +104,9 @@ button:hover { background: var(--border); }
   background: rgba(255,255,255,.6); }
 .map-overlay div { background: var(--error-bg); color: var(--error-text); padding: var(--space-4) var(--space-5);
   border-radius: var(--radius); font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.15); }
+.map-overlay .load-problem { max-width: min(420px, calc(100% - 32px)); text-align: center; }
+.map-overlay .load-problem p { margin: 0 0 var(--space-2); }
+.map-overlay .load-problem .hint { font-weight: 400; font-size: 13px; }
 
 /* ── weight-panel ── */
 .weight-panel .rule { display: grid; grid-template-columns: 20px 1fr auto; gap: var(--space-1) var(--space-2);

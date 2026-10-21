@@ -6,7 +6,11 @@ import { useQuery } from "@tanstack/react-query";
 import * as api from "./api";
 import { config } from "./config";
 
-const once = { staleTime: Infinity, gcTime: Infinity, retry: 1 } as const;
+// 백업에 없는 지역(ApiUnavailableError)은 다시 시도해도 같으므로 바로 오류로 보여 준다("다시 시도"는 화면에서)
+const once = {
+  staleTime: Infinity, gcTime: Infinity,
+  retry: (n: number, e: Error) => n < 1 && !api.isApiUnavailable(e),
+} as const;
 
 export const useMeta = () => useQuery({ queryKey: ["meta"], queryFn: api.getMeta, ...once });
 export const useRules = () => useQuery({ queryKey: ["rules"], queryFn: api.getRules, ...once });
