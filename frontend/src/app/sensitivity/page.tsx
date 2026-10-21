@@ -3,10 +3,11 @@
 // A 토네이도(8개 기준 × 끄기/2배) → 고른 경우의 숫자 카드 + B 등급 흐름도 → 더 보기(C 점수 산점도, D 기울기, 상위 표).
 // 모든 값은 지도와 같은 채점 함수(lib/score.ts computeScore, 골든 테스트 통과)로 브라우저에서 계산한다.
 // 순위 대신 점수·등급으로 보여 준다: 같은 점수 지점이 많아 순위는 작은 변화에도 크게 출렁이기 때문(이전 순위 산점도의 착시).
-import { Suspense, useMemo, useState } from "react";
+import { Suspense, useMemo, useState, type CSSProperties } from "react";
 import { useSearchParams } from "next/navigation";
 import { CartesianGrid, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
 import { DocShell } from "@/components/DocShell";
+import { usePlayOnView } from "@/lib/usePlayOnView";
 import { fmt } from "@/components/format";
 import { usePoints, useRegions, useRules } from "@/lib/queries";
 import { computeScore } from "@/lib/score";
@@ -179,6 +180,8 @@ function Sensitivity() {
   const sc = (chosen?.rid === rid ? chosen?.sc : null) ?? strongest;
   const res = useMemo(() => (rules && base && sc ? outcome(base, pts, rules, sc) : null), [rules, base, pts, sc]);
   const choose = (s: Scenario) => setChosen({ rid, sc: s });
+  // 토네이도 막대가 화면에 들어올 때마다(지역을 바꿀 때도) 0부터 자라게
+  const [tnRef, tnPlay] = usePlayOnView<HTMLDivElement>(tornado.length ? rid : null);
 
   if (!rules) return <p className="loading">불러오는 중…</p>;
   const ruleName = (i: number) => `${rules.rules[i].id} ${rules.rules[i].name}`;
@@ -208,18 +211,18 @@ function Sensitivity() {
           <section>
             <h2><span className="step">1</span> 어떤 기준이 결과를 가장 많이 흔드나</h2>
             <p className="field">막대 = 그 기준의 가중치를 바꿨을 때 등급이 바뀌는 지점 비율. 막대를 누르면 아래에서 자세히 봅니다.</p>
-            <div className="tornado">
-              <div className="tn-legend"><span><i className="off" />끄기 (×0)</span><span><i className="dbl" />2배 (×2)</span></div>
+            <div ref={tnRef} className={`tornado${tnPlay ? " grow" : ""}`}>
+              <div className="tn-legend"><span><i className="off" />끄기 (×0) ←</span><span className="tn-mid">기준</span><span>→ 2배 (×2)<i className="dbl" /></span></div>
               {rules.rules.map((r, i) => (
-                <div key={r.id} className="tn-row">
+                <div key={r.id} className="tn-row" style={{ "--d": `${i * 70}ms` } as CSSProperties}>
                   <button type="button" className={`tn-bar off${sc?.rule === i && sc.mult === 0 ? " on" : ""}`} onClick={() => choose({ rule: i, mult: 0 })}
                     aria-label={`${ruleName(i)} 끄기: ${(100 * tornado[i].off).toFixed(1)}%`}>
-                    <span style={{ width: `${(100 * tornado[i].off) / maxPct}%` }} /><em>{(100 * tornado[i].off).toFixed(1)}%</em>
+                    <span style={{ width: tnPlay ? `${(100 * tornado[i].off) / maxPct}%` : 0 }} /><em>{(100 * tornado[i].off).toFixed(1)}%</em>
                   </button>
                   <span className="tn-label">{r.id} {r.name}{r.is_assumption && <small className="badge assumption">가정</small>}</span>
                   <button type="button" className={`tn-bar dbl${sc?.rule === i && sc.mult === 2 ? " on" : ""}`} onClick={() => choose({ rule: i, mult: 2 })}
                     aria-label={`${ruleName(i)} 2배: ${(100 * tornado[i].dbl).toFixed(1)}%`}>
-                    <span style={{ width: `${(100 * tornado[i].dbl) / maxPct}%` }} /><em>{(100 * tornado[i].dbl).toFixed(1)}%</em>
+                    <span style={{ width: tnPlay ? `${(100 * tornado[i].dbl) / maxPct}%` : 0 }} /><em>{(100 * tornado[i].dbl).toFixed(1)}%</em>
                   </button>
                 </div>
               ))}

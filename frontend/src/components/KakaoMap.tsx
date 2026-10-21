@@ -1,6 +1,7 @@
 "use client";
 // 카카오맵 (docs/requests.md #31). web-draft/js/map-kakao.js와 같은 방식:
 // 마커는 CustomOverlay + div(.kmarker)라서 등급 색 변화가 CSS transition(0.4초)으로 부드럽게 바뀐다.
+// 움직임: 처음 나타날 때 톡 튀어나옴, 주의·높음은 파동(.kpulse)이 퍼짐, 등급이 바뀌면 한 번 튐(.kbump).
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { config } from "@/lib/config";
@@ -40,7 +41,14 @@ function paint(ms: Map<string, { el: HTMLDivElement }>, colorOf: (k: string) => 
   levelOf: (k: string) => string, visibleOf: (k: string) => boolean) {
   for (const [key, { el }] of ms) {
     el.style.background = colorOf(key);
-    el.dataset.level = levelOf(key);
+    const level = levelOf(key);
+    // 등급이 바뀐 마커만 한 번 튀어 오르게 (애니메이션 다시 시작)
+    if (el.dataset.level && el.dataset.level !== level) {
+      el.classList.remove("kbump");
+      void el.offsetWidth;
+      el.classList.add("kbump");
+    }
+    el.dataset.level = level;
     el.classList.toggle("hidden-marker", !visibleOf(key));
   }
 }
@@ -85,7 +93,8 @@ export function KakaoMap(p: Props) {
         const b = map.getBounds();
         cb.current.onViewChange((lat, lng) => b.contain(new k.LatLng(lat, lng)));
       });
-      ro = new ResizeObserver(() => map.relayout());
+      // 옆 칸을 접고 펼쳐 지도 크기가 바뀌어도 보던 곳이 가운데에 남도록 중심을 지킨다
+      ro = new ResizeObserver(() => { const c = map.getCenter(); map.relayout(); map.setCenter(c); });
       ro.observe(elRef.current);
       mapRef.current = map;
       setReady(true);
@@ -106,6 +115,13 @@ export function KakaoMap(p: Props) {
       el.style.background = cb.current.colorOf(pt.key);
       el.dataset.level = cb.current.levelOf(pt.key);
       el.dataset.name = pt.name;
+      // 처음 그릴 때 하나씩 톡톡 나타나도록 시작 시간을 조금씩 흩는다
+      el.style.animationDelay = `${Math.round(Math.random() * 600)}ms`;
+      // 퍼지는 파동(주의·높음만 CSS에서 보임). ::before는 기호, ::after는 이름표라 따로 둔다
+      const pulse = document.createElement("span");
+      pulse.className = "kpulse";
+      pulse.style.animationDelay = `${Math.round(Math.random() * 1800)}ms`;
+      el.append(pulse);
       el.addEventListener("click", () => (cb.current.picking ? cb.current.onPick?.(pt.lat, pt.lng) : cb.current.onSelect(pt.key)));
       const pos = new k.LatLng(pt.lat, pt.lng);
       const overlay = new k.CustomOverlay({ content: el, position: pos, xAnchor: 0.5, yAnchor: 0.5, zIndex: 2, clickable: true });

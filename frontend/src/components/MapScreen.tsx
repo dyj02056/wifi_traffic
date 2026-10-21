@@ -63,6 +63,9 @@ export function MapScreen() {
   const [picked, setPicked] = useState<string | null>(null);
   const [inView, setInView] = useState<((lat: number, lng: number) => boolean) | null>(null);
   const [gps, setGps] = useState<{ busy: boolean; msg: string }>({ busy: false, msg: "" });
+  // 왼쪽(위험요인·가중치)·오른쪽(순위 변동) 칸 접기. 접으면 좁은 띠만 남고 지도가 그만큼 넓어진다
+  const [leftOpen, setLeftOpen] = useState(true);
+  const [rankOpen, setRankOpen] = useState(true);
   const [dimMap, setDimMap] = useState(true);   // 배경 지도 색을 30%만 남겨 마커가 먼저 보이게 (A′)
   const [focus, setFocus] = useState<{ lat: number; lng: number; level: number; seq: number } | null>(null);
   const focusOn = (lat: number, lng: number, level: number) => setFocus((f) => ({ lat, lng, level, seq: (f?.seq ?? 0) + 1 }));
@@ -142,11 +145,15 @@ export function MapScreen() {
   const ranked = useMemo(() => (pts ?? [])
     .filter((p) => scores.get(p.key)?.score != null)
     .sort((a, b) => scores.get(b.key)!.score! - scores.get(a.key)!.score! || (a.key < b.key ? -1 : 1)), [pts, scores]);
-  const rankRows: RankRow[] = ranked.slice(0, TOP_N).map((p) => ({
+  // 순위는 지역 전체 지점 기준. 내림차순 = 상위 20(1위부터), 오름차순 = 하위 20(꼴찌부터, 실제 전체 순위 표시)
+  const [rankOrder, setRankOrder] = useState<"desc" | "asc">("desc");
+  const pick = rankOrder === "desc" ? ranked.slice(0, TOP_N) : ranked.slice(-TOP_N).reverse();
+  const rankRows: RankRow[] = pick.map((p, i) => ({
     key: p.key, name: p.name, score: scores.get(p.key)!.score!, baseRank: baseRank.get(p.key)!, color: colorOf(p.key),
+    rank: rankOrder === "desc" ? i + 1 : ranked.length - i,
   }));
-  const baseTop = new Set([...baseRank].filter(([, r]) => r <= TOP_N).map(([k]) => k));
-  const overlap = rankRows.filter((r) => baseTop.has(r.key)).length;
+  const baseEdge = new Set([...baseRank].filter(([, r]) => (rankOrder === "desc" ? r <= TOP_N : r > baseRank.size - TOP_N)).map(([k]) => k));
+  const overlap = rankRows.filter((r) => baseEdge.has(r.key)).length;
 
   const counts: Record<string, number> = {};
   let sum = 0, n = 0;
@@ -215,7 +222,7 @@ export function MapScreen() {
       <TopNav badges={badges} />
       <section className="topbar">
         <div className="region-picker">
-          <h2><span className="step">1</span> 지역 선택</h2>
+          <h2 className="map-head"><span className="step">1</span> 지역 선택</h2>
           <div className="fields">
             <label>시도
               <select value={region?.sido_code ?? ""} onChange={(e) => {
@@ -253,7 +260,7 @@ export function MapScreen() {
             {meta.data.snapshot_count ? ` · ${meta.data.snapshot_count}회 수집` : ""}</p>
         </div>
         <div className="recommend">
-          <h2><span className="step">2</span> 추천 와이파이 TOP 3 <small>지금 지도 화면 안에서 위험요인 점수가 가장 낮은 곳</small></h2>
+          <h2 className="map-head"><span className="step">2</span> 추천 와이파이 TOP 3 <small>지금 지도 화면 안에서 위험요인 점수가 가장 낮은 곳</small></h2>
           <ol className="recommend-list">
             {recommend.length ? recommend.map((p, i) => {
               const s = scores.get(p.key)!;
@@ -272,10 +279,16 @@ export function MapScreen() {
         </div>
       </section>
 
-      <main className="app">
+      <main className="app" style={{ gridTemplateColumns:
+        `${leftOpen ? "var(--sidebar-w)" : "var(--rail-w)"} 1fr ${rankOpen || st.selectedKey ? "var(--sheet-w)" : "var(--rail-w)"}` }}>
+        {!leftOpen ? (
+          <button type="button" className="rail left" onClick={() => setLeftOpen(true)} aria-label="위험요인 선택·가중치 펼치기">
+            <span className="rail-icon">▸</span><span className="rail-text">위험요인 선택·가중치</span>
+          </button>
+        ) : (
         <aside className="sidebar">
           <ScoreNotice error={status.error} warnings={status.warnings} />
-          <WeightPanel rules={rules.data} />
+          <WeightPanel rules={rules.data} onCollapse={() => setLeftOpen(false)} />
           <section className="panel layer-toggle">
             <h2>배경 레이어</h2>
             <label><input type="checkbox" checked={st.showChanges} onChange={(e) => st.setShowChanges(e.target.checked)} /> 최근 추가·삭제 지점</label>
@@ -290,6 +303,7 @@ export function MapScreen() {
             ))}
           </section>
         </aside>
+        )}
 
         <div className={`map-wrap${dimMap ? " dim" : ""}`}>
           <KakaoMap points={pts ?? NO_POINTS} bbox={region?.bbox ?? null} colorOf={colorOf} levelOf={levelOf} visibleOf={visibleOf}
@@ -311,8 +325,14 @@ export function MapScreen() {
             title="누른 뒤 지도에서 내 위치를 직접 찍습니다">{picking ? "✕ 취소" : "📍 내 위치"}</button>
         </div>
 
-        <aside className="right-col">
-          <RankTable rows={rankRows} overlap={overlap} topN={TOP_N} onClick={st.selectPoint} />
+        <aside className={`right-col${rankOpen || st.selectedKey ? "" : " collapsed"}`}>
+          {rankOpen ? <RankTable rows={rankRows} overlap={overlap} topN={TOP_N} total={ranked.length} order={rankOrder} onOrder={setRankOrder}
+            onClick={st.selectPoint} onCollapse={() => setRankOpen(false)} />
+            : !st.selectedKey && (
+              <button type="button" className="rail right" onClick={() => setRankOpen(true)} aria-label="순위 변동 펼치기">
+                <span className="rail-icon">◂</span><span className="rail-text">순위 변동</span>
+              </button>
+            )}
           <PointSheet open={!!st.selectedKey} detail={detail.data} loading={detail.isLoading} rules={rules.data}
             weights={st.weights} selected={st.selected} current={st.selectedKey ? scores.get(st.selectedKey) : undefined}
             onClose={() => st.selectPoint(null)} />
