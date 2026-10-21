@@ -23,20 +23,20 @@
 
 ## 2. 라벨 확정 (리드와 함께, D1 등록·census 후)
 
-- [ ] `backend\data\interim\ssid_census.csv`를 보고 **`backend\config\ssid_labels.csv`** 작성
+- [x] `backend\data\interim\ssid_census.csv`를 보고 **`backend\config\ssid_labels.csv`** 작성 — 상위 96개 확정, 95.1% (2026-10-20, #22·#25·#26). 이후 #47·#48로 Free 표기 조정
       (`ssid,label,evidence,reviewer,reviewed_at,status` / label = open·secure·unknown / 검토가 끝나면 status = confirmed)
       → 행 기준 커버리지 95% 이상 (M2). 후보 라벨은 `ai_label_assist.py`로 뽑을 수 있지만, 확정은 사람이 합니다.
-- [ ] `backend\data\interim\facility_census.csv`를 보고 **`backend\config\facility_map.csv`** 작성 (`facility_type,ratio,reason,status`, ratio는 0/0.25/0.5/1.0)
-- [ ] `backend\data\interim\place_detail_census.csv`를 보고 **`backend\config\keywords.yaml`**의 실외 키워드 확정 (r3_status: confirmed)
-- [ ] 구로구 CSV 컬럼을 보고 **`backend\config\guro_validation.yaml`**에 컬럼명과 `wifi접속환경` 값 → open/secure 매핑 작성
+- [x] `backend\data\interim\facility_census.csv`를 보고 **`backend\config\facility_map.csv`** 작성 (`facility_type,ratio,reason,status`, ratio는 0/0.25/0.5/1.0) — #21
+- [x] `backend\data\interim\place_detail_census.csv`를 보고 **`backend\config\keywords.yaml`**의 실외 키워드 확정 (r3_status: confirmed) — #27
+- [x] ~~구로구 CSV 컬럼을 보고 `guro_validation.yaml` 매핑 작성~~ — 받은 파일에 `wifi접속환경` 칸이 없어 취소(#12). R3는 서울 API 일치율로 대체(#28, 키 대기), R1은 WiGLE·현장 확인으로 검증(#48, [wigle_validation.md](wigle_validation.md))
 
 ## 3. 직접 작성
 
-- [ ] **`backend\data\cases.yaml`**: 사례 카드. 기사를 직접 읽고 요약을 쓰고, 출처명·URL·게재일·확인일을 적습니다. 출처가 없으면 export가 멈춥니다.
+- [x] **`backend\data\cases.yaml`**: 사례 카드. 기사를 직접 읽고 요약을 쓰고, 출처명·URL·게재일·확인일을 적습니다. 출처가 없으면 export가 멈춥니다. — 4건 반영(#29·#40, 요약은 Claude 초안 → 발표 전 사람 검토 필요)
 - [ ] `backend\.env` (`backend\.env.example`을 복사): `ANTHROPIC_API_KEY`(넣지 않음 — 설명은 근거값 기반 자동 설명으로 운영, docs/requests.md #36)
 
 ## 4. 소통
 
 - [ ] `contracts\` 폴더와 `contracts\README.md`를 담당 B에게 전달
-- [ ] `docs\requests.md` #1(지도 타일), #6(저합계 경고 기준), #8(R8 결측 처리)을 리드에게 확인받기
-- [ ] 시연 지역 확정(현재 구로구 `11-guro` 가정), 해커톤 마감일 확정
+- [x] `docs\requests.md` #1(지도 타일), #6(저합계 경고 기준), #8(R8 결측 처리)을 리드에게 확인받기 — #1 카카오맵으로 종료, #6·#8 확정
+- [x] 시연 지역 확정: 고양시 `41-goyang`(#34), 발표 2026-10-21 16:00 KST
