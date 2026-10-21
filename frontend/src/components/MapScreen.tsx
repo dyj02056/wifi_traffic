@@ -66,6 +66,7 @@ export function MapScreen() {
   const [dimMap, setDimMap] = useState(true);   // 배경 지도 색을 30%만 남겨 마커가 먼저 보이게 (A′)
   const [focus, setFocus] = useState<{ lat: number; lng: number; level: number; seq: number } | null>(null);
   const focusOn = (lat: number, lng: number, level: number) => setFocus((f) => ({ lat, lng, level, seq: (f?.seq ?? 0) + 1 }));
+  const [myLocation, setMyLocation] = useState<{ lat: number; lng: number; accuracy: number } | null>(null);
 
   // 로그인 안 했으면 인트로로
   useEffect(() => {
@@ -171,6 +172,9 @@ export function MapScreen() {
       } else {
         setGps({ busy: false, msg: r ? `${r.sido} ${r.sigungu}은 아직 데이터가 없습니다.` : "근처 지역을 찾지 못했습니다." });
       }
+      // 지역을 바꾼 뒤(같은 지역이어도) 내 좌표로 이동·확대하고 핀을 찍는다 (level 3 ≈ 반경 수백 m)
+      setMyLocation({ lat: coords.latitude, lng: coords.longitude, accuracy: coords.accuracy });
+      focusOn(coords.latitude, coords.longitude, 3);
     }, (err) => setGps({ busy: false, msg: err.code === err.PERMISSION_DENIED ? "위치 권한이 거부되었습니다." : "위치를 가져오지 못했습니다." }),
     { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 });
   };
@@ -289,7 +293,8 @@ export function MapScreen() {
         <div className={`map-wrap${dimMap ? " dim" : ""}`}>
           <KakaoMap points={pts ?? NO_POINTS} bbox={region?.bbox ?? null} colorOf={colorOf} levelOf={levelOf} visibleOf={visibleOf}
             colorVersion={scores} selectedKey={st.selectedKey} changes={changes.data?.changes ?? NO_CHANGES}
-            showChanges={st.showChanges} onSelect={st.selectPoint} onViewChange={(fn) => setInView(() => fn)} focus={focus} />
+            showChanges={st.showChanges} onSelect={st.selectPoint} onViewChange={(fn) => setInView(() => fn)} focus={focus}
+            myLocation={myLocation} />
           <Summary total={pts?.length ?? 0} counts={counts} grades={rules.data.grades} avg={n ? Math.floor((sum / n) * 100 + 0.5) / 100 : null} />
           {r1 === "provisional" && <div className="watermark"><span>임시(무효)</span></div>}
           {loadProblem && <div className="map-overlay" role="alert"><div className="load-problem">

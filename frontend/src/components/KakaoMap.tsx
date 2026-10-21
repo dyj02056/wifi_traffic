@@ -29,6 +29,8 @@ interface Props {
   onViewChange: (contains: (lat: number, lng: number) => boolean) => void;
   /** 검색 등으로 이 좌표로 이동·확대 (seq가 바뀔 때마다) */
   focus?: { lat: number; lng: number; level: number; seq: number } | null;
+  /** '내 위치' 버튼으로 받은 좌표 — 지점 마커와 구분되는 보라색 핀 + 정확도 원 */
+  myLocation?: { lat: number; lng: number; accuracy: number } | null;
 }
 
 function paint(ms: Map<string, { el: HTMLDivElement }>, colorOf: (k: string) => string,
@@ -57,6 +59,7 @@ export function KakaoMap(p: Props) {
   const mapRef = useRef<any>(null);
   const markers = useRef(new Map<string, { overlay: any; el: HTMLDivElement; pos: any }>());
   const ring = useRef<any>(null);
+  const myLoc = useRef<any[]>([]);
   const changeOverlays = useRef<any[]>([]);
   const cb = useRef(p);
   useLayoutEffect(() => { cb.current = p; });
@@ -152,6 +155,27 @@ export function KakaoMap(p: Props) {
     }, 50);
     return () => clearTimeout(t);
   }, [ready, p.focus, p.points]);
+
+  // 내 위치: 정확도 원 + 핀('나')과 '내 위치' 이름표. 지점 마커(신호등 색)·선택 고리(파랑)와 겹치지 않게 보라색, 맨 위에 그린다
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!ready || !map) return;
+    const k = window.kakao.maps;
+    for (const o of myLoc.current) o.setMap(null);
+    myLoc.current = [];
+    if (!p.myLocation) return;
+    const { lat, lng, accuracy } = p.myLocation;
+    const pos = new k.LatLng(lat, lng);
+    if (accuracy > 0 && accuracy <= 1000) {
+      myLoc.current.push(new k.Circle({ center: pos, radius: accuracy, strokeWeight: 1.5, strokeColor: "#7c3aed",
+        strokeOpacity: 0.7, strokeStyle: "dash", fillColor: "#7c3aed", fillOpacity: 0.08, zIndex: 9 }));
+    }
+    const el = document.createElement("div");
+    el.className = "kmyloc";
+    el.innerHTML = '<span class="kmyloc-label">내 위치</span><span class="kmyloc-halo"></span><span class="kmyloc-pin"><b>나</b></span>';
+    myLoc.current.push(new k.CustomOverlay({ content: el, position: pos, xAnchor: 0.5, yAnchor: 1, zIndex: 10 }));
+    for (const o of myLoc.current) o.setMap(map);
+  }, [ready, p.myLocation]);
 
   // 추가·삭제 레이어
   useEffect(() => {
