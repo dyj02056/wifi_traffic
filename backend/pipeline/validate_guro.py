@@ -1,5 +1,12 @@
 """R1 판정 검증: 구로구 'wifi접속환경'과 우리 SSID 라벨(open/secure)의 일치율 (plan.md §8.3-5, 발표 검증 슬라이드).
 
+[이 파일이 하는 일]
+  우리가 SSID 이름으로 정한 '개방형/보안접속' 분류가 맞는지 확인하는 검증입니다.
+  서울 구로구는 자체 와이파이 데이터에 접속 방식(정답)을 적어 두었으므로,
+  ① 구로구 데이터의 각 지점과 가장 가까운 전국 데이터 지점을 찾아 짝짓고(반경 match_radius_m 안, 같은 SSID 우선)
+  ② 우리 분류(pred)와 구로구 정답(truth)이 얼마나 일치하는지 계산합니다.
+  혼동행렬(confusion)은 "정답이 open인데 우리가 secure로 본 경우가 몇 개" 같은 표입니다.
+
 입력: data/external/guro_wifi.csv, config/guro_validation.yaml(컬럼명·값 매핑 — 실제 파일 보고 채움)
 출력: data/interim/guro_validation.csv, guro_validation_summary.json
 
@@ -45,6 +52,7 @@ def main():
     tables, status = load_tables()
     d1["pred"] = d1["ssid"].map(tables.ssid_labels).fillna("unlabeled")
 
+    # 구로구 지점마다 가까운 전국 데이터 지점 5곳을 찾고, 반경 안 + SSID가 같은 것을 우선으로 짝짓는다
     tree = BallTree(np.radians(d1[["lat", "lng"]].to_numpy(float)), metric="haversine")
     dist, idx = tree.query(np.radians(g[["_lat", "_lng"]].to_numpy(float)), k=min(5, len(d1)))
     rows = []
@@ -61,6 +69,7 @@ def main():
                      "d1_ssid": d1.at[i, "ssid"], "pred": d1.at[i, "pred"]})
     res = pd.DataFrame(rows)
     write_csv(INTERIM_DIR / "guro_validation.csv", res)
+    # 일치율은 우리 분류가 open/secure로 정해진 지점만 대상으로 계산한다(unknown·미분류는 따로 셈)
     m = res[res["matched"]] if len(res) else res
     judged = m[m["pred"].isin(["open", "secure"])] if len(m) else m
     summary = {

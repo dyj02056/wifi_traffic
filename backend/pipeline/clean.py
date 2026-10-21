@@ -1,6 +1,15 @@
 """정제: 헤더 매핑, 좌표 검증, region_id·key 부여, 중복 제거 → processed/wifi_clean.parquet
 
+[이 파일이 하는 일]
+  원본 데이터(스냅샷 하나)를 정제해서 data/processed/wifi_clean.parquet로 저장하고,
+  몇 행을 고치거나 버렸는지 data/interim/clean_report.json에 기록합니다.
+  (parquet: 표를 빠르게 읽고 쓰기 좋게 압축 저장하는 파일 형식)
+  정제 규칙은 src/wifisafe/engine.py의 clean_frame에 있습니다.
+
+[순서] ingest_snapshot.py(원본 등록) → ★ clean.py → score.py → export_bundle.py
+
 실행: python pipeline/clean.py [--snapshot 2026-10-20]
+(--snapshot을 빼면 가장 최근 스냅샷을 쓴다)
 """
 import argparse
 import warnings

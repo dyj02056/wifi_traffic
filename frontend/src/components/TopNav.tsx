@@ -1,5 +1,10 @@
 "use client";
 // 상단: 1줄 남색 바(배지 · 가운데 로고 · 로그인), 2줄 흰 메뉴 줄(아이콘 + 이름, 쿠팡 상단 메뉴처럼 가운데 정렬)
+//
+// [이 파일이 하는 일]
+//   모든 화면 맨 위의 메뉴 막대입니다. 첫째 줄: 왼쪽 배지(백업 데이터 등), 가운데 로고, 오른쪽 로그인 정보·로그아웃.
+//   둘째 줄: 지도 / 채점 기준 / 민감도 / 배경 통계·사례 / 데이터와 한계 메뉴. 지금 보고 있는 메뉴는 aria-current로 강조됩니다.
+//   badges: 화면마다 다른 배지를 넣을 수 있도록 바깥에서 받는다.
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
@@ -45,6 +50,7 @@ const ICONS: Record<string, ReactNode> = {
   ),
 };
 
+// 메뉴 목록: 주소와 화면에 보일 이름
 const LINKS = [
   { href: "/map", label: "지도" },
   { href: "/rules", label: "채점 기준" },

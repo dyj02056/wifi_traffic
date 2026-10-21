@@ -1,5 +1,13 @@
 """D1 CSV 스냅샷 등록 (plan.md §8.5).
 
+[이 파일이 하는 일]
+  내려받은 전국 무료와이파이 CSV를 '그날의 스냅샷'으로 보관합니다. 파이프라인의 첫 단계입니다.
+  - 같은 날짜에 같은 파일이 이미 있으면 아무것도 하지 않고, 다른 파일이면 --force가 있을 때만 덮어씁니다.
+  - 다른 날짜와 내용이 똑같으면(원본이 갱신되지 않음) 경고만 하고 등록합니다.
+  - manifest.csv(스냅샷 목록표)에 날짜·파일 지문·인코딩·행 수·데이터 기준일 범위·칸 이름 일치 여부를 적습니다.
+
+[순서] ★ ingest_snapshot.py → clean.py → score.py → export_bundle.py
+
 원본 파일을 바이트 그대로 data/raw/snapshots/YYYY-MM-DD.csv 로 복사하고 manifest.csv에 기록한다.
 원본은 수정하지 않는다. 날짜는 '수집일'(기본: 오늘).
 
@@ -22,6 +30,7 @@ MANIFEST_COLS = ["snapshot_date", "source_file", "sha256", "encoding", "rows", "
 
 
 def load_manifest() -> pd.DataFrame:
+    """스냅샷 목록표를 읽는다. 아직 없으면 빈 표."""
     if MANIFEST_PATH.exists():
         return pd.read_csv(MANIFEST_PATH, dtype=str, keep_default_na=False, encoding="utf-8-sig")
     return pd.DataFrame(columns=MANIFEST_COLS)
@@ -37,6 +46,7 @@ def main():
     src = args.csv.expanduser()
     if not src.exists():
         raise SystemExit(f"파일 없음: {src}")
+    # 파일 지문 계산 → 읽기 → 칸 이름 검사 → 데이터 기준일자 범위 확인
     sha = hashlib.sha256(src.read_bytes()).hexdigest()
     df, enc = read_csv_any(src)
     missing = [c for c in COLUMN_MAP if c not in df.columns]

@@ -1,3 +1,6 @@
+# [이 테스트가 확인하는 것]
+#   DB 없이도 되는 회원 관련 API를 확인한다: 내 위치 → 가까운 지역, 개발용 로그인 켜짐/꺼짐,
+#   DB가 없을 때 회원 기능이 503으로 막히는지, 출입증(세션 토큰) 발급·검증·위조·만료 처리.
 """GPS 최근접·로그인 API (DB 없이 되는 부분)와 세션 토큰."""
 import pytest
 from fastapi.testclient import TestClient

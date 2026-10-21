@@ -1,3 +1,6 @@
+# [이 테스트가 확인하는 것]
+#   실제 Neon 데이터베이스와 연결해 저장·조회·가까운 지역 찾기·회원 기능을 확인하는 테스트.
+#   평소에는 건너뛰고(skip), TEST_DB=1과 DATABASE_URL이 있을 때만 임시 공간을 만들어 돌린 뒤 지운다.
 """Neon/PostGIS 연동 — TEST_DB=1 이고 DATABASE_URL이 있을 때만, 임시 스키마 안에서 실행하고 지운다.
 실행: TEST_DB=1 python -m pytest tests/test_db.py -q
 """

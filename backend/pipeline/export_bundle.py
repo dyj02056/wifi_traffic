@@ -1,5 +1,13 @@
 """정적 데이터 번들 생성 + 스키마 검증 + golden_scores.json 갱신 (plan.md §6, M3)
 
+[이 파일이 하는 일]
+  score.py가 만든 채점 결과에서 원하는 지역만 골라 화면용 JSON 파일 묶음(번들)을 backend/dist/data/에 만듭니다.
+  만든 뒤에는 모든 파일이 정해진 모양(스키마)을 지키는지 검사하고,
+  Python·JS·TS 채점 결과 비교용 정답표(golden_scores.json)도 실제 지점 표본으로 다시 만듭니다.
+  이 번들은 scripts/sync_bundle.sh로 web-draft·frontend의 백업 데이터 폴더에 복사됩니다.
+
+[순서] clean.py → score.py → (pregen_explanations.py, 선택) → ★ export_bundle.py → scripts/sync_bundle.sh
+
 입력: processed/wifi_scored.parquet, processed/wifi_changes.csv, processed/explanations/, data/cases.yaml,
       config/sources.yaml(background_charts)
 출력: dist/data/ (contracts/schemas 10종 준수), contracts/golden_scores.json (실데이터 샘플 포함)
@@ -40,6 +48,7 @@ def main():
                if ch_path.exists() else pd.DataFrame(columns=CHANGE_COLS))
     if "region_id" not in changes.columns:
         changes["region_id"] = []
+    # 미리 만들어 둔 AI 설명이 있으면 지역별로 불러온다(없으면 템플릿 문장이 쓰인다)
     explanations = {}
     for rid in region_ids:
         p = PROCESSED_DIR / "explanations" / f"{rid}.json"
@@ -48,6 +57,7 @@ def main():
 
     a = assemble(scored, region_ids, args.default or region_ids[0], mode=mode, snapshot=snap,
                  snapshot_dates=snapshot_dates(), changes=changes, explanations=explanations)
+    # 이전 번들 폴더를 통째로 지우고 새로 쓴다(지난번에만 있던 지역 파일이 남지 않게)
     if DIST_DATA_DIR.exists():
         shutil.rmtree(DIST_DATA_DIR)
     B.write_bundle(DIST_DATA_DIR, **a.docs_kwargs)

@@ -1,6 +1,13 @@
 "use client";
 // 인트로 로그인 카드 (web-draft intro.html 흐름 이식, docs/requests.md #19):
 // 구글(GIS)·네이버 SDK로 받은 토큰을 API가 검증 → 처음이면 사는 지역 선택 → 지도.
+//
+// [이 파일이 하는 일]
+//   첫 화면("/")의 로그인 상자입니다. 두 단계로 되어 있습니다.
+//     1단계(main): 구글·네이버 로그인 버튼, '비회원으로 이용하기', (내 컴퓨터에서만) 개발용 로그인
+//     2단계(region): 처음 가입한 회원에게 '사는 지역'(시도·시군구)을 묻는다 → 저장 후 지도로 이동
+//   구글·네이버 로그인 도구(SDK)는 인터넷에서 불러오며, 앱 ID가 설정되지 않았으면 안내 문구만 띄웁니다.
+//   실제 로그인 처리(서버 확인, 저장)는 lib/auth.ts가 합니다.
 
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
@@ -44,6 +51,8 @@ export function LoginCard() {
   const googleRef = useRef<HTMLDivElement>(null);
   const naverStart = useRef<(() => void) | null>(null);
 
+  // 로그인 성공 후: 지역이 필요하면 2단계로, 아니면 지도로
+  // run: 로그인 작업 하나를 실행하며 '처리 중' 표시와 오류 메시지를 관리한다
   const goMap = () => router.replace("/map");
   const after = ({ needsRegion }: { needsRegion: boolean }) => (needsRegion ? setStep("region") : goMap());
   const run = async (fn: () => Promise<{ needsRegion: boolean }>) => {
@@ -90,7 +99,9 @@ export function LoginCard() {
         loginButton: { color: "green", type: 1, height: 40 },
       });
       nl.init();
+      // 네이버가 숨겨 둔 로그인 버튼을 우리 버튼에서 대신 눌러 준다(디자인을 맞추기 위해)
       naverStart.current = () => (document.querySelector("#naverIdLogin_loginButton") as HTMLElement | null)?.click();
+      // 주소 끝 #access_token=... 에서 토큰을 꺼내고, 주소창에서는 지운다(토큰이 화면·기록에 남지 않게)
       if (location.hash.includes("access_token")) {
         const token = new URLSearchParams(location.hash.slice(1)).get("access_token");
         history.replaceState(null, "", location.pathname + location.search);
@@ -137,11 +148,14 @@ export function LoginCard() {
   );
 }
 
+// 2단계: 사는 지역 고르기. 시도를 고르면 그 시도의 시군구 목록이 나온다(시군구는 '선택 안 함'도 가능)
 function RegionStep({ onDone, onCancel }: { onDone: () => void; onCancel: () => void }) {
   const { data: regions, error } = useRegions();
   const [sido, setSido] = useState("");
   const [rid, setRid] = useState("");
   const [msg, setMsg] = useState("");
+  // useMemo: 계산 결과를 기억해 두고 의존 값(regions, sido)이 바뀔 때만 다시 계산한다
+  // sidos = [시도코드, 시도이름] 목록(코드순), sggs = 고른 시도의 시군구 목록(가나다순)
   const sidos = useMemo(() => [...new Map((regions?.regions ?? []).map((r) => [r.sido_code, r.sido])).entries()]
     .sort((a, b) => a[0].localeCompare(b[0])), [regions]);
   const sggs = useMemo(() => (regions?.regions ?? []).filter((r) => r.sido_code === sido)
@@ -188,6 +202,7 @@ function RegionStep({ onDone, onCancel }: { onDone: () => void; onCancel: () => 
   );
 }
 
+// 구글 'G' 로고 그림(SVG). 구글 로그인 앱 ID가 없을 때 보이는 대체 버튼에 쓴다
 function GoogleMark() {
   return (
     <svg viewBox="0 0 48 48" aria-hidden="true">

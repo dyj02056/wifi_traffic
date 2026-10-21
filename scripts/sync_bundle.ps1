@@ -2,6 +2,10 @@
 # contracts/mock    → web-draft/mock, frontend/public/mock
 # contracts/golden_scores.json → web-draft/tests/golden_scores.json
 # 실행(저장소 루트에서): powershell -ExecutionPolicy Bypass -File scripts\sync_bundle.ps1
+#
+# [이 파일이 하는 일] sync_bundle.sh와 같은 일을 하는 윈도우 PowerShell 버전.
+#   백엔드 번들·mock 번들·정답표를 web-draft와 frontend에 복사한다(복사 대상 폴더는 먼저 지우고 새로 복사).
+# $ErrorActionPreference = "Stop": 명령이 실패하면 바로 멈춘다
 $ErrorActionPreference = "Stop"
 $Root = Split-Path -Parent $PSScriptRoot
 $Dist = Join-Path $Root "backend\dist\data"

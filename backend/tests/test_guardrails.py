@@ -1,3 +1,7 @@
+# [이 테스트가 확인하는 것]
+#   AI 설명 안전장치(wifisafe/guardrails.py)와 설명문 만들기(wifisafe/explain.py)를 확인한다:
+#   금지 표현 찾기, 안내 문구 속 부정형은 허용, 근거에 없는 숫자 찾기, 문장 수, AI 실패 시 템플릿으로 대체.
+#   (AI를 실제로 부르지 않고 가짜 응답 객체를 만들어 시험한다)
 from wifisafe import guardrails as G
 from wifisafe.explain import allowed_numbers_for, build_payload, explain, template_explanation
 

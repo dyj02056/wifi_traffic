@@ -1,6 +1,13 @@
 # R3(실외) 키워드와 금지 표현. 코드에 문자열을 박지 않고 여기서만 관리한다.
 # 2026-10-20 census(place_detail_census.csv) 기반 후보 적용. 근거·매칭 행 수: config/r3_keyword_candidates.csv
 # 2026-10-20 사용자 검토 후 확정(requests #27). 시장실·감시실은 실외 키워드 오분류 확인 후 실내 예외어로 추가.
+#
+# [이 파일이 하는 일]
+#   단어 목록 두 종류를 관리한다.
+#   1) R3(실외) 판정용: 설치장소 문구에 r3_outdoor_keywords 단어가 있으면 '실외'로 본다(wifisafe/rules.py r3_outdoor).
+#      단, r3_indoor_override_keywords 단어가 함께 있으면 실내로 본다. 예) "시장" → 실외, "시장실" → 실내
+#   2) 금지 표현: 화면 문구와 AI 설명에 나오면 안 되는 표현(wifisafe/guardrails.py, scripts/check_disclaimer.py가 검사)
+#   r3_status: confirmed(사람이 확정함) / draft(초안)
 r3_status: confirmed
 r3_outdoor_keywords:
   - 정류장

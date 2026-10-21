@@ -1,5 +1,10 @@
 """SSID 라벨 후보 초안 — 이름만 보는 규칙 기반 분류 (AI 미사용) → config/ssid_labels_candidates.csv
 
+[이 파일이 하는 일]
+  census.py가 만든 SSID 목록을 보고, 이름에 'Secure'·'Free' 같은 단어가 있는지로 보안형/개방형 후보를 자동 분류합니다.
+  사람이 SSID 분류표를 만들 때 출발점으로 쓰는 '초안'입니다. 많이 쓰이는 SSID 순으로 정렬하고,
+  상위 몇 개가 전체의 95%를 차지하는지도 알려 줍니다(그만큼만 사람이 검토하면 되므로).
+
 ※ 후보일 뿐이다. config/ssid_labels.csv에는 쓰지 않는다. 사람이 검토해 옮기고 status=confirmed로 확정한다.
 
 한 칸의 SSID를 쉼표·슬래시·괄호로 나눈 '토큰'마다 판정한다.
@@ -21,21 +26,25 @@ import pandas as pd
 
 from wifisafe.io import CONFIG_DIR, INTERIM_DIR, write_csv
 
-SECURE_RE = re.compile(r"secure|보안", re.I)
-FREE_RE = re.compile(r"free|무료|프리", re.I)
-DEVICE_RE = re.compile(r"^(iptime|ipTIME|T\d{3}|ATM-|TVWS|mlte_|olleh)", re.I)
-SPLIT_RE = re.compile(r"[,/()]|\.(?=[A-Za-z])")
+# 이름 판정용 패턴 (re.I = 대소문자 무시)
+SECURE_RE = re.compile(r"secure|보안", re.I)          # 보안접속을 뜻하는 단어
+FREE_RE = re.compile(r"free|무료|프리", re.I)          # 무료·개방을 뜻하는 단어
+DEVICE_RE = re.compile(r"^(iptime|ipTIME|T\d{3}|ATM-|TVWS|mlte_|olleh)", re.I)   # 공유기 기본 이름·모델명
+SPLIT_RE = re.compile(r"[,/()]|\.(?=[A-Za-z])")      # 한 칸에 여러 SSID가 적혔을 때 나누는 기준
 
 
 def norm(s: str) -> str:
+    """비교용으로 소문자로 바꾸고 숫자·영문·한글 외의 글자를 지운다. 예) "SEOUL_Secure" → "seoulsecure" """
     return re.sub(r"[^0-9a-z가-힣]", "", s.lower())
 
 
 def tokens(cell: str) -> list[str]:
+    """한 칸의 SSID 글자를 여러 이름(토큰)으로 나눈다. 예) "A_Free, A_Secure" → ["A_Free", "A_Secure"]"""
     return [t.strip() for t in SPLIT_RE.split(cell) if t.strip()]
 
 
 def classify_token(t: str, secure_bases: set[str]) -> str:
+    """이름 하나를 S/O/D/P/U 중 하나로 판정한다(뜻은 파일 맨 위 설명 참고)."""
     if SECURE_RE.search(t):
         return "S"
     if FREE_RE.search(t):
@@ -48,6 +57,7 @@ def classify_token(t: str, secure_bases: set[str]) -> str:
 
 
 def classify(cell: str, secure_bases: set[str]):
+    """칸 하나를 판정한다. 돌려주는 값: (라벨, 신뢰도, 적용 규칙 이름, 근거 설명)"""
     toks = tokens(cell)
     kinds = [classify_token(t, secure_bases) for t in toks]
     has = set(kinds)
@@ -79,6 +89,8 @@ def main():
     census["rows"] = census["rows"].astype(int)
     total = census["rows"].sum()
     all_tokens = {t for cell in census["ssid"] for t in tokens(cell)}
+    # 'Secure' 버전이 있는 이름의 바탕 이름 모음. 예) "SEOUL_Secure"가 있으면 "seoul_"→"seoul"을 넣어 둔다
+    # → 나중에 "SEOUL"만 적힌 칸을 보면 '보안 버전의 짝인 개방형(P)'으로 추정할 수 있다
     secure_bases = {norm(SECURE_RE.sub("", t)) for t in all_tokens if SECURE_RE.search(t)} - {""}
 
     out = []

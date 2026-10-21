@@ -1,5 +1,11 @@
 """원본 CSV 헤더 → 내부 영문 키 매핑, 지점 key, region_id.
 
+[이 파일이 하는 일]
+  1) 공공데이터 CSV의 한국어 칸 이름(예: '와이파이SSID')을 코드에서 쓰는 영어 이름(예: 'ssid')과 짝지어 둡니다.
+  2) 지점마다 고유키(key)를 만듭니다: 관리번호를 sha1로 변환한 값의 앞 10글자. 예) "3f9a2c71d0"
+     (sha1: 글자를 넣으면 항상 같은 길이의 '지문'을 돌려주는 계산법. 같은 입력이면 언제나 같은 지문)
+  3) 지역 번호(region_id)를 만듭니다: "시도코드-시군구 로마자". 예) 경기도 고양시 → "41-goyang"
+
 COLUMN_MAP은 실제 D1 CSV(무료와이파이정보.csv, 2026-10-20 수령, 94,166행·20컬럼) 헤더로 확정했다.
 헤더가 바뀌면 validate_header()가 즉시 에러를 낸다.
 """
@@ -46,6 +52,7 @@ SIDO_CODES = {
     # 별칭
     "강원도": "51", "전라북도": "52",
 }
+# 테스트용 가짜 데이터(mock)에 쓰는 시도 번호. 실제 시도와 겹치지 않게 99를 쓴다.
 MOCK_SIDO_CODE = "99"
 
 # 원본에 있지만 공식 시도코드를 아직 확인하지 못한 시도명. clean 단계에서 제외하고 경고만 남긴다(2026-10-20 결정).
@@ -54,10 +61,12 @@ PENDING_SIDO: set[str] = set()
 
 
 class HeaderMismatch(SystemExit):
+    """CSV 칸 이름이 예상과 다를 때 내는 오류."""
     pass
 
 
 def validate_header(columns) -> None:
+    """원본 CSV에 COLUMN_MAP의 칸과 관리번호 칸이 모두 있는지 검사한다. 빠진 칸이 있으면 멈춘다."""
     cols = [str(c).strip() for c in columns]
     missing = [k for k in list(COLUMN_MAP) + ([ID_COLUMN] if ID_COLUMN else []) if k not in cols]
     if missing:
@@ -68,26 +77,37 @@ def validate_header(columns) -> None:
 
 
 def point_key(lat: float, lng: float, ssid: str, place_name: str, raw_id: str | None = None) -> str:
-    """고유 ID가 없으면 sha1(round(lat,5), round(lng,5), ssid, place_name) 앞 10자 (plan.md §8.5)."""
+    """고유 ID가 없으면 sha1(round(lat,5), round(lng,5), ssid, place_name) 앞 10자 (plan.md §8.5).
+
+    관리번호(raw_id)가 있으면 그것만으로 키를 만든다. 그래야 좌표가 조금 바뀌어도 같은 지점으로 인식된다.
+    """
     basis = f"id:{raw_id}" if raw_id else f"{round(float(lat), 5):.5f}|{round(float(lng), 5):.5f}|{ssid}|{place_name}"
     return hashlib.sha1(basis.encode("utf-8")).hexdigest()[:10]
 
 
 # ── region_id = {시도코드}-{시군구명 로마자 슬러그} ───────────────────
+# (슬러그: 주소창에 넣기 좋게 영문 소문자·숫자·하이픈만으로 만든 짧은 이름)
+# 한글 한 글자는 초성(첫소리)·중성(가운데소리)·종성(받침)으로 나뉜다. 각각을 로마자로 바꾸는 표.
 _CHO = ["g", "kk", "n", "d", "tt", "r", "m", "b", "pp", "s", "ss", "", "j", "jj", "ch", "k", "t", "p", "h"]
 _JUNG = ["a", "ae", "ya", "yae", "eo", "e", "yeo", "ye", "o", "wa", "wae", "oe", "yo", "u", "wo", "we", "wi",
          "yu", "eu", "ui", "i"]
 _JONG = ["", "k", "k", "k", "n", "n", "n", "t", "l", "k", "m", "l", "l", "l", "p", "l", "m", "p", "p", "t", "t",
          "ng", "t", "t", "k", "t", "p", "t"]
+# 시군구 이름 끝에서 떼어 낼 글자 (예: 고양시 → 고양)
 _SUFFIXES = ("구", "시", "군")
 
 
 def romanize(text: str) -> str:
-    """국어의 로마자 표기법 근사(음운 변화 미반영). 슬러그 용도로만 쓴다."""
+    """국어의 로마자 표기법 근사(음운 변화 미반영). 슬러그 용도로만 쓴다.
+
+    한글 글자는 컴퓨터 안에서 '가'(0xAC00)부터 순서대로 번호가 매겨져 있어서,
+    번호를 계산하면 초성·중성·종성을 알아낼 수 있다(초성 1개당 588글자, 중성 1개당 28글자).
+    예) "고양" → "goyang"
+    """
     out = []
     for ch in text:
         code = ord(ch) - 0xAC00
-        if 0 <= code < 11172:
+        if 0 <= code < 11172:   # 11172 = 한글 완성형 글자 수
             out.append(_CHO[code // 588] + _JUNG[(code % 588) // 28] + _JONG[code % 28])
         elif ch.isascii() and ch.isalnum():
             out.append(ch.lower())
@@ -97,6 +117,7 @@ def romanize(text: str) -> str:
 
 
 def sigungu_slug(sigungu: str) -> str:
+    """시군구 이름 → 슬러그. 예) "고양시 덕양구" → "goyang-deogyang", "서초구" → "seocho" """
     parts = []
     for word in re.split(r"\s+", sigungu.strip()):
         if len(word) >= 2 and word.endswith(_SUFFIXES):
@@ -107,6 +128,7 @@ def sigungu_slug(sigungu: str) -> str:
 
 
 def sido_code(sido: str) -> str:
+    """시도 이름 → 두 자리 번호. 예) "경기도" → "41". 표에 없으면 추가하라는 안내와 함께 멈춘다."""
     code = SIDO_CODES.get(sido.strip())
     if code is None:
         raise SystemExit(f"시도코드 미등록 시도명: {sido!r} → src/wifisafe/schema.py SIDO_CODES에 추가하세요")
@@ -114,4 +136,5 @@ def sido_code(sido: str) -> str:
 
 
 def make_region_id(sido: str, sigungu: str, code: str | None = None) -> str:
+    """시도·시군구 이름으로 region_id를 만든다. 예) ("경기도", "고양시") → "41-goyang" """
     return f"{code or sido_code(sido)}-{sigungu_slug(sigungu)}"

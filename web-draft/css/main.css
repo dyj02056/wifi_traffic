@@ -1,3 +1,8 @@
+/* [이 파일이 하는 일]
+   web-draft 지도·채점 기준·데이터와 한계 화면의 공통 스타일(색·배치·마커 모양·애니메이션).
+   색 값은 tokens.css의 var(--이름)을 가져다 쓴다. frontend/src/app/globals.css가 이 파일을 옮겨 간 것이다.
+   읽는 법: '.이름 { 속성: 값 }' = class가 '이름'인 요소의 모양, @media (max-width: …) = 좁은 화면 전용.
+*/
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body {

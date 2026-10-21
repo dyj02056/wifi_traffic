@@ -1,5 +1,7 @@
 // 구글·네이버 로그인 설정. 클라이언트 ID는 공개돼도 되는 값이지만, 비밀키(Client Secret)는 절대 여기에 넣지 않는다.
 // 비어 있으면 해당 버튼은 "설정 전" 안내만 띄운다.
+// [이 파일이 하는 일] web-draft 인트로 화면의 구글·네이버 로그인 앱 ID 설정 (social.js가 읽는다)
+// NAVER_CALLBACK_URL: 네이버 로그인 후 돌아올 주소 = 지금 폴더의 intro.html
 //
 // 구글: https://console.cloud.google.com/apis/credentials → OAuth 클라이언트 ID(웹 애플리케이션)
 //   "승인된 자바스크립트 원본"에 http://localhost:5501 (배포 주소도) 추가

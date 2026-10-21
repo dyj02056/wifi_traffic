@@ -1,5 +1,11 @@
 """contracts/mock/ 가짜 번들 + mock 기반 golden_scores.json 생성 (plan.md §6.5).
 
+[이 파일이 하는 일]
+  실제 데이터가 없어도 화면 개발과 테스트를 할 수 있도록, 가상의 지점 40곳으로 '가짜 번들'을 만듭니다.
+  가짜 지역 이름은 "샘플시 가상구"(region_id "99-gasang")이고, 이름에 [샘플]·(가상)을 붙여 실제와 헷갈리지 않게 합니다.
+  두 날짜의 가짜 스냅샷을 만들어(3곳 삭제, 3곳 추가) 추가·삭제 기능도 확인할 수 있게 합니다.
+  테스트(test_api.py 등)와 화면의 ?data=mock 모드가 이 번들을 씁니다.
+
 실제 파이프라인(clean_frame → score_frame → write_bundle)을 가상의 원본 행에 그대로 통과시킨다.
 ※ mock 값은 발표 화면에 절대 쓰지 않는다. meta.is_mock=true.
 
@@ -19,10 +25,11 @@ from wifisafe.io import GOLDEN_PATH, MOCK_DIR, validate_bundle, write_json
 from wifisafe.rules import RuleTables
 from wifisafe.schema import COLUMN_MAP, ID_COLUMN
 
-N_POINTS = 40
-SNAP_1, SNAP_2 = "2026-10-13", "2026-10-20"
+N_POINTS = 40                                  # 가짜 지점 수
+SNAP_1, SNAP_2 = "2026-10-13", "2026-10-20"    # 가짜 스냅샷 두 날짜
 CENTER = (37.5000, 126.9500)   # 가상 지역 표시용 좌표(실제 지점 아님)
 
+# 가짜 데이터용 분류표 (실제 config/ 파일 대신 사용)
 MOCK_TABLES = RuleTables(
     ssid_labels={"MOCK_Free_WiFi": "open", "MOCK_Public_Open": "open", "MOCK_Secure": "secure",
                  "MOCK_Unknown": "unknown"},
@@ -37,6 +44,11 @@ SSIDS = ["MOCK_Free_WiFi", "MOCK_Free_WiFi", "MOCK_Public_Open", "MOCK_Secure", 
 
 
 def fake_rows(n: int, seed: int, start: int = 0) -> pd.DataFrame:
+    """원본 CSV와 같은 칸 이름을 가진 가짜 행 n개를 만든다.
+
+    seed(무작위 시작값)를 고정해서 매번 똑같은 가짜 데이터가 나온다. start는 관리번호를 몇 번부터 붙일지.
+    빈칸·잘못된 전화번호('000') 같은 문제 값도 일부러 섞어 각 위험요인이 골고루 나오게 한다.
+    """
     rng = random.Random(seed)
     rows = []
     for i in range(start, start + n):
@@ -73,6 +85,7 @@ def main():
     ap.add_argument("--no-golden", action="store_true", help="contracts/golden_scores.json을 덮어쓰지 않음")
     args = ap.parse_args()
 
+    # 실제 파이프라인과 같은 순서: 정제 → 채점 → 스냅샷 비교
     raw1 = fake_rows(N_POINTS, seed=1)
     raw2 = pd.concat([raw1.iloc[3:], fake_rows(3, seed=2, start=N_POINTS)], ignore_index=True)   # 3개 삭제, 3개 추가
     c1, _ = clean_frame(raw1, mock=True)

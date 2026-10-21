@@ -3,6 +3,13 @@
 // A 토네이도(8개 기준 × 끄기/2배) → 고른 경우의 숫자 카드 + B 등급 흐름도 → 더 보기(C 점수 산점도, D 기울기, 상위 표).
 // 모든 값은 지도와 같은 채점 함수(lib/score.ts computeScore, 골든 테스트 통과)로 브라우저에서 계산한다.
 // 순위 대신 점수·등급으로 보여 준다: 같은 점수 지점이 많아 순위는 작은 변화에도 크게 출렁이기 때문(이전 순위 산점도의 착시).
+//
+// [이 파일이 하는 일]
+//   "/sensitivity" 화면: "가중치를 우리가 정했는데, 그 값을 조금 바꾸면 결과가 확 달라지지 않을까?"를 확인합니다.
+//   ① 토네이도 차트: 8개 기준 각각을 끄거나(×0) 2배로 했을 때 등급이 바뀌는 지점 비율. 막대가 길수록 결과를 많이 흔드는 기준
+//   ② 자세히 보기: 고른 경우의 숫자(상위 20곳 유지 수, 등급 바뀐 지점 수), 등급 흐름도(왼쪽 기본 등급 → 오른쪽 바뀐 등급)
+//   ③ 더 보기: 점수 산점도, 상위 10곳 점수 변화(기울기 차트), 상위 20곳 표
+//   용어: 시나리오(Scenario) = '어느 기준(rule)을 몇 배(mult)로 바꿀지' 한 가지 경우
 import { Suspense, useMemo, useState, type CSSProperties } from "react";
 import { useSearchParams } from "next/navigation";
 import { CartesianGrid, ReferenceLine, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from "recharts";
@@ -13,18 +20,20 @@ import { usePoints, useRegions, useRules } from "@/lib/queries";
 import { computeScore } from "@/lib/score";
 import type { RulesDoc } from "@/lib/types";
 
-const TOP_N = 20;
-const MULTS = [0, 0.5, 1.5, 2] as const;
+const TOP_N = 20;                          // '상위 몇 곳이 그대로 남나'를 볼 개수
+const MULTS = [0, 0.5, 1.5, 2] as const;  // 고를 수 있는 배율
 const MULT_LABEL: Record<number, string> = { 0: "끄기 (×0)", 0.5: "절반 (×0.5)", 1.5: "1.5배", 2: "2배" };
 
 interface Pt { key: string; name: string; r: number[] }
 interface Scenario { rule: number; mult: number }
+// 한 시나리오의 결과: 지점별 새 점수, moved(등급 바뀐 지점 수), topKeep(상위 20곳 중 남은 수), meanAbs(평균 점수 변화)
 interface Outcome {
   scores: Map<string, { score: number; grade: string }>;
   moved: number; topKeep: number; meanAbs: number;
   flows: number[][];                // flows[i][j] = A 등급 i → B 등급 j 지점 수
 }
 
+// 모든 지점을 주어진 가중치(8개 모두 켬)로 채점 → 지점 key → {점수, 등급}
 function scoreAll(pts: Pt[], weights: number[], rules: RulesDoc) {
   const sel = weights.map(() => true);
   const m = new Map<string, { score: number; grade: string }>();
@@ -34,9 +43,11 @@ function scoreAll(pts: Pt[], weights: number[], rules: RulesDoc) {
   }
   return m;
 }
+// 점수 높은 순 상위 n곳의 key 모음(동점은 key 순)
 const topKeys = (m: Map<string, { score: number }>, n: number) =>
   new Set([...m].sort((a, b) => b[1].score - a[1].score || (a[0] < b[0] ? -1 : 1)).slice(0, n).map(([k]) => k));
 
+// 시나리오 하나를 계산한다: 그 기준의 가중치만 배율을 곱해 다시 채점하고, 기본(base) 결과와 비교한다
 function outcome(base: Map<string, { score: number; grade: string }>, pts: Pt[], rules: RulesDoc, sc: Scenario): Outcome {
   const w = rules.rules.map((r, i) => (i === sc.rule ? r.max_points * sc.mult : r.max_points));
   const scores = scoreAll(pts, w, rules);
@@ -54,6 +65,7 @@ function outcome(base: Map<string, { score: number; grade: string }>, pts: Pt[],
   return { scores, moved, topKeep: [...ta].filter((k) => tb.has(k)).length, meanAbs: base.size ? abs / base.size : 0, flows };
 }
 
+// 등급 바뀐 비율(%)에 따른 한 줄 판정: 10% 미만 안정 / 30% 미만 일부 영향 / 그 이상 크게 달라짐
 function verdict(pct: number) {
   if (pct < 10) return { text: "결과가 안정적", cls: "ok" };
   if (pct < 30) return { text: "일부 지점이 영향을 받음", cls: "mid" };
@@ -64,6 +76,7 @@ function verdict(pct: number) {
 function GradeFlow({ flows, grades, leftLabel, rightLabel }: {
   flows: number[][]; grades: RulesDoc["grades"]; leftLabel: string; rightLabel: string;
 }) {
+  // SVG 그림 치수: 전체 폭·높이, 양쪽 등급 상자 폭, 상자 사이 간격, 위 여백. 띠의 굵기는 지점 수에 비례(scale)
   const W = 680, H = 260, NW = 92, GAP = 14, top = 28;
   const total = flows.flat().reduce((a, b) => a + b, 0) || 1;
   const scale = (H - top - GAP * (grades.length - 1)) / total;
@@ -150,6 +163,7 @@ function Slope({ rows }: { rows: { name: string; a: number; b: number; color: st
   );
 }
 
+// 화면 본체. 지역 선택 → 그 지역 지점으로 기본 채점(base) → 토네이도 계산 → 고른 시나리오 자세히 보기
 function Sensitivity() {
   const search = useSearchParams();
   const { data: regions } = useRegions();
@@ -314,6 +328,7 @@ function Sensitivity() {
   );
 }
 
+// 주소의 ?region을 읽으므로 Suspense로 감싼다
 export default function SensitivityPage() {
   return (
     <DocShell>

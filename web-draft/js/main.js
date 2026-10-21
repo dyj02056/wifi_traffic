@@ -1,4 +1,12 @@
 // 지도 화면 진입점: 지역 선택 → 마커 → 클릭 상세 → 슬라이더 재채점·순위표 (plan.md §1.1 흐름 1~3)
+//
+// [이 파일이 하는 일]
+//   web-draft의 지도 화면(index.html)을 움직이는 중심 코드입니다. frontend의 MapScreen.tsx와 같은 역할입니다.
+//   1) 로그인 확인 → 데이터(meta·rules·regions) 읽기 → 지도 준비(카카오맵 키가 있으면 카카오, 없으면 Leaflet)
+//   2) 지역을 고르면 그 지역 지점을 읽어 마커를 찍는다
+//   3) 슬라이더·체크박스를 바꾸면 0.12초 뒤 모든 지점을 다시 채점(rescore)하고 화면을 다시 그린다(render)
+//   화면 조각(가중치 패널, 순위표, 지점 상세 등)을 그리는 함수는 panel.js에 있습니다.
+//   state: 화면 전체가 함께 쓰는 값 보관 상자(지금 지역, 가중치, 점수 등)
 import * as api from "./api.js";
 import { computeScore } from "./score.js";
 import { KAKAO_JS_KEY } from "./map-config.js";
@@ -9,6 +17,7 @@ const $ = (s) => document.querySelector(s);
 const session = requireSession();
 let mapView;   // 카카오맵(키가 있을 때) 또는 Leaflet — 같은 함수 이름을 쓴다
 
+// 지도 그리기 도구를 고른다. 카카오맵 SDK를 못 불러오면(키 오류·인터넷 없음) Leaflet으로 대신한다
 async function loadMapView() {
   if (KAKAO_JS_KEY) {
     try {
@@ -21,8 +30,8 @@ async function loadMapView() {
   }
   return import("./map.js");
 }
-const TOP_N = 20;
-const DEBOUNCE_MS = 120;
+const TOP_N = 20;          // 순위표 지점 수
+const DEBOUNCE_MS = 120;   // 슬라이더를 멈춘 뒤 다시 채점할 때까지 기다리는 시간(0.12초)
 
 const state = {
   meta: null, rules: null, regions: null,
@@ -39,6 +48,7 @@ const colorOf = (key) => {
 };
 const scoreOf = (key) => state.scores.get(key)?.score ?? null;
 
+// 지금 가중치·켜짐 상태로 모든 지점을 다시 채점한다. status에는 '점수를 낼 수 있는 설정인지'가 남는다
 function rescore() {
   const { grades, params } = state.rules;
   state.scores.clear();
@@ -52,12 +62,14 @@ function rescore() {
   state.status = status;
 }
 
+// 기본 가중치 기준 순위(순위표의 '기본' 칸과 ▲▼ 변동 비교용)
 function computeBaseRank() {
   const all = state.defaultWeights.map(() => true);
   const base = new Map(state.points.map((p) => [p.key, computeScore(p.r, state.defaultWeights, all, state.rules.grades, state.rules.params).score]));
   state.baseRank = new Map(rankOrder(state.points, (k) => base.get(k)).map((p, i) => [p.key, i + 1]));
 }
 
+// 채점 결과로 화면 전체(안내, 마커 색, 요약, 순위표, 추천, 열린 상세)를 다시 그린다
 function render() {
   const blocked = !!state.status.error;
   $("#score-blocked").hidden = !blocked;
@@ -108,6 +120,7 @@ function renderRecommend() {
   }).join("");
 }
 
+// 디바운스: 연달아 불려도 마지막 호출 뒤 0.12초가 지나야 한 번만 다시 채점한다
 let timer = null;
 function scheduleRescore() {
   clearTimeout(timer);
@@ -123,6 +136,7 @@ function renderSheet() {
   sheet.querySelector(".close").addEventListener("click", closePoint);
 }
 
+// 지점 상세 열기·닫기
 function openPoint(key) {
   state.selectedKey = key;
   renderSheet();
@@ -136,6 +150,7 @@ function closePoint() {
   mapView.clearSelection();
 }
 
+// 지역 바꾸기: 그 지역의 지점·상세·추가삭제 파일을 읽고, 채점하고, 마커를 다시 찍고, 주소창 ?region=도 바꾼다
 async function loadRegion(rid) {
   closePoint();
   state.regionId = rid;
@@ -163,6 +178,7 @@ async function loadRegion(rid) {
   render();
 }
 
+// 시도·시군구 선택 상자를 채우고, 처음 보여 줄 지역을 정한다(?region → 회원 지역 → 기본 지역 → 첫 지역)
 function setupRegionPicker() {
   const avail = state.regions.regions.filter((r) => r.available);
   const sidoSel = $("#sido"), sggSel = $("#sigungu");
@@ -187,6 +203,7 @@ function setupRegionPicker() {
   return initial.region_id;
 }
 
+// 가중치 패널·초기화 버튼·등급 필터·추가삭제 레이어·검색창에 동작을 연결한다
 function setupControls() {
   const resetBtn = $("#reset-weights");
   const panel = $("#weight-panel");
@@ -211,12 +228,14 @@ function setupControls() {
   });
 }
 
+// 등급 색을 rules.json 값으로 CSS 변수(--grade-*)에 덮어쓴다(색의 기준은 rules.json)
 function applyGradeColors() {
   const root = document.documentElement.style;
   const vars = ["--grade-low", "--grade-mid", "--grade-high"];
   state.rules.grades.forEach((g, i) => vars[i] && root.setProperty(vars[i], g.color));
 }
 
+// 시작점: 데이터 읽기 → 기본값 채우기 → 지도 준비 → 조작 연결 → 첫 지역 표시
 async function main() {
   try {
     state.meta = await api.init();

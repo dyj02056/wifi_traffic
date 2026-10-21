@@ -1,5 +1,13 @@
 """스냅샷 census — SSID·시설구분·설치장소상세 고유값 집계, 행 수/고유 장소 수 기록 (plan.md §8.3, M1).
 
+[이 파일이 하는 일]
+  census는 '전수조사'라는 뜻입니다. 원본 데이터를 훑어서 "어떤 SSID가 몇 번 나오나", "시설구분 값은 몇 종류인가",
+  "빈칸 비율은 얼마인가" 같은 현황표를 만듭니다. 사람이 분류표(ssid_labels.csv, facility_map.csv, keywords.yaml)를
+  채울 때 이 현황표를 보고 작업합니다. 채점 자체는 하지 않습니다.
+
+[언제 쓰나]
+  새 스냅샷을 받은 직후, 또는 분류표를 고치기 전에 현황을 볼 때.
+
 출력(data/interim/):
   header.json               실제 헤더와 COLUMN_MAP 비교
   ssid_census.csv           SSID 고유값·빈도·누적비율·예시 시군구·현재 라벨 → ssid_labels.csv 작성용
@@ -29,6 +37,7 @@ def shape(v: str) -> str:
 
 
 def label_coverage(df: pd.DataFrame, labels: pd.DataFrame) -> dict:
+    """SSID 분류표가 전체 행의 몇 %를 덮는지(라벨 있음 / 확정 라벨 / SSID가 있는 행 중 확정) 계산한다."""
     confirmed = set(labels.loc[labels["status"] == "confirmed", "ssid"])
     anyl = set(labels["ssid"])
     n = len(df)
@@ -52,6 +61,7 @@ def main():
     raw = load_raw(date)
     INTERIM_DIR.mkdir(parents=True, exist_ok=True)
 
+    # 1) 칸 이름 검사: COLUMN_MAP에 있는데 CSV에 없는 칸(missing)이 있으면 멈춘다
     cols = list(raw.columns)
     missing = [c for c in COLUMN_MAP if c not in cols]
     extra = [c for c in cols if c not in COLUMN_MAP and c != ID_COLUMN]
@@ -77,6 +87,8 @@ def main():
     st = dict(zip(labels["ssid"], labels["status"]))
 
     # SSID
+    # 2) SSID별 행 수·나오는 시군구 수·예시를 세고, 많이 나온 순으로 정렬해 누적 비율(cum_share)을 붙인다.
+    #    누적 비율을 보면 "상위 몇 개 SSID만 분류하면 전체의 몇 %가 해결되는지" 알 수 있다.
     g = df.groupby("ssid")
     ssid = pd.DataFrame({"rows": g.size(), "n_sigungu": g["sigungu"].nunique(),
                          "example_sigungu": g.apply(lambda x: " / ".join((x["sido"] + " " + x["sigungu"]).value_counts().index[:3]), include_groups=False),
@@ -105,6 +117,7 @@ def main():
     write_csv(INTERIM_DIR / "place_detail_census.csv", det)
 
     # 요약
+    # 3) 전체 요약: 행 수, 고유 장소 수, 칸별 빈칸 비율, 날짜·전화번호 모양 분포, 라벨 커버리지
     try:
         clean, report = clean_frame(raw)
     except SystemExit as e:      # 예: 시도코드 미등록 — 요약은 남기고 사유를 기록

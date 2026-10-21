@@ -1,3 +1,6 @@
+# [이 테스트가 확인하는 것]
+#   점수 공식(wifisafe/scoring.py)을 확인한다: plan.md 예시 계산, 반올림, 등급 경계(30·60점),
+#   요인을 너무 적게 켰거나 가중치 합이 0일 때의 오류, 그리고 golden_scores.json 정답표와 일치하는지.
 import json
 
 import pytest

@@ -1,5 +1,11 @@
 # validate_guro.py 설정 — 구로구 공공와이파이(15147901) 'wifi접속환경'으로 R1 판정 검증 (plan.md §8.3-5)
 # TODO(확인필요): data/external/guro_wifi.csv 를 받은 뒤 실제 컬럼명과 값으로 채운다. 추측 금지.
+#
+# [이 파일이 하는 일]
+#   구로구 자체 와이파이 데이터에 적힌 '접속 방식'(정답)과 우리 SSID 분류를 비교할 때 필요한 설정.
+#   columns: 구로구 CSV에서 접속 방식·SSID·위도·경도가 들어 있는 칸 이름
+#   access_env_map: 구로구 데이터의 접속 방식 값을 open(개방형)/secure(보안접속)/ignore(비교 제외)로 바꾸는 표
+#   비어 있으면 validate_guro.py가 실제 칸 이름과 값 예시를 출력해 주므로, 그것을 보고 채우면 된다.
 status: draft
 columns:
   access_env: ""     # 예: wifi접속환경 컬럼의 실제 헤더명

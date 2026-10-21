@@ -3,6 +3,18 @@
 
 /* web-draft/css/main.css·intro.css를 옮겨 온 스타일 (영역 이름을 plan.md §9 컴포넌트와 맞춤). Next.js 전용은 맨 아래 */
 
+/* [이 파일이 하는 일]
+   사이트 전체의 겉모습(색, 글자 크기, 배치, 움직임)을 정하는 스타일 파일입니다. layout.tsx가 불러옵니다.
+   위의 @import는 Tailwind(기본 스타일 도구)와 색·간격 값 모음(tokens.css)을 먼저 불러옵니다.
+
+   [CSS 읽는 법]
+   - .이름 { 속성: 값; }  → class="이름"인 요소에 스타일을 준다. 예) .panel { border-radius: 12px; } = 모서리를 둥글게
+   - var(--이름)          → tokens.css에 정해 둔 값을 가져다 쓴다. 예) var(--grade-high) = '높음' 빨간색
+   - @keyframes 이름      → 애니메이션의 처음(from)·끝(to) 모습을 정의
+   - @media (max-width: 1100px) { ... } → 화면 폭이 1100px 이하일 때만 적용(휴대폰·좁은 창)
+   - @media (prefers-reduced-motion: reduce) → 사용자가 '움직임 줄이기'를 켰을 때 애니메이션을 끈다
+   아래는 '── 구역 이름 ──' 주석으로 화면 영역별로 나뉘어 있습니다. */
+
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
 body {

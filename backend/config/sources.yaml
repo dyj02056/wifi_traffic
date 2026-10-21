@@ -1,5 +1,15 @@
 # 데이터 소스 목록 (plan.md §5). 목록 밖 소스를 추가하려면 docs/requests.md에 사유를 쓰고 리드 승인을 받는다.
 # API 엔드포인트는 활용신청 후 data.go.kr Swagger 화면에서 복사해 넣는다. 추측 URL 금지.
+#
+# [이 파일이 하는 일]
+#   이 프로젝트가 쓰는 외부 데이터의 '출처 목록'과 배경 통계 '차트 정의'를 적어 둔 설정 파일이다.
+#   - sources: 데이터마다 번호(D1~D6), 이름, 공공데이터포털 번호, 주소, 받는 방법, 저장 위치
+#       D1 = 점수 계산의 원본(전국 무료와이파이), D2 = R1 검증용(구로구), D3~D5 = 배경 통계, D6 = 사례 카드
+#   - background_charts: /context 화면에 그릴 차트 목록(어느 출처의 어느 칸을 쓸지)
+#   pipeline/daily_sync.py, wifisafe/assemble.py, wifisafe/background.py 등이 이 파일을 읽는다.
+#
+# [YAML 읽는 법] '이름: 값' 한 줄이 항목 하나, 들여쓰기는 '안에 들어 있음', '- '로 시작하면 목록의 한 칸,
+#   [a, b]는 목록, {a: b}는 짝 묶음, #부터 줄 끝까지는 주석(설명)이다.
 sources:
   D1:
     name: 전국무료와이파이표준데이터
@@ -50,6 +60,9 @@ sources:
 # 배경 패널 차트 정의. CSV 컬럼명은 실제 파일을 보고 채운다(추측 금지).
 # 정의가 비어 있으면 background.json의 datasets는 빈 배열이 되고 /context는 '준비 중'을 보여준다.
 # 2026-10-20 실제 파일 컬럼 확인 후 작성(requests #30). 읽기 옵션은 wifisafe/background.py chart_series 참고.
+# 각 항목: id(차트 이름표), source(출처 번호), title(차트 제목), unit(단위),
+#   row_filter(이 값인 줄만 사용), label_column(가로축 칸), value_columns(막대로 쓸 칸들),
+#   group_names(칸 이름 → 범례 이름), wide_columns(연도가 칸으로 놓인 표에서 고를 칸 패턴), note(차트 아래 설명)
 background_charts:
   - id: police_hacking_by_year
     source: D3

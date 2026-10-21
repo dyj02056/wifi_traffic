@@ -1,8 +1,13 @@
 "use client";
 // 데이터와 한계 (plan.md §9.3 /about) — web-draft/about.html과 같은 내용
+//
+// [이 파일이 하는 일]
+//   "/about" 화면: 이 지도가 어떤 공공데이터로 만들어졌는지(출처 표), 어떤 규칙이 '가정'인지, 알려진 한계가 무엇인지 설명합니다.
+//   출처 표와 가정 규칙 목록은 meta.json·rules.json에서 자동으로 채우고, 한계 목록(LIMITS)은 아래에 직접 적어 둡니다.
 import { DocShell } from "@/components/DocShell";
 import { useMeta, useRules } from "@/lib/queries";
 
+// 알려진 한계 카드 목록 (아이콘, 제목, 본문)
 const LIMITS = [
   { icon: "🗺️", title: "시군구 경계 한계",
     body: <>R5(개방형 AP 밀집도)는 같은 시군구 안의 AP만 셉니다. 시군구 경계 근처 지점은 이웃 시군구 AP가 빠져 밀집도가 낮게 나올 수 있으며,

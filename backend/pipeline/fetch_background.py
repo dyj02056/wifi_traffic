@@ -1,5 +1,12 @@
 """배경 통계(D3~D5) 수집 → data/external/*.csv (점수 미반영, plan.md §5)
 
+[이 파일이 하는 일]
+  공공데이터포털(data.go.kr)의 API에서 경찰청·KISA 통계를 내려받아 CSV로 저장합니다.
+  (D3 = 경찰청 사이버범죄 통계, D4 = KISA 업종별 침해사고, D5 = KISA 민간 침해사고)
+  API는 한 번에 최대 1000행만 주므로 쪽(page)을 넘기며 끝까지 받습니다.
+  저장한 CSV는 background.py가 /context 화면용 차트로 바꿉니다. 점수에는 쓰지 않습니다.
+  API 대신 CSV를 직접 받아 import_downloads.py로 넣어도 됩니다.
+
 config/sources.yaml 각 소스의 endpoint(Swagger에서 복사)와 .env의 DATA_GO_KR_KEY가 있어야 한다. 추측 URL 금지.
 odcloud 자동변환 API 응답({"data": [...], "totalCount": N})을 page/perPage로 끝까지 받는다.
 수집 시각은 같은 이름의 .meta.json(retrieved_at)에 기록하고, background.json이 출처 날짜로 쓴다.
@@ -17,10 +24,11 @@ import pandas as pd
 
 from wifisafe.io import BACKEND_DIR, CONFIG_DIR, read_yaml, today, write_csv, write_json
 
-PER_PAGE = 1000
+PER_PAGE = 1000   # 한 번에 받을 행 수
 
 
 def fetch_all(endpoint: str, key: str) -> list[dict]:
+    """API 주소에서 모든 행을 받아 목록으로 돌려준다. 받은 행 수가 전체 수(totalCount)에 이르면 멈춘다."""
     rows, page = [], 1
     while True:
         q = urllib.parse.urlencode({"page": page, "perPage": PER_PAGE, "returnType": "JSON", "serviceKey": key})

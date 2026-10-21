@@ -1,5 +1,13 @@
 "use client";
 // 지점 상세: 오른쪽(모바일은 아래)에서 슬라이드 인, R1~R8 막대가 순서대로 채워짐(stagger 50ms) (plan.md §9.2)
+//
+// [이 파일이 하는 일]
+//   지도에서 지점을 누르면 오른쪽에서 밀려 나오는 '지점 상세' 판입니다. 위에서부터
+//     - 머리: 장소명, 현재 가중치 기준 점수, 등급(신호등 그림)
+//     - 같은 좌표의 다른 공유기(AP) 목록 → '보기'로 바꿔 볼 수 있음
+//     - 위험요인별 점수(R1~R8): 막대 길이 = 위험비율, 숫자 = 현재 가중치 기준 기여 점수, 판정 이유
+//     - 자동 설명, 안전 수칙, 신고 연락처, 원본 근거값, 데이터 문제 표식
+//   을 보여 줍니다. 상세 내용(detail)은 서버가 기본 가중치로 만든 것이고, 점수만 현재 가중치로 다시 계산해 보여 줍니다.
 import type { CSSProperties } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import type { Detail, RulesDoc } from "@/lib/types";
@@ -8,12 +16,16 @@ import { DISCLAIMER } from "./DisclaimerBar";
 import { EVIDENCE_LABELS, FLAG_LABELS, fmt } from "./format";
 
 interface Props {
+  /** 서버에서 받은 지점 상세 (아직 없으면 undefined, 못 찾으면 null) */
   detail: Detail | null | undefined;
   loading: boolean;
+  /** 판을 열지(지점이 선택됐는지) */
   open: boolean;
   rules: RulesDoc;
+  /** 현재 가중치·켜짐 상태 (요인별 기여 점수 계산용) */
   weights: number[];
   selected: boolean[];
+  /** 현재 가중치로 다시 계산한 이 지점의 점수·등급 */
   current: { score: number | null; grade: string | null } | undefined;
   /** 좌표가 똑같은 다른 AP(지도에선 마커 하나로 묶임), 위험한 순 */
   samePlace: { key: string; score: number | null; grade: string | null }[];
@@ -23,6 +35,7 @@ interface Props {
 
 export function PointSheet({ detail, loading, open, rules, weights, selected, current, samePlace, onPick, onClose }: Props) {
   const reduce = usePrefersReducedMotion();
+  // 켜 둔 요인의 가중치 합(점수 공식의 분모). 요인별 기여 점수 = 100 × 가중치 × 위험비율 ÷ wsum
   const wsum = rules.rules.reduce((a, _, i) => a + (selected[i] ? weights[i] : 0), 0);
   const g = rules.grades.find((x) => x.label === current?.grade);
   return (
