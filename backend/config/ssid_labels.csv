@@ -32,7 +32,7 @@ mlte_HWASUN,unknown,이동형 LTE 라우터 이름으로 보임 — 판단 근�
 Public WiFi Free/Public WiFi Secure,secure,"혼합: 개방형과 보안접속 SSID를 함께 제공 [Public WiFi Free=O, Public WiFi Secure=S] — 보안접속 선택 가능 지점을 secure로 볼지 리드 결정 (사람 검토 일괄 확정, requests #26)",dyj02056,2026-10-20,confirmed
 seoul,open,서울시 2021 통합 개방형 SSID 'SEOUL'의 소문자 표기 https://news.seoul.go.kr/gov/archives/520321,dyj02056,2026-10-20,confirmed
 Gangneung WIFI,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
-Public_WiFi_Free,unknown,"정부 공공와이파이 일반접속(Free) SSID만 기재 — 같은 사업 공유기는 보안접속(Public WiFi Secure)을 함께 송출하나 지자체마다 기재 방식이 달라 확인 불가, 불명(가정)으로 변경 (requests #47; 이전: 이름에 Free 포함→open, #26)",dyj02056,2026-10-21,confirmed
+Public_WiFi_Free,secure,"대전 서구 전용 표기(전국 330행 모두 대전 서구). 현장 확인 정류장 4곳(32220·32190·32120·32310) 모두 Public WiFi Free와 보안접속 Public WiFi Secure를 함께 송출 → secure (requests #48, docs/wigle_validation.md; 이전: 불명 #47, open #26)",dyj02056,2026-10-21,confirmed
 PublicWiFi@Suwon,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 PublicWiFi@Gangbuk,open,"지역 공공와이파이 이름, 보안접속 표기 없음, 같은 시군구에 보안 짝 없음 → open (requests #25)",dyj02056,2026-10-20,confirmed
 경로당,unknown,장소 이름 — 판단 근거 없음 (requests #25),dyj02056,2026-10-20,confirmed

@@ -2,7 +2,7 @@
 
 1. 원본 다운로드(sources.yaml D1.download_url, 키 불필요). 해시가 이미 등록된 스냅샷과 같으면 종료(--force로 재처리)
 2. clean_frame → DB의 직전 최신본(wifi_current)과 비교해 추가·삭제 이력(wifi_changes) 추가
-3. 전국 score_frame (R5는 전국 데이터로 계산하므로 시군구 경계 문제 없음)
+3. 전국 score_frame (R5 점수는 같은 시군구 AP만 세고, 전국 데이터로 경계 근처 지점에 R5_boundary flag만 붙임 — density.py)
 4. 전 지역 번들 문서(contracts/ 스키마)를 만들어 스키마 검증 후 bundle_docs에 저장
 2~4는 한 트랜잭션: 중간에 실패하면 DB는 이전 상태 그대로다. 원본 파일은 DB에 저장하지 않는다(무료 0.5GB).
 

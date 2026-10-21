@@ -40,18 +40,35 @@
   - 후보: open 44,136행 / secure 6,093행 / unknown 16,321행, 신뢰도 높음 29,154 · 중간 15,742 · 낮음 16,612 · 검토필요(혼합) 5,042
 - 커버리지 기준: SSID 빈값 27,616행은 라벨을 붙일 수 없으므로 **SSID 있는 행 기준**으로 측정(`coverage_confirmed_nonempty`)
 - 리드 결정 필요: 혼합 칸(예: `SEOUL, SEOUL_Secure`)을 secure로 볼지 — 구로구 전 지점이 해당
-- [ ] 검토 후 `pipeline/promote_ssid_labels.py`로 `config/ssid_labels.csv` 반영, SSID 있는 행 기준 95% 이상
+- [x] 검토 후 `config/ssid_labels.csv` 반영: 상위 96개 확정, SSID 있는 행 기준 95.1% (#22·#25·#26)
 - 2026-10-20 사용자 결정: MIXED 칸 → secure (requests #14), SSID 빈값 0.5 유지(#10), R8 결측 1.0 유지(#8), 저합계 경고 기준 유지(#6)
 - R3 실외 키워드 후보 28개 + 실내 우선 10개 → `config/r3_keyword_candidates.csv`, `keywords.yaml`에 **초안 적용**(r3_status: draft)
   - R3 실외 판정 비율: 전국 18.3% → 26.9%, 구로구 3.3% → 41.1% (참고: 구로구 D2 `실내외구분` 실외 66.8%)
 - 시연 지역 비교표(후보 라벨 기준, 임시): `docs/region_comparison.md`
   - 구로구: 후보 라벨 기준 R1 100% secure, R5 0% → 등급 주의 213 / 낮음 1,046, 높음 0
-- [ ] `config/facility_map.csv`(R2) 확정
-- [ ] `keywords.yaml` R3 후보 검토 후 r3_status: confirmed
+- [x] `config/facility_map.csv`(R2) 확정 (#21, 구로구 점수 표준편차 5.81 → 8.91)
+- [x] `keywords.yaml` R3 실외 키워드 28개 확정, 실내 예외어 감시실·시장실 추가 (#27)
+- [x] R1 게이트를 지역별(확정 비율 90%)로, SSID 없는 지역은 'SSID 정보 없음' (#23·#24) — 2026-10-21 수집 기준 확정 125 · 임시 45 · SSID 없음 58
+- [x] `Public WiFi Free`만 적힌 칸 → 불명 0.5, flag `R1_free_only` (#47, 2026-10-21)
+- [x] WiGLE 표본 검증 시도(일일 한도로 판단 가능 1곳) + 대전 서구 둔산동 현장 확인 → `Public_WiFi_Free` secure (#48, [wigle_validation.md](wigle_validation.md))
 
-## M3 채점·번들 — 코드 준비 완료, 실데이터 대기
-## M4a 정적 초안 — 코드 완료(mock으로 흐름 1~3 동작 확인), 실데이터 확인 대기
-## M5 부가 — 코드 준비 완료(validate_guro·fetch_background는 실제 파일·엔드포인트 확인 필요, cases.yaml 작성 필요)
+## M3 채점·번들 — 2026-10-21 ✅
+- 실데이터 전국 채점, Neon `bundle_docs` 저장(`pipeline/daily_sync.py`), 정적 백업 번들 고양·서초·구로(기본 고양시, #34)
+- 좌표 이상: bbox 바깥 2% 제외(#32), 같은 간격 일직선 좌표 `COORD_suspect`(대전 서구 302곳, #38)
+- 설명문: 근거값 기반 템플릿, 요인 최대 2개(#36) — 2,902건 가드레일 실패 0
+- 등급 색 변경(#44): rules.py·DB·번들·mock·golden 동일 반영
+
+## M4 화면 — 2026-10-21 ✅
+- Next.js 16 + 카카오맵(`frontend/`) 배포, web-draft는 인터넷 없는 백업 시연용
+- API 장애 시 정적 번들 자동 전환, 5분 뒤 자동 복귀·"다시 시도" 버튼
+- 디자인 개편: 지도(#44), 채점 기준 KaTeX(#45), 민감도 토네이도·생키(#46), 메뉴·소개·배경 통계(`e10059c`)
+- "내 위치": GPS 대신 지도를 눌러 직접 지정(`bb275cd`)
+- 같은 좌표 AP를 마커 1개로 묶음(겹친 마커 색이 순위표·상세 점수와 어긋나던 문제), 상세에서 같은 장소 AP 전환, 마우스 올림 라벨에 이름·최고 점수(`520eef6`, `a8cb50b`)
+
+## M5 부가 — 2026-10-21 ✅ (R3 검증 제외)
+- 배경 통계 2종(#30), 사례 카드 4건 요약 반영(#40)
+- [ ] 서울 API로 R3 실내외 일치율 검증(#28) — 키 발급 대기
+- [ ] WiGLE 표본 50곳 채우기 — 하루 한도 때문에 여러 날 필요(같은 스크립트 재실행 시 이어서 진행)
 
 ## 마감 체크리스트 (발표 2026-10-21 16:00 KST)
 - [x] 커밋(feat/decisions-and-frontend) → main 병합 → GitHub 푸시

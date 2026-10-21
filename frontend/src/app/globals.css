@@ -202,6 +202,13 @@ button:hover { background: var(--border); }
 .signal { display: flex; flex-direction: column; gap: 5px; padding: 6px; border-radius: 10px; background: #1f2937; flex: none; }
 .signal span { width: 16px; height: 16px; border-radius: 50%; background: #4b5563; }
 .signal span.on { background: var(--lamp); box-shadow: 0 0 8px var(--lamp); }
+.point-sheet .same-place { background: var(--warn-bg); color: var(--warn-text); border: 1px solid #e8d38a; border-radius: 8px;
+  padding: var(--space-2) var(--space-3); margin-top: var(--space-2); font-size: 13px; }
+.point-sheet .same-place p { margin: 0 0 4px; }
+.point-sheet .same-place ul { list-style: none; margin: 0; padding: 0; }
+.point-sheet .same-place li { display: flex; align-items: center; gap: var(--space-2); padding: 2px 0; }
+.point-sheet .same-place .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.point-sheet .same-place button { margin-left: auto; padding: 1px 10px; font-size: 12px; }
 .point-sheet .sheet-disclaimer { font-size: 12px; color: var(--text-muted); margin: var(--space-1) 0 var(--space-3); }
 .breakdown .row { margin-bottom: var(--space-2); }
 .breakdown .row .head { display: flex; justify-content: space-between; gap: var(--space-2); font-size: 13px; }
@@ -259,8 +266,7 @@ ul.tips li { margin-bottom: 4px; }
 .kmarker[data-level="mid"]::before { content: "!"; font-size: 13px; }
 .kmarker[data-level="high"] { width: 26px; height: 26px; z-index: 1; }
 .kmarker[data-level="high"]::before { content: "×"; font-size: 17px; }
-.kmarker.hidden-marker { opacity: 0; pointer-events: none; }
-.kmarker:hover { transform: scale(1.25); }
+.kmarker.hidden-marker { opacity: 0; pointer-events: none; }.kmarker:hover { transform: scale(1.25); }
 /* 움직임: 처음 톡 튀어나옴(지연은 KakaoMap.tsx에서 마커마다 다르게) → 주의·높음은 같은 색 파동이 퍼짐 → 등급이 바뀌면 한 번 튐 */
 .kmarker { animation: kpop .5s cubic-bezier(.34, 1.56, .64, 1) backwards; }
 .kmarker.kbump { animation: kbump .5s ease-out; }
@@ -275,7 +281,12 @@ ul.tips li { margin-bottom: 4px; }
 @media (prefers-reduced-motion: reduce) {
   .kmarker, .kmarker.kbump, .kmarker .kpulse { animation: none !important; }
 }
-.kmarker[data-name]:hover::after, .kchange[data-name]:hover::after {
+.kmarker .klabel { display: none; position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: var(--surface); color: var(--text); font: 400 12px/1.3 system-ui, sans-serif; white-space: nowrap; padding: 3px 8px;
+  border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,.3); pointer-events: none; }
+.kmarker .klabel b { font-weight: 800; }   /* 색은 KakaoMap.tsx가 점수의 등급 색으로 넣는다 */
+.kmarker:hover .klabel { display: block; }
+.kchange[data-name]:hover::after {
   content: attr(data-name); position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
   background: var(--surface); color: var(--text); font-size: 12px; white-space: nowrap; padding: 3px 8px;
   border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,.3); pointer-events: none; }
@@ -286,6 +297,19 @@ ul.tips li { margin-bottom: 4px; }
   animation: ring-pulse 1.4s ease-out infinite; }
 @keyframes ring-pulse { from { transform: scale(1); opacity: .8; } to { transform: scale(1.8); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .kmarker-ring::after { animation: none; opacity: 0; } }
+/* 내 위치 핀: 신호등·선택(파랑)과 겹치지 않는 보라색 물방울 핀 + '내 위치' 이름표 + 바닥 맥박. 핀 끝이 좌표 */
+.kmyloc { position: relative; width: 44px; height: 70px; pointer-events: none; }
+.kmyloc-label { position: absolute; top: 0; left: 50%; transform: translateX(-50%); white-space: nowrap;
+  background: #7c3aed; color: #fff; font: 700 12px/1 system-ui, sans-serif; padding: 5px 9px; border-radius: 999px;
+  border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,.35); }
+.kmyloc-pin { position: absolute; left: 50%; bottom: 8px; width: 34px; height: 34px; margin-left: -17px;
+  background: #7c3aed; border: 3px solid #fff; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+  box-shadow: 0 0 0 1.5px #3b0764, 0 3px 8px rgba(0,0,0,.4); display: flex; align-items: center; justify-content: center; }
+.kmyloc-pin b { transform: rotate(45deg); color: #fff; font: 800 14px/1 system-ui, sans-serif; }
+.kmyloc-halo { position: absolute; left: 50%; bottom: -9px; width: 18px; height: 18px; margin-left: -9px; border-radius: 50%;
+  background: rgba(124, 58, 237, .45); animation: myloc-pulse 1.6s ease-out infinite; }
+@keyframes myloc-pulse { from { transform: scale(.6); opacity: .9; } to { transform: scale(3.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .kmyloc-halo { animation: none; } }
 
 /* 배경 지도 색 흐리게 (A′): 지도 그림 타일만 색 30%, 마커는 그대로 */
 .map-wrap.dim .map-canvas img[src*="/api/v1/tile"] { filter: saturate(.3) contrast(1.05); }
@@ -407,7 +431,10 @@ ul.tips li { margin-bottom: 4px; }
   font-weight: 700; box-shadow: 0 2px 8px rgba(0,0,0,.25); }
 .gps-btn:disabled { opacity: .6; cursor: wait; }
 .gps-msg { position: absolute; right: var(--space-3); bottom: calc(var(--space-5) + 44px); z-index: 500;
-  background: var(--surface); padding: 6px 10px; border-radius: 6px; font-size: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.2); }
+  background: var(--surface); padding: 6px 10px; border-radius: 6px; font-size: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.2);
+  max-width: min(360px, calc(100% - 2 * var(--space-3))); }
+.gps-msg.picking { background: #7c3aed; color: #fff; font-weight: 700; }
+.gps-btn[aria-pressed="true"] { background: #7c3aed; color: #fff; border-color: #7c3aed; }
 .badge.static { background: #374151; color: #fff; }
 
 /* Radix 슬라이더 (키보드 조작 가능, plan.md §9.4) */
