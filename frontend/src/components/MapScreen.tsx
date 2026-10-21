@@ -1,5 +1,23 @@
 "use client";
 // ★ 메인 지도 화면 (plan.md §9.3 /map + docs/requests.md #16 #18 #20 #23 #24)
+//
+// [이 파일이 하는 일]
+//   /map 주소의 화면 전체를 조립하는 '지휘자' 부품입니다. 화면 구성:
+//     위쪽   : ① 지역 선택(시도·시군구)·장소 검색, ② 지금 화면 안 추천 와이파이 TOP 3
+//     왼쪽   : 가중치 패널(WeightPanel), 추가·삭제 레이어, 등급 필터
+//     가운데 : 카카오 지도(KakaoMap), 요약 줄(Summary), 각종 안내
+//     오른쪽 : 순위 변동 표(RankTable), 지점 상세(PointSheet)
+//
+// [핵심 흐름]
+//   1) 지역을 정한다: 주소의 ?region → 회원의 사는 지역 → 기본 지역 순 (pickInitial)
+//   2) 그 지역의 지점 목록(위험비율 r 포함)을 받는다
+//   3) 사용자가 고른 가중치·켜짐 상태로 모든 지점을 브라우저에서 다시 채점한다(lib/score.ts의 computeScore)
+//   4) 그 점수로 마커 색, 순위표, 요약, 추천 TOP 3를 만든다
+//   슬라이더를 움직이는 동안 매번 계산하면 버벅이므로, 손을 멈추고 0.12초 뒤에 계산한다(디바운스).
+//
+// [자주 나오는 React 도구]
+//   useState: 화면이 기억하는 값(바뀌면 다시 그림) / useMemo: 계산 결과 기억 / useCallback: 함수 기억
+//   useEffect: 그린 뒤 할 일(이벤트 등록, 주소 이동 등)
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
@@ -18,13 +36,14 @@ import { Summary } from "./Summary";
 import { TopNav } from "./TopNav";
 import { ScoreNotice, WeightPanel } from "./WeightPanel";
 
-const TOP_N = 20;
-const DEBOUNCE_MS = 120;
+const TOP_N = 20;          // 순위표에 보일 지점 수
+const DEBOUNCE_MS = 120;   // 슬라이더를 멈춘 뒤 다시 채점할 때까지 기다리는 시간(0.12초)
 // 데이터가 아직 없을 때 넘기는 빈 배열은 하나로 고정한다. 렌더마다 새 []를 넘기면 지도가 매번 범위를 다시 맞추고
 // idle → onViewChange → 다시 렌더가 반복된다(Maximum update depth exceeded)
 const NO_POINTS: never[] = [];
 const NO_CHANGES: never[] = [];
 
+// 디바운스: value가 바뀌어도 ms 동안 더 바뀌지 않을 때만 새 값을 돌려준다(연속 입력 중에는 이전 값 유지)
 function useDebounced<T>(value: T, ms: number): T {
   const [v, setV] = useState(value);
   useEffect(() => {
@@ -77,10 +96,12 @@ export function MapScreen() {
     if (session === null) router.replace("/");
   }, [session, router]);
 
+  // 채점 규칙을 받으면 공용 상태에 기본 가중치·등급 필터를 채운다
   useEffect(() => {
     if (rules.data) st.initRules(rules.data.rules.map((r) => r.max_points), rules.data.grades.map((g) => g.label));
   }, [rules.data]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // 처음 보여 줄 지역. 사용자가 직접 고른 지역(picked)이 있으면 그것이 우선
   const initial = useMemo(() => (regions.data && session !== undefined
     ? pickInitial(regions.data, search.get("region"), session?.type === "member" ? session.user.region_id : null,
       source === "static" && !!config.apiBase)
@@ -88,6 +109,7 @@ export function MapScreen() {
   const regionId = picked ?? initial?.id ?? null;
   const missingRegion = picked ? null : initial?.missing ?? null;
 
+  // 지역 바꾸기: 선택 지점을 닫고, 주소창의 ?region=도 바꿔 새로고침해도 같은 지역이 열리게 한다
   const chooseRegion = useCallback((rid: string) => {
     setPicked(rid);
     setFocus(null);       // 검색으로 고른 위치는 지역을 직접 바꾸면 잊는다(검색 쪽은 이 다음에 다시 지정)
@@ -109,22 +131,26 @@ export function MapScreen() {
   const params = rules.data?.params as { MIN_SELECTED_RULES: number; LOW_MAXSUM_WARN: number } | undefined;
   const pts = points.data?.points;
 
+  // 모든 지점을 현재 가중치로 다시 채점: 지점 key → 채점 결과
   const scores = useMemo(() => {
     const m = new Map<string, ScoreResult>();
     if (!pts || !grades || !params || !weights.length) return m;
     for (const p of pts) m.set(p.key, computeScore(p.r, weights, selected, grades, params));
     return m;
   }, [pts, grades, params, weights, selected]);
+  // 지금 설정 자체가 점수를 낼 수 있는지(요인 2개 이상·가중치 합 > 0) 확인용: 위험비율 0짜리 가상 지점으로 채점해 본다
   const status = useMemo<ScoreResult>(() => (grades && params && weights.length
     ? computeScore(Array(weights.length).fill(0), weights, selected, grades, params)
     : { score: null, grade: null, error: null, warnings: [] }), [grades, params, weights, selected]);
 
+  // 기본 기준 순위: 서버가 기본 가중치로 계산해 둔 점수(p.score) 높은 순. 동점은 key 순서로 정한다
   const baseRank = useMemo(() => {
     const m = new Map<string, number>();
     [...(pts ?? [])].sort((a, b) => b.score - a.score || (a.key < b.key ? -1 : 1)).forEach((p, i) => m.set(p.key, i + 1));
     return m;
   }, [pts]);
 
+  // 아래는 지도(KakaoMap)에 넘길 '지점 key → 색/단계/점수/보임 여부' 함수들
   const gradeColor = useMemo(() => new Map<string, string>((grades ?? []).map((g) => [g.label, g.color])), [grades]);
   const colorOf = useCallback((key: string) => {
     const s = scores.get(key);
@@ -151,6 +177,7 @@ export function MapScreen() {
     return !s?.grade || st.gradeFilter.has(s.grade);
   }, [scores, st.gradeFilter]);
 
+  // 현재 가중치 점수가 높은 순으로 줄 세운 지점 목록
   const ranked = useMemo(() => (pts ?? [])
     .filter((p) => scores.get(p.key)?.score != null)
     .sort((a, b) => scores.get(b.key)!.score! - scores.get(a.key)!.score! || (a.key < b.key ? -1 : 1)), [pts, scores]);
@@ -161,9 +188,11 @@ export function MapScreen() {
     key: p.key, name: p.name, score: scores.get(p.key)!.score!, baseRank: baseRank.get(p.key)!, color: colorOf(p.key),
     rank: rankOrder === "desc" ? i + 1 : ranked.length - i,
   }));
+  // 기본 기준의 상위(또는 하위) 20곳 중 지금 표에도 들어 있는 곳 수 = '겹침'
   const baseEdge = new Set([...baseRank].filter(([, r]) => (rankOrder === "desc" ? r <= TOP_N : r > baseRank.size - TOP_N)).map(([k]) => k));
   const overlap = rankRows.filter((r) => baseEdge.has(r.key)).length;
 
+  // 요약 줄용: 등급별 지점 수와 평균 점수
   const counts: Record<string, number> = {};
   let sum = 0, n = 0;
   for (const s of scores.values()) if (s.score != null && s.grade) { counts[s.grade] = (counts[s.grade] ?? 0) + 1; sum += s.score; n += 1; }
@@ -196,12 +225,14 @@ export function MapScreen() {
     return () => window.removeEventListener("keydown", onKey);
   }, [picking]);
 
+  // ── 화면 그리기 ── 기본 데이터를 못 받았으면 오류 안내, 아직 받는 중이면 '불러오는 중'
   if (meta.error || rules.error || regions.error) {
     return <div className="page"><TopNav /><div className="notice error">데이터를 불러오지 못했습니다. API 주소(NEXT_PUBLIC_API_BASE) 또는 정적 번들(public/data, scripts/sync_bundle.sh)을 확인하세요.
       {" "}<button type="button" onClick={retry}>다시 시도</button></div></div>;
   }
   if (!meta.data || !rules.data || !regions.data || session === undefined) return <div className="page"><TopNav /><p className="loading">불러오는 중…</p></div>;
 
+  // 상단 배지: 가짜 데이터 / 백업 데이터 / SSID 미확정 지역('임시(무효)') / SSID 정보 없는 지역
   const r1 = region?.r1_status;
   const badges = (
     <>

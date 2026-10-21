@@ -1,3 +1,7 @@
+# [이 테스트가 확인하는 것]
+#   API 서버가 mock 번들을 그대로 내주는지 확인한다: 주소별 응답 모양, 없는 지역·지점은 404,
+#   모든 응답에 안내 문구 머리말(X-Disclaimer)이 붙는지, /explain이 템플릿 설명을 돌려주는지 등.
+#   TestClient: 실제 서버를 띄우지 않고 API에 요청을 보내 볼 수 있는 테스트 도구.
 import urllib.parse
 
 import pytest

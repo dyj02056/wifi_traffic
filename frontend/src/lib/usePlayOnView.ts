@@ -1,5 +1,9 @@
 "use client";
 // 화면에 들어올 때마다 그래프를 0부터 다시 그리기 위한 신호 (배경 통계 막대, 민감도 토네이도).
+//
+// [이 파일이 하는 일]
+//   그래프가 화면에 보이는 순간에 막대가 0부터 자라나는 애니메이션을 시작하도록 '지금 보이기 시작했다'는 신호를 줍니다.
+//   사용법: const [ref, play] = usePlayOnView(); → 그래프 요소에 ref를 붙이고, play가 0보다 크면 애니메이션 시작.
 import { useEffect, useRef, useState } from "react";
 
 /** 이 화면에 들어올 때마다 요소 윗부분이 보이는 순간 play가 1씩 오른다(0이면 아직 안 보임).
@@ -14,6 +18,7 @@ export function usePlayOnView<T extends Element>(trigger: unknown = true) {
   useEffect(() => {
     if (trigger == null) return;
     let done = false;
+    // 요소의 화면 위치를 재서, 윗부분이 화면 높이의 85% 지점보다 위로 올라왔으면 '보인다'고 판단한다(한 번만)
     const check = () => {
       const b = ref.current?.getBoundingClientRect();
       if (done || !b || !(b.top < innerHeight * 0.85 && b.bottom > 0)) return;
@@ -24,6 +29,7 @@ export function usePlayOnView<T extends Element>(trigger: unknown = true) {
     // 스크롤은 창이 아니라 main.doc 안에서 일어나고 scroll 이벤트는 위로 전달되지 않으므로 capture로 받는다
     addEventListener("scroll", check, { passive: true, capture: true });
     addEventListener("resize", check);
+    // 정리 함수: 화면을 떠나거나 trigger가 바뀌면 감시를 멈추고 신호를 0으로 되돌린다
     return () => {
       cancelAnimationFrame(raf);
       removeEventListener("scroll", check, { capture: true });

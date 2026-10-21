@@ -1,6 +1,11 @@
 "use client";
 // 배경 통계·사례 카드 (plan.md §9.3 /context) — "점수 미반영" 고정, 차트마다 출처·날짜
 // 차트는 화면에 들어올 때마다 새로 그려서 막대가 0에서 값까지 자라는 모습이 보이게 한다(유형별로 아래부터 차례로 쌓임).
+//
+// [이 파일이 하는 일]
+//   "/context" 화면: 경찰청·KISA 통계를 막대그래프로, 같은 원리의 해외·국내 사건을 접었다 펼치는 카드로 보여 줍니다.
+//   이 통계와 사례는 '왜 위험요인을 살펴봐야 하나'를 설명하는 참고 자료일 뿐, 지점 점수에는 쓰지 않습니다.
+//   그래프는 recharts 도구로 그립니다. 한 해에 여러 유형이 있으면 막대를 위로 쌓아(stack) 보여 줍니다.
 import type { ReactNode } from "react";
 import { Bar, BarChart, CartesianGrid, LabelList, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { DocShell, SourceNote } from "@/components/DocShell";
@@ -15,6 +20,7 @@ const PALETTE: [string, string][] = [
   ["#3b6ff0", "#1d47b8"], ["#f06464", "#c23434"], ["#f5c33b", "#d49a00"],
   ["#3fbf7f", "#23874f"], ["#8b5cf6", "#5b21b6"], ["#22a5c3", "#0e6f86"],
 ];
+// 막대가 자라는 시간(0.9초), 유형별로 시작을 늦추는 간격(0.25초)
 const GROW_MS = 900, STEP_MS = 250;
 
 const fmtN = (v: number) => Math.round(v).toLocaleString();
@@ -49,10 +55,13 @@ function describe(ds: Dataset): ReactNode {
   );
 }
 
+// 통계 하나를 막대그래프 카드로 그린다
 function Chart({ ds }: { ds: Dataset }) {
   const [ref, play] = usePlayOnView<HTMLElement>();
   const still = useStill();
   const groups = [...new Set(ds.series.map((p) => p.group ?? ds.unit))];
+  // series(막대 하나씩 나열된 목록)를 가로축 이름(label)별 한 줄로 모은다.
+  // 예) {label:"2023", 계정도용: 120, 기타: 30, _total: 150} — recharts가 이 모양을 받아 쌓인 막대를 그린다
   const rows = new Map<string, Record<string, string | number>>();
   for (const p of ds.series) {
     const row = rows.get(p.label) ?? { label: p.label, _total: 0 };
@@ -111,6 +120,7 @@ function Chart({ ds }: { ds: Dataset }) {
   );
 }
 
+// 페이지 본체: 안내 문구 → 통계 차트들 → 사례 카드 목록
 export default function ContextPage() {
   const bg = useBackground();
   const cases = useCases();

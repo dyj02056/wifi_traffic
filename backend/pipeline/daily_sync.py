@@ -1,5 +1,11 @@
 """매일 수집: LOCALDATA 전국 무료와이파이 CSV → 정제·채점 → Neon (docs/requests.md #15·#17)
 
+[이 파일이 하는 일]
+  매일 자동으로 돌아가는 '하루치 작업 전체'입니다. GitHub Actions(인터넷에서 정해진 시간에 코드를 돌려 주는 서비스)가
+  매일 이 파일을 실행하고, 결과를 Neon 데이터베이스에 저장하면 배포된 API가 그 데이터를 화면에 내보냅니다.
+  손으로 돌리는 clean.py → score.py → export_bundle.py 과정을 한 번에, 전국 단위로, DB에 저장하는 버전이라고 보면 됩니다.
+
+[순서]
 1. 원본 다운로드(sources.yaml D1.download_url, 키 불필요). 해시가 이미 등록된 스냅샷과 같으면 종료(--force로 재처리)
 2. clean_frame → DB의 직전 최신본(wifi_current)과 비교해 추가·삭제 이력(wifi_changes) 추가
 3. 전국 score_frame (R5 점수는 같은 시군구 AP만 세고, 전국 데이터로 경계 근처 지점에 R5_boundary flag만 붙임 — density.py)
@@ -29,11 +35,15 @@ from wifisafe.changes import CHANGE_COLS, diff_snapshots
 from wifisafe.engine import clean_frame, enforce_r1_gate, load_tables, score_frame
 from wifisafe.io import CONFIG_DIR, app_mode, read_csv_any, read_yaml, schema_name_for, validator_for
 
-KST = timezone(timedelta(hours=9))
+KST = timezone(timedelta(hours=9))   # 한국 표준시(UTC+9)
 DEFAULT_REGION = "41-goyang"   # requests #34 (라벨·R2 확정 후 재비교로 확정)
 
 
 def download(url: str, referer: str | None, dst: Path) -> None:
+    """원본 CSV를 내려받아 dst에 저장한다. 실패하면 10초, 20초 기다리며 최대 3번 시도한다.
+
+    CSV 대신 웹페이지(HTML)가 오면(주소가 바뀌었거나 차단된 경우) 실패로 본다.
+    """
     headers = {"User-Agent": "Mozilla/5.0 (wifi-traffic daily_sync)"}
     if referer:
         headers["Referer"] = referer
@@ -72,6 +82,7 @@ def main():
     ap.add_argument("--default", default=DEFAULT_REGION, help="regions.json default_region_id")
     args = ap.parse_args()
 
+    # ① 준비: 실행 모드 확인, 분류표 읽기, 원본 다운로드(또는 --csv 파일 사용) 후 파일 지문(sha256) 계산
     t0 = time.time()
     mode = app_mode()
     tables, status = load_tables()
@@ -87,8 +98,10 @@ def main():
         raw, enc = read_csv_any(src)
     print(f"[daily_sync] {args.date} 원본 {len(raw):,}행 ({enc}, sha256 {sha[:12]}…)")
 
+    # ② DB 연결. `with` 블록이 끝나기 전에 commit하지 않으면 모든 변경이 취소된다(한 트랜잭션).
     with db.connect(direct=True) as conn:
         db.migrate(conn)
+        # 어제와 똑같은 파일이면 할 일이 없으므로 끝낸다
         same = db.snapshot_by_sha(conn, sha)
         if same and not args.force:
             print(f"  원본이 {same} 스냅샷과 같습니다(갱신 없음) → 종료. 다시 처리하려면 --force")
@@ -101,6 +114,7 @@ def main():
         for sido, n in report["excluded_pending_sido"].items():
             print(f"  ⚠ '{sido}' {n:,}행 제외 — 공식 시도코드 확인 전 (requests #11)")
 
+        # ③ 직전 최신본과 비교해 추가·삭제 지점 찾기
         prev_dates = [d for d in db.snapshot_dates(conn) if d != args.date]
         prev = db.load_current(conn)
         if prev_dates and len(prev):
@@ -116,6 +130,7 @@ def main():
             new_changes = pd.DataFrame(columns=CHANGE_COLS)
             print("  첫 수집 — 비교할 이전 스냅샷 없음")
 
+        # ④ 전국 채점 후 DB에 스냅샷 기록·최신본 교체·변경 이력 추가
         scored = score_frame(clean, tables, pd.Timestamp(args.date))
         db.record_snapshot(conn, args.date, sha, len(raw), d1["download_url"])
         db.replace_current(conn, clean)
@@ -130,6 +145,7 @@ def main():
             if kept and kept.get("datasets"):
                 background, bg_warn = kept, ["배경 통계 원본 없음 → DB의 기존 background.json 유지"]
 
+        # ⑤ 전 지역 번들 문서를 만들고, 스키마 검사를 통과한 것만 DB에 저장한 뒤 한꺼번에 확정(commit)
         region_ids = sorted(scored["region_id"].unique())
         a = assemble(scored, region_ids, args.default, mode=mode, snapshot=args.date, snapshot_dates=dates,
                      changes=changes_all, background=background)

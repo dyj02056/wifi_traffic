@@ -1,6 +1,11 @@
 "use client";
 // 채점 기준 — rules.json으로 자동 생성 (plan.md §9.3, 발표 "채점이 투명하다" 화면, requests #45)
 // 머리 요약 → ① 100점 구성 막대 → ② 위험요인 카드 → ③ 신호등 등급 눈금 → ④ 수식 + 실제 지점 예시 계산
+//
+// [이 파일이 하는 일]
+//   "/rules" 화면: 점수가 어떻게 계산되는지 누구나 확인할 수 있게 보여 줍니다(채점의 투명성).
+//   내용은 모두 rules.json(백엔드 config/rules.py에서 만들어짐)에서 자동으로 채워지므로,
+//   백엔드에서 가중치를 바꾸면 이 화면도 저절로 바뀝니다. 수식은 Formula(KaTeX)로 그립니다.
 import type { CSSProperties } from "react";
 import { DocShell } from "@/components/DocShell";
 import { Formula } from "@/components/Formula";
@@ -10,11 +15,13 @@ import type { RulesDoc } from "@/lib/types";
 
 // 규칙 색: 배점이 큰 규칙일수록 진한 파랑 (등급 색과 겹치지 않게 파랑 계열만)
 const RULE_SHADES = ["#1e3a8a", "#1d4ed8", "#2563eb", "#3b82f6", "#60a5fa", "#93c5fd", "#bfdbfe", "#dbeafe"];
-const LIGHT = new Set(["#93c5fd", "#bfdbfe", "#dbeafe"]);
+const LIGHT = new Set(["#93c5fd", "#bfdbfe", "#dbeafe"]);   // 바탕이 연해서 글자를 진한 색으로 써야 하는 색
+// 요인 id → 색: 배점 큰 순으로 줄 세운 순번의 색을 고른다
 function shadeOf(rules: RulesDoc, id: string) {
   const order = [...rules.rules].sort((a, b) => b.max_points - a.max_points || (a.id < b.id ? -1 : 1)).map((r): string => r.id);
   return RULE_SHADES[order.indexOf(id)] ?? RULE_SHADES[RULE_SHADES.length - 1];
 }
+// chip: 색 배지 스타일, round2: 백엔드·score.ts와 같은 소수 둘째 자리 반올림
 const chip = (c: string): CSSProperties => ({ background: c, color: LIGHT.has(c) ? "#1e3a8a" : "#fff" });
 const round2 = (x: number) => Math.floor(x * 100 + 0.5 + 1e-9) / 100;
 
@@ -28,6 +35,7 @@ function Example({ rules }: { rules: RulesDoc }) {
     (a, p) => (!a || p.score > a.score || (p.score === a.score && p.key < a.key) ? p : a), null);
   const d = useDetail(top?.key ?? null).data;
   if (!d || !region) return <p className="field">예시 지점을 불러오는 중…</p>;
+  // 공식의 분모(가중치 합)와 분자(가중치 × 비율의 합)를 직접 계산해 보여 준다
   const wsum = d.breakdown.reduce((a, b) => a + b.max_points, 0);
   const num = d.breakdown.reduce((a, b) => a + b.max_points * b.ratio, 0);
   const g = rules.grades.find((x) => x.label === d.grade);
@@ -56,6 +64,7 @@ function Example({ rules }: { rules: RulesDoc }) {
   );
 }
 
+// 페이지 본체: 요약 숫자 → ①~④ 구역
 export default function RulesPage() {
   const { data: rules, error } = useRules();
   const total = rules?.rules.reduce((a, r) => a + r.max_points, 0) ?? 0;

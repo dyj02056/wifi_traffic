@@ -6,6 +6,10 @@
   <style>body{font-family:system-ui,sans-serif;padding:16px} .pass{color:#1f7a3f} .fail{color:#b91c1c} td{padding:2px 8px}</style>
 </head>
 <body>
+  <!-- [이 파일이 하는 일]
+       브라우저용 채점 테스트. 이 페이지를 열면 js/score.js가 golden_scores.json 정답표와
+       같은 답을 내는지 사례마다 검사해 통과/실패를 표시한다(터미널용은 score.test.mjs).
+  -->
   <div role="note" data-disclaimer>※ 이 점수는 실제 해킹 확률이 아니라 위험요인 지표입니다.</div>
   <h1>score.js 골든 테스트</h1>
   <p>contracts/golden_scores.json (scripts/sync_bundle이 tests/golden_scores.json으로 복사) 전부 통과해야 합니다.</p>

@@ -1,3 +1,6 @@
+# [이 테스트가 확인하는 것]
+#   좌표 이상 처리(wifisafe/geo.py)를 확인한다: 동떨어진 점이 지도 범위를 넓히지 않는지,
+#   멀리 찍힌 점과 일직선으로 늘어선 점에 COORD_suspect 표시가 붙는지.
 import pandas as pd
 
 from wifisafe.geo import SUSPECT_FLAG, coord_suspects, robust_bbox

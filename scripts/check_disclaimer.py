@@ -4,6 +4,12 @@
   - frontend/src/app/layout.tsx: DisclaimerBar 사용 (frontend가 있을 때만)
   - 화면 소스 전체: 금지 표현(면책 문구 속 부정형 제외) 없음
 실행(저장소 루트에서): python scripts/check_disclaimer.py   → 실패 시 종료코드 1
+
+[이 파일이 하는 일]
+  "이 점수는 위험요인 지표입니다"라는 안내 문구가 모든 화면에 붙어 있는지, 그리고 화면 문구에
+  오해를 부르는 금지 표현(config/keywords.yaml의 forbidden_phrases)이 섞이지 않았는지 자동으로 검사한다.
+  코드 주석은 사용자에게 보이지 않으므로 검사 전에 지운다(strip_comments).
+  ※ 줄 끝에 붙인 // 주석은 지우지 않으므로, 화면 코드의 주석에도 금지 표현을 쓰지 않는다.
 """
 import re
 import sys
@@ -21,6 +27,7 @@ SCREEN_GLOBS = ["web-draft/*.html", "web-draft/js/*.js", "frontend/src/**/*.tsx"
 
 
 def strip_comments(text: str) -> str:
+    """HTML 주석(<!-- -->), 블록 주석(/* */), 줄 맨 앞의 // 주석을 지운다."""
     text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
     return re.sub(r"(?m)^\s*//.*$", "", text)

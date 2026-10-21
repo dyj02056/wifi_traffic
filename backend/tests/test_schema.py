@@ -1,3 +1,7 @@
+# [이 테스트가 확인하는 것]
+#   칸 이름 대응표와 이름 만들기(wifisafe/schema.py)를 확인한다: 시군구 로마자 슬러그, region_id,
+#   지점 고유키가 항상 같게 만들어지는지, 칸 이름이 틀리면 오류가 나는지,
+#   시도코드 확인 전 시도는 경고와 함께 빠지는지, 신설 '전남광주통합특별시'가 코드 12를 받는지.
 import pytest
 
 from wifisafe.schema import COLUMN_MAP, HeaderMismatch, make_region_id, point_key, sigungu_slug, validate_header

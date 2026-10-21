@@ -1,5 +1,13 @@
 "use client";
 // R1~R8 [체크] + [슬라이더 0~2×max] + 가정 배지 + 기본값 (plan.md §9.3)
+//
+// [이 파일이 하는 일]
+//   지도 화면 왼쪽의 '위험요인 선택·가중치' 패널입니다. 요인마다
+//     - 체크박스: 이 요인을 점수에 넣을지 말지
+//     - 슬라이더: 이 요인의 가중치(0 ~ 기본값의 2배). 가운데 눈금이 기본값
+//     - '가정' 배지: 근거 데이터가 약해 팀이 가정으로 정한 요인 표시
+//   를 보여 줍니다. 값을 바꾸면 공용 상태(useAppStore)가 바뀌고, 지도와 순위표가 그 값으로 다시 채점됩니다.
+// ScoreNotice는 점수를 낼 수 없거나(요인 2개 미만, 가중치 합 0) 근거가 빈약할 때 안내 문구를 띄웁니다.
 import * as Slider from "@radix-ui/react-slider";
 import type { RulesDoc } from "@/lib/types";
 import { useAppStore } from "@/store/useAppStore";

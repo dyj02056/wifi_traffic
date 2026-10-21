@@ -1,5 +1,22 @@
 -- Neon(Postgres + PostGIS) 스키마 (docs/requests.md #15). 여러 번 실행해도 안전하다(IF NOT EXISTS).
 -- 적용: python pipeline/db_migrate.py   (DATABASE_URL 필요)
+--
+-- [이 파일이 하는 일]
+--   데이터베이스에 어떤 표(테이블)를 만들지 정의한다. 표는 엑셀 시트처럼 칸(열)과 줄(행)로 되어 있다.
+--   표 5개: snapshots(수집 기록), wifi_current(최신 와이파이 목록), wifi_changes(추가·삭제 이력),
+--           bundle_docs(화면용 JSON 문서), users(회원)
+--
+-- [읽는 법]
+--   - CREATE TABLE IF NOT EXISTS 표이름 (...) : 표가 없을 때만 새로 만든다
+--   - 칸이름 자료형 : text(글자), integer(정수), double precision(소수), date(날짜),
+--                     timestamptz(시각+시간대), jsonb(JSON 문서), bigserial(자동으로 1씩 늘어나는 번호)
+--   - PRIMARY KEY : 줄마다 겹치면 안 되는 대표 칸(이 값으로 줄을 찾는다)
+--   - NOT NULL : 비워 둘 수 없음 / DEFAULT now() : 값을 안 주면 현재 시각
+--   - CHECK (...) : 허용되는 값을 제한 / UNIQUE (...) : 그 칸 조합이 겹치면 안 됨
+--   - CREATE INDEX : 찾기를 빠르게 하는 색인(책의 찾아보기 같은 것). gist는 지도 좌표용 색인
+--   - geography(Point, 4326) : GPS 좌표 한 점(4326 = GPS 세계 좌표계 번호)
+
+-- PostGIS: 거리 계산·가까운 지점 찾기 같은 지도 기능을 더해 주는 확장 기능
 CREATE EXTENSION IF NOT EXISTS postgis;
 
 -- 수집한 원본 스냅샷 기록 (원본 파일 자체는 저장하지 않는다 — 무료 0.5GB 한도)

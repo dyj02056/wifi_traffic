@@ -1,3 +1,7 @@
+# [이 테스트가 확인하는 것]
+#   만들어진 번들(mock, 그리고 있으면 실데이터)이 contracts/ 스키마를 지키는지, 안내 문구가 들어 있는지,
+#   key_index가 지점 목록과 맞는지, 데이터 있음(available) 지역마다 파일이 다 있는지,
+#   사례 카드에 출처·날짜가 빠지면 오류가 나는지 확인한다.
 import pytest
 
 from config.rules import DISCLAIMER

@@ -1,5 +1,11 @@
 "use client";
 // 장소 검색: 와이파이 지점(장소명·주소) + 📍 주소·장소 위치(카카오). 같은 이름이 많아 주소·지역을 함께 보여 준다.
+//
+// [이 파일이 하는 일]
+//   지도 화면 위쪽의 검색창입니다. 글자를 입력하면 두 가지를 동시에 찾아 목록으로 보여 줍니다.
+//     1) 와이파이 지점: 우리 API(전국) 또는 지금 지역의 지점 이름에서 찾기 → 누르면 그 지점 상세를 연다
+//     2) 📍 위치: 카카오 주소·장소 검색 → 누르면 그 위치로 지도를 옮기고, 필요하면 지역도 바꾼다
+//   Enter를 누르면 첫 번째 결과를 고르고, Esc나 바깥을 누르면 목록을 닫습니다.
 import { useEffect, useRef, useState } from "react";
 import { searchPoints, type SearchHit } from "@/lib/api";
 import { searchPlaces, type Place } from "@/lib/geo";
@@ -18,6 +24,7 @@ export function SearchBox({ regionId, region, points, onPickPoint, onPickPlace }
   const [open, setOpen] = useState(false);
   const [res, setRes] = useState<{ q: string; hits: SearchHit[]; scope: string; places: Place[] } | null>(null);
   const boxRef = useRef<HTMLDivElement>(null);
+  // 검색 타이머 안에서 최신 지역·지점 목록을 쓰려고 ref에 담아 매번 갱신한다(검색은 q가 바뀔 때만 다시 시작)
   const ctx = useRef({ regionId, region, points });
   useEffect(() => { ctx.current = { regionId, region, points }; });
 
@@ -34,12 +41,14 @@ export function SearchBox({ regionId, region, points, onPickPoint, onPickPlace }
     return () => { alive = false; clearTimeout(t); };
   }, [q]);
 
+  // 검색 상자 바깥을 누르면 결과 목록을 닫는다
   useEffect(() => {
     const close = (e: MouseEvent) => { if (!boxRef.current?.contains(e.target as Node)) setOpen(false); };
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, []);
 
+  // 지금 입력한 글자에 대한 결과만 보여 준다(이전 검색어의 결과가 늦게 와도 무시)
   const shown = q.trim() && res?.q === q.trim() ? res : null;
   const pickPoint = (h: SearchHit) => { setOpen(false); setQ(h.name); onPickPoint(h); };
   const pickPlace = (p: Place) => { setOpen(false); setQ(p.label); onPickPlace(p); };

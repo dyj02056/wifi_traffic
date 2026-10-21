@@ -1,12 +1,21 @@
 // 사이드바(weight-panel), 순위표(rank-table), 지점 상세(point-sheet) 렌더링.
+//
+// [이 파일이 하는 일]
+//   web-draft 지도 화면의 조각들을 HTML 글자로 만들어 화면에 넣습니다(렌더링).
+//   가중치 패널, 점수 안내, 상단 요약, 순위표, 지점 상세가 여기 있습니다. (frontend에서는 각각 별도 컴포넌트)
+//   데이터 값을 HTML에 넣을 때는 반드시 esc()를 거칩니다.
 
+// esc: 글자 속 <, >, & 같은 특수 문자를 안전한 표기로 바꾼다.
+// 장소명 등에 HTML 코드가 섞여 있어도 화면에서 실행되지 않고 글자 그대로 보이게 하는 보안 처리.
 export function esc(v) {
   return String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
 
+// 점수 표시: 소수 둘째 자리까지, 끝의 0은 뗀다. 예) 72.50 → "72.5"
 const fmt = (n) => (n == null ? "–" : Number(n).toFixed(2).replace(/\.?0+$/, ""));
 
 // ── weight-panel ──────────────────────────────────────────
+// 요인마다 체크박스·슬라이더(0 ~ 기본값의 2배)·설명을 그리고, 바꾸면 state를 고친 뒤 onChange(다시 채점 예약)를 부른다
 export function renderWeightPanel(el, rules, state, onChange) {
   el.innerHTML = rules.rules.map((r, i) => `
     <div class="rule ${state.selected[i] ? "" : "off"}" data-i="${i}">
@@ -38,6 +47,7 @@ export function renderWeightPanel(el, rules, state, onChange) {
   });
 }
 
+// 점수를 낼 수 없거나(요인 2개 미만·가중치 합 0) 근거가 빈약할 때 안내 문구
 export function renderScoreNotice(el, status) {
   if (status.error === "TOO_FEW_RULES") {
     el.innerHTML = '<div class="notice error">위험요인을 2개 이상 선택해야 점수를 계산합니다.</div>';
@@ -64,14 +74,17 @@ export function renderSummary(el, points, scores, grades) {
 }
 
 // ── rank-table: 기본 상위 20 vs 현재 상위 20 ──────────────
+// 점수가 있는 지점을 점수 높은 순으로 정렬(동점은 key 순)
 export function rankOrder(points, scoreOf) {
   return points
     .filter((p) => scoreOf(p.key) != null)
     .sort((a, b) => scoreOf(b.key) - scoreOf(a.key) || (a.key < b.key ? -1 : 1));
 }
 
+// 순위표: 현재 상위 20곳과 기본 기준 순위를 비교해 ▲▼로 보여 준다
 export function renderRankTable(el, { current, baseRank, topN, colorOf, scoreOf, onClick }) {
   const tbody = el.querySelector("tbody");
+  // 다시 그리기 전에 각 줄의 화면 위치를 기억해 둔다(아래 FLIP 애니메이션용)
   const prevTops = new Map([...tbody.querySelectorAll("tr")].map((tr) => [tr.dataset.key, tr.getBoundingClientRect().top]));
   const top = current.slice(0, topN);
   const baseTop = new Set([...baseRank.entries()].filter(([, r]) => r <= topN).map(([k]) => k));
@@ -88,6 +101,7 @@ export function renderRankTable(el, { current, baseRank, topN, colorOf, scoreOf,
       <td class="num">${b}</td><td class="num">${delta}</td></tr>`;
   }).join("");
   // FLIP: 이전 위치에서 새 위치로 미끄러지듯 이동
+  // (새 자리에 그린 뒤, 순간적으로 옛 자리로 옮겨 놓았다가 효과를 켜고 원래 자리로 돌려보내는 방식)
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
     tbody.querySelectorAll("tr").forEach((tr) => {
       const old = prevTops.get(tr.dataset.key);
@@ -103,6 +117,7 @@ export function renderRankTable(el, { current, baseRank, topN, colorOf, scoreOf,
 }
 
 // ── point-sheet ───────────────────────────────────────────
+// 근거 칸 이름·데이터 문제 표식(flag) → 화면에 보일 한국어 (frontend components/format.ts와 같은 내용)
 const EVIDENCE_LABELS = {
   ssid: "SSID", facility_type: "설치시설구분", place_detail: "설치장소상세", install_ym: "설치연월",
   provider: "서비스제공사", manager: "관리기관", manager_tel: "관리기관 전화", data_date: "데이터기준일자",
@@ -116,6 +131,7 @@ const FLAG_LABELS = {
   COORD_suspect: "좌표 이상 의심 — 지역 지도 범위 계산에서 제외(점수에는 영향 없음)",
 };
 
+// 지점 상세: 현재 가중치 점수, 요인별 기여 점수(= 100 × 가중치 × 비율 ÷ 켜 둔 가중치 합), 설명, 안전 수칙, 신고처, 근거값
 export function renderPointSheet(el, { detail, rules, state, current, gradeMeta, disclaimer }) {
   const wsum = rules.rules.reduce((a, r, i) => a + (state.selected[i] ? state.weights[i] : 0), 0);
   const g = gradeMeta(current?.grade);

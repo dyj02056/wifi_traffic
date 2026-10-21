@@ -1,10 +1,16 @@
 // 구글(Google Identity Services)·네이버(네이버 아이디로 로그인 JS SDK) 연동.
 // 정적 초안이라 브라우저에서 받은 프로필을 그대로 쓴다. 실서비스에서는 받은 토큰을 backend에서 검증해야 한다.
+//
+// [이 파일이 하는 일]
+//   구글·네이버가 제공하는 로그인 도구(SDK)를 불러와 로그인 버튼을 만들고,
+//   로그인이 끝나면 사용자 정보(provider, sub=고유번호, name, email)를 intro.html 쪽으로 넘겨줍니다.
+//   (JWT: 로그인 정보를 '머리.내용.서명' 세 부분으로 담은 토큰. 여기서는 가운데 '내용'만 풀어 읽는다)
 import { GOOGLE_CLIENT_ID, NAVER_CLIENT_ID, NAVER_CALLBACK_URL } from "./oauth-config.js";
 
 const GOOGLE_SDK = "https://accounts.google.com/gsi/client";
 const NAVER_SDK = "https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js";
 
+// 외부 스크립트(SDK)를 페이지에 붙이고 다 불러올 때까지 기다린다
 function loadScript(src) {
   return new Promise((resolve, reject) => {
     const el = document.createElement("script");
@@ -22,6 +28,7 @@ function decodeJwt(token) {
   return JSON.parse(json);
 }
 
+// 앱 ID가 설정돼 있는지 (없으면 화면에서 '설정 전' 안내)
 export const googleConfigured = () => !!GOOGLE_CLIENT_ID;
 export const naverConfigured = () => !!NAVER_CLIENT_ID;
 

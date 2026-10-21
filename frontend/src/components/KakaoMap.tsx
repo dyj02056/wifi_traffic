@@ -2,6 +2,14 @@
 // 카카오맵 (docs/requests.md #31). web-draft/js/map-kakao.js와 같은 방식:
 // 마커는 CustomOverlay + div(.kmarker)라서 등급 색 변화가 CSS transition(0.4초)으로 부드럽게 바뀐다.
 // 움직임: 처음 나타날 때 톡 튀어나옴, 주의·높음은 파동(.kpulse)이 퍼짐, 등급이 바뀌면 한 번 튐(.kbump).
+//
+// [이 파일이 하는 일]
+//   카카오맵을 화면에 띄우고, 그 위에 와이파이 지점마다 신호등 색 마커(낮음 ✓ / 주의 ! / 높음 ×)를 그립니다.
+//   그 밖에 선택 지점 고리, 검색 위치로 이동, '내 위치' 보라색 핀, 최근 추가·삭제 표시도 맡습니다.
+//   React 부품이지만 지도 위 마커는 카카오 SDK가 직접 관리하는 HTML 요소라서,
+//   useEffect 안에서 "무엇이 바뀌면 지도에 무엇을 다시 그릴지"를 하나씩 나눠 처리합니다.
+//   (SDK: 카카오가 제공하는 지도 프로그램 묶음. 인터넷에서 불러와야 쓸 수 있다)
+//   useRef: 화면을 다시 그려도 사라지지 않는 보관 상자. 지도·마커 객체를 여기에 담아 둔다.
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { config } from "@/lib/config";
@@ -12,24 +20,31 @@ declare global {
   interface Window { kakao?: any }
 }
 
+// 지도에 찍을 지점 한 곳, 그리고 최근 추가·삭제된 지점 한 곳의 모양
 export interface MapPoint { key: string; name: string; lat: number; lng: number }
 export interface MapChange { key: string; change: "added" | "removed"; snapshot_from: string; snapshot_to: string;
   place_name: string | null; lat: number; lng: number }
 
+// 이 부품이 받는 값들 (MapScreen.tsx가 넘겨준다)
 interface Props {
   points: MapPoint[];
+  /** 처음 보여 줄 범위 [서, 남, 동, 북] */
   bbox: [number, number, number, number] | null;
+  /** 지점 key → 마커 색 (현재 가중치로 다시 계산한 등급의 색) */
   colorOf: (key: string) => string;
   /** 등급 단계 — 마커 안 기호(✓ ! ×)와 크기에 쓴다 */
   levelOf: (key: string) => "low" | "mid" | "high" | "";
   /** 같은 좌표에 겹친 지점 중 대표(가장 위험한 곳)를 고를 때 쓴다 — 높을수록 위험 */
   scoreOf: (key: string) => number | null;
+  /** 등급 필터에 걸려 숨겨야 하면 false */
   visibleOf: (key: string) => boolean;
   colorVersion: unknown;               // 바뀌면 다시 칠한다(가중치·필터 변경)
   selectedKey: string | null;
   changes: MapChange[];
   showChanges: boolean;
+  /** 마커를 눌렀을 때 */
   onSelect: (key: string) => void;
+  /** 지도를 움직일 때마다 '이 좌표가 지금 화면 안에 있나' 판별 함수를 넘겨준다(화면 안 추천 TOP 3용) */
   onViewChange: (contains: (lat: number, lng: number) => boolean) => void;
   /** 검색 등으로 이 좌표로 이동·확대 (seq가 바뀔 때마다) */
   focus?: { lat: number; lng: number; level: number; seq: number } | null;
@@ -44,12 +59,14 @@ interface Props {
 // 순위·상세의 점수와 지도 색이 어긋나 보였다. 대표: 선택한 지점이 있으면 그 지점, 없으면 보이는 것 중 가장 위험한 곳
 interface Group { keys: string[]; name: string; el: HTMLDivElement; score: HTMLElement; overlay: any; pos: any }
 
+// 묶음(같은 좌표의 지점들) 중 마커에 대표로 보여 줄 지점을 고른다
 function pickRep(keys: string[], p: Pick<Props, "scoreOf" | "visibleOf">, selectedKey: string | null) {
   if (selectedKey && keys.includes(selectedKey)) return selectedKey;
   const vis = keys.filter(p.visibleOf);
   return (vis.length ? vis : keys).reduce((a, b) => ((p.scoreOf(b) ?? -Infinity) > (p.scoreOf(a) ?? -Infinity) ? b : a));
 }
 
+// 모든 마커의 색·등급 기호·이름표 점수·숨김 여부를 지금 값으로 다시 칠한다(마커를 새로 만들지 않아 빠르다)
 function paint(gs: Map<string, Group>, p: Props) {
   for (const g of gs.values()) {
     const { el } = g;
@@ -67,6 +84,7 @@ function paint(gs: Map<string, Group>, p: Props) {
     // 등급이 바뀐 마커만 한 번 튀어 오르게 (애니메이션 다시 시작)
     if (el.dataset.level && el.dataset.level !== level) {
       el.classList.remove("kbump");
+      // offsetWidth를 읽으면 브라우저가 화면을 한 번 계산한다 → 같은 애니메이션 클래스를 다시 붙여도 처음부터 재생된다
       void el.offsetWidth;
       el.classList.add("kbump");
     }
@@ -75,6 +93,8 @@ function paint(gs: Map<string, Group>, p: Props) {
   }
 }
 
+// 카카오맵 SDK를 한 번만 불러온다(여러 곳에서 불러도 같은 Promise를 공유). 실패하면 다음에 다시 시도할 수 있게 비운다.
+// libraries=services: 주소·장소 검색 기능도 함께 불러온다(lib/geo.ts에서 사용)
 let sdkPromise: Promise<void> | null = null;
 export function loadSdk(appKey: string) {
   sdkPromise ??= new Promise<void>((resolve, reject) => {
@@ -95,6 +115,7 @@ export function KakaoMap(p: Props) {
   const ring = useRef<any>(null);
   const myLoc = useRef<any>(null);
   const changeOverlays = useRef<any[]>([]);
+  // 지도 이벤트(클릭 등)는 한 번만 등록하므로, 항상 최신 props를 보도록 cb에 담아 매번 갱신한다
   const cb = useRef(p);
   useLayoutEffect(() => { cb.current = p; });
   const [error, setError] = useState(config.kakaoJsKey ? "" : "no-key");
@@ -107,11 +128,13 @@ export function KakaoMap(p: Props) {
     loadSdk(config.kakaoJsKey).then(() => {
       const k = window.kakao.maps;
       if (!elRef.current || mapRef.current) return;
+      // 처음에는 한반도 가운데(위도 36.4, 경도 127.8)를 넓게(level 13) 보여 준다. level은 클수록 넓게 보인다
       const map = new k.Map(elRef.current, { center: new k.LatLng(36.4, 127.8), level: 13 });
       map.addControl(new k.ZoomControl(), k.ControlPosition.LEFT);
       k.event.addListener(map, "click", (e: any) => {
         if (cb.current.picking) cb.current.onPick?.(e.latLng.getLat(), e.latLng.getLng());
       });
+      // idle: 지도 이동·확대가 끝났을 때
       k.event.addListener(map, "idle", () => {
         const b = map.getBounds();
         cb.current.onViewChange((lat, lng) => b.contain(new k.LatLng(lat, lng)));
@@ -134,6 +157,7 @@ export function KakaoMap(p: Props) {
     markers.current.clear();
     groupOf.current.clear();
     for (const pt of p.points) {
+      // 좌표 글자를 묶음 이름으로 쓴다. 같은 좌표의 두 번째 지점부터는 기존 묶음에 key만 추가
       const gid = `${pt.lat},${pt.lng}`;
       groupOf.current.set(pt.key, gid);
       const had = markers.current.get(gid);
@@ -163,6 +187,7 @@ export function KakaoMap(p: Props) {
       markers.current.set(gid, { keys: [pt.key], name: pt.name, el, score, overlay, pos });
     }
     paint(markers.current, cb.current);
+    // 지역 범위(bbox)가 화면에 꽉 차도록 맞춘다(가장자리 여백 24px)
     if (!p.bbox) return;
     const [w, s, e, n] = p.bbox;
     const fit = () => {
@@ -251,6 +276,7 @@ export function KakaoMap(p: Props) {
     });
   }, [ready, p.changes, p.showChanges]);
 
+  // 지도 키가 없으면 지도 대신 설정 안내를 보여 준다(나머지 기능은 지도 없이도 동작)
   if (error === "no-key") {
     return (
       <div className="map-placeholder">

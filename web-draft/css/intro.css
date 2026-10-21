@@ -1,4 +1,5 @@
 /* 인트로(로그인) 화면 — 도시 야경 배경 위에 어두운 막을 깔아 로고·와이파이 아이콘·버튼이 먼저 보이게 한다. */
+/* [이 파일이 하는 일] 첫 화면(intro.html, 로그인)만 쓰는 스타일. */
 body.intro {
   min-height: 100%; height: auto;
   background: #0b1530 url("../img/city.png") center / cover no-repeat fixed;

@@ -1,5 +1,10 @@
 """downloads/ 폴더에 받아 둔 원본 파일을 파이프라인 위치로 옮긴다.
 
+[이 파일이 하는 일]
+  사람이 웹사이트에서 직접 내려받아 프로젝트 최상위의 downloads/ 폴더에 넣어 둔 CSV들을
+  파이프라인이 찾는 자리로 옮기고, 언제 받은 자료인지 기록합니다.
+  D1(전국 무료와이파이)은 ingest_snapshot.py를 불러 날짜별 스냅샷으로 등록하고, 나머지는 data/external/로 복사합니다.
+
   downloads/D1_전국무료와이파이/*.csv  → ingest_snapshot (수집일 = 파일 수정일, --date로 지정 가능)
   downloads/D2_구로구와이파이/*.csv     → backend/data/external/guro_wifi.csv
   downloads/D3_경찰청사이버범죄/*.csv   → backend/data/external/police_cyber.csv
@@ -22,6 +27,7 @@ from snapshots import snapshot_dates
 from wifisafe.io import BACKEND_DIR, REPO_DIR, read_csv_any, write_json
 
 DOWNLOADS = REPO_DIR / "downloads"
+# 출처 번호 → (downloads 안의 폴더 이름, data/external에 저장할 파일 이름)
 EXTERNAL = {
     "D2": ("D2_구로구와이파이", "guro_wifi.csv"),
     "D3": ("D3_경찰청사이버범죄", "police_cyber.csv"),
@@ -32,6 +38,7 @@ D1_DIR = "D1_전국무료와이파이"
 
 
 def mdate(p) -> str:
+    """파일을 마지막으로 고친 날짜(= 내려받은 날로 간주). 예) "2026-10-20" """
     return datetime.fromtimestamp(p.stat().st_mtime).strftime("%Y-%m-%d")
 
 
@@ -47,6 +54,7 @@ def main():
         if date in snapshot_dates():
             print(f"  {p.name}: {date} 스냅샷이 이미 있음 — 건너뜀 (덮어쓰려면 ingest_snapshot.py --force)")
             continue
+        # 같은 파이썬으로 ingest_snapshot.py를 따로 실행한다. 실패하면(check=True) 여기서도 멈춘다
         subprocess.run([sys.executable, str(BACKEND_DIR / "pipeline" / "ingest_snapshot.py"), str(p), "--date", date],
                        check=True)
 

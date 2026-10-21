@@ -1,5 +1,10 @@
 """민감도 분석: 기준 A(기본) vs 기준 B(R1=15) → processed/sensitivity_r1.csv + 요약 (plan.md §8.6)
 
+[이 파일이 하는 일]
+  지정한 지역에 대해 "R1 가중치를 30에서 15로 낮추면 순위·등급이 얼마나 바뀌나"를 계산해 CSV와 요약으로 저장합니다.
+  계산 방법은 src/wifisafe/sensitivity.py에 있고, 이 파일은 지역을 골라 실행하고 결과를 출력·저장만 합니다.
+  (번들에 들어가는 sensitivity/<지역>.json은 export_bundle.py가 따로 만든다.)
+
 실행: python pipeline/sensitivity.py --sigungu 구로구 [--sido 서울특별시] | --region 11-guro
 """
 import argparse

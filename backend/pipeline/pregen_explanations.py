@@ -1,5 +1,12 @@
 """시연 지역 AI 설명 사전 생성 → processed/explanations/{region_id}.json (plan.md §8.4, M5)
 
+[이 파일이 하는 일]
+  화면에서 지점을 누를 때마다 AI를 부르면 느리고 비용이 들기 때문에, 시연할 지역의 지점 설명을 미리 만들어 둡니다.
+  점수가 높은 지점부터 차례로 설명을 만들고, 지점마다 검사 결과(금지어·근거 없는 숫자·문장 수)를
+  리포트 파일에 남겨 사람이 검수할 수 있게 합니다.
+
+[순서] score.py → ★ pregen_explanations.py → export_bundle.py (여기서 만든 설명을 번들에 합침)
+
 ANTHROPIC_API_KEY가 있으면 AI 설명을 만들고 가드레일(금지어·근거 외 수치·문장 수)을 통과한 것만 쓴다.
 실패하거나 키가 없으면 템플릿. export_bundle.py가 이 파일을 detail에 합친다.
 검수 리포트: processed/explanations/{region_id}.report.json (M5: 샘플 20건 금지어 0·근거 외 수치 0)
@@ -42,6 +49,7 @@ def main():
         for _, r in sub.iterrows():
             d = detail_record(r)
             exp, problems = explain(d, use_ai=use_ai, client=client)
+            # 최종으로 쓰일 문장(AI 또는 템플릿)을 한 번 더 검사해 리포트에 남긴다
             final_problems = guardrails.check_explanation(exp["text"], allowed_numbers_for(build_payload(d)))
             out[d["key"]] = exp
             report.append({"key": d["key"], "source": exp["source"], "ai_rejected_reasons": problems,

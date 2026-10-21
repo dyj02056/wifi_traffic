@@ -1,3 +1,6 @@
+# [이 테스트가 확인하는 것]
+#   위험요인 R1~R8 판정(wifisafe/rules.py, density.py)을 작은 가짜 표로 하나씩 확인한다:
+#   SSID 분류별 비율, 시설구분, 실외 단어와 실내 예외, 설치연월 해석, 전화번호 형식, 데이터 기준일, 밀집도 등.
 import pandas as pd
 import pytest
 

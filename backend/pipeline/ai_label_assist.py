@@ -1,5 +1,13 @@
 """(선택) SSID 라벨 후보 생성 → data/interim/ssid_label_candidates.csv (plan.md §8.3-2)
 
+[이 파일이 하는 일]
+  와이파이 이름(SSID)이 수천 개라 사람이 하나하나 분류하기 힘들어서, AI에게 이름만 보고
+  '개방형(open) / 보안접속(secure) / 모름(unknown)' 후보를 제안하게 합니다.
+  census.py가 만든 ssid_census.csv에서 아직 확정되지 않은 SSID를 많이 쓰인 순으로 --top개 골라 25개씩 묶어 AI에 묻습니다.
+
+[언제 쓰나]
+  census.py를 돌린 뒤, SSID 분류표(config/ssid_labels.csv)를 채우기 전에 참고 자료가 필요할 때. ANTHROPIC_API_KEY 필요.
+
 ※ 후보일 뿐이다. config/ssid_labels.csv에는 절대 쓰지 않는다. 확정은 사람이 근거를 확인한 뒤 한다.
 실행: python pipeline/ai_label_assist.py [--top 100]
 """
@@ -34,6 +42,7 @@ def main():
         resp = client.messages.create(model=MODEL, max_tokens=8000, output_config={"effort": "low"}, system=SYSTEM,
                                       messages=[{"role": "user", "content": json.dumps(batch, ensure_ascii=False)}])
         text = "".join(b.text for b in resp.content if b.type == "text").strip()
+        # AI 답변에서 JSON 배열 부분('['부터 마지막 ']'까지)만 잘라 해석한다. 실패하면 그 묶음은 건너뛴다.
         start, end = text.find("["), text.rfind("]")
         try:
             items = json.loads(text[start:end + 1])

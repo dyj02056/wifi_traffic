@@ -1,3 +1,6 @@
+# [이 테스트가 확인하는 것]
+#   배경 통계 차트 변환(wifisafe/background.py chart_series)을 작은 가짜 표로 확인한다:
+#   줄 고르기(row_filter), 여러 칸 펼치기(value_columns), 연도 칸 표(wide_columns), 쉼표 숫자 읽기 등.
 import pandas as pd
 import pytest
 

@@ -1,5 +1,12 @@
 """검토 끝난 후보를 config/ssid_labels.csv로 옮긴다.
 
+[이 파일이 하는 일]
+  SSID 분류 작업의 마지막 단계입니다. 사람이 후보표(ssid_labels_candidates.csv)를 검토하며
+  확정한 행(status=confirmed, 검토자·검토일 기입)만 실제 분류표(ssid_labels.csv)로 옮깁니다.
+  옮긴 뒤 "SSID가 있는 행의 몇 %가 확정 분류로 덮였는지"를 출력합니다(목표 95%).
+
+[SSID 분류 작업 순서] census.py → draft_ssid_labels.py(또는 ai_label_assist.py) → 사람이 검토 → ★ promote_ssid_labels.py
+
 config/ssid_labels_candidates.csv에서 사람이 status=confirmed로 바꾸고 reviewer·reviewed_at을 채운 행만 옮긴다.
 이미 ssid_labels.csv에 있는 SSID는 후보 쪽 값으로 갱신한다. status가 candidate인 행은 건드리지 않는다.
 
@@ -23,6 +30,7 @@ def main():
         raise SystemExit(f"확정 행 오류 — label 값 이상 {bad_label['ssid'].tolist()[:10]}, "
                          f"reviewer/reviewed_at 비어 있음 {no_reviewer['ssid'].tolist()[:10]}")
     cur = pd.read_csv(CONFIG_DIR / "ssid_labels.csv", dtype=str, keep_default_na=False, encoding="utf-8-sig")
+    # 기존 분류표에서 이번에 확정한 SSID를 빼고, 확정 행을 새로 붙인다(= 같은 SSID는 새 값으로 바뀜)
     merged = pd.concat([cur[~cur["ssid"].isin(ok["ssid"])], ok[COLS]], ignore_index=True)
     write_csv(CONFIG_DIR / "ssid_labels.csv", merged[COLS])
     rows = pd.to_numeric(cand["rows"]).sum()

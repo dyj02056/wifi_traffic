@@ -1,5 +1,10 @@
 """DB(Neon) → 정적 백업 번들 (docs/requests.md #16). 시연 직전에 실행해 web-draft·frontend의 ./data를 최신 DB 기준으로.
 
+[이 파일이 하는 일]
+  인터넷이나 API 서버가 안 될 때를 대비한 '백업 데이터'를 만듭니다.
+  DB에 저장된 최신 번들 문서 중 지정한 몇 지역만 꺼내 backend/dist/data/에 파일로 저장합니다.
+  (전국 228개 지역을 다 담으면 용량이 너무 커서 시연할 지역만 고른다)
+
 지정한 지역만 available로 담고(용량), regions.json·meta.json·key_index.json을 그 지역 기준으로 다시 쓴다.
 실행: python pipeline/export_bundle_from_db.py --regions 11-seocho,11-guro [--default 11-seocho]
       → backend/dist/data, 이어서 bash scripts/sync_bundle.sh
@@ -39,6 +44,7 @@ def main():
                 docs[f"{folder}/{rid}.json"] = db.get_doc(conn, f"{folder}/{rid}.json")
             key_index.update({p["key"]: rid for p in docs[f"points/{rid}.json"]["points"]})
 
+    # 고른 지역만 '데이터 있음(available)'으로 표시하고, 기본 지역·번들 지역 목록·SSID 확정 여부를 다시 계산한다
     for r in regions["regions"]:
         r["available"] = r["region_id"] in region_ids
     regions["default_region_id"] = default

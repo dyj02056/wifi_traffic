@@ -1,5 +1,13 @@
 # 매일 LOCALDATA 전국 무료와이파이 원본 → 정제·채점 → Neon (docs/requests.md #15·#17)
 # 필요한 Secret: DATABASE_URL (Neon 연결 문자열). 원본이 전날과 같으면 아무것도 바꾸지 않고 끝난다.
+#
+# [이 파일이 하는 일]
+#   GitHub Actions(GitHub이 정해진 시간에 서버에서 코드를 대신 실행해 주는 기능)에게
+#   "매일 새벽 5시(한국 시간)에 backend/pipeline/daily_sync.py를 실행하라"고 알려 주는 작업 지시서.
+#   GitHub 저장소의 Actions 탭에서 'Run workflow' 버튼으로 손으로 실행할 수도 있다(workflow_dispatch).
+#   Secret: GitHub에 숨겨 저장한 비밀값. 코드에 DB 주소를 적지 않기 위해 쓴다.
+#
+# [순서] 저장소 코드 내려받기 → 파이썬 3.11 설치 → 필요한 패키지 설치 → daily_sync.py 실행
 name: daily-sync
 
 on:
@@ -12,6 +20,7 @@ on:
         type: boolean
         default: false
 
+# 같은 작업이 동시에 두 번 돌지 않게 한다(이전 실행이 끝날 때까지 다음 실행은 기다림)
 concurrency:
   group: daily-sync
   cancel-in-progress: false
