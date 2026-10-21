@@ -137,6 +137,15 @@ export function MapScreen() {
     const s = scores.get(key);
     return (s?.grade && gradeLevel.get(s.grade)) || "";
   }, [scores, gradeLevel]);
+  const scoreOf = useCallback((key: string) => scores.get(key)?.score ?? null, [scores]);
+  // 선택한 지점과 좌표가 똑같은 다른 AP — 지도에선 마커 하나로 묶이므로 상세에서 알려 주고 바꿔 볼 수 있게 한다
+  const samePlace = useMemo(() => {
+    const sel = st.selectedKey ? pts?.find((p) => p.key === st.selectedKey) : undefined;
+    if (!sel || !pts) return [];
+    return pts.filter((p) => p.key !== sel.key && p.lat === sel.lat && p.lng === sel.lng)
+      .map((p) => ({ key: p.key, score: scores.get(p.key)?.score ?? null, grade: scores.get(p.key)?.grade ?? null }))
+      .sort((a, b) => (b.score ?? -Infinity) - (a.score ?? -Infinity));
+  }, [st.selectedKey, pts, scores]);
   const visibleOf = useCallback((key: string) => {
     const s = scores.get(key);
     return !s?.grade || st.gradeFilter.has(s.grade);
@@ -306,7 +315,7 @@ export function MapScreen() {
         )}
 
         <div className={`map-wrap${dimMap ? " dim" : ""}`}>
-          <KakaoMap points={pts ?? NO_POINTS} bbox={region?.bbox ?? null} colorOf={colorOf} levelOf={levelOf} visibleOf={visibleOf}
+          <KakaoMap points={pts ?? NO_POINTS} bbox={region?.bbox ?? null} colorOf={colorOf} levelOf={levelOf} scoreOf={scoreOf} visibleOf={visibleOf}
             colorVersion={scores} selectedKey={st.selectedKey} changes={changes.data?.changes ?? NO_CHANGES}
             showChanges={st.showChanges} onSelect={st.selectPoint} onViewChange={(fn) => setInView(() => fn)} focus={focus}
             myLocation={myLocation} picking={picking} onPick={onPick} />
@@ -335,7 +344,7 @@ export function MapScreen() {
             )}
           <PointSheet open={!!st.selectedKey} detail={detail.data} loading={detail.isLoading} rules={rules.data}
             weights={st.weights} selected={st.selected} current={st.selectedKey ? scores.get(st.selectedKey) : undefined}
-            onClose={() => st.selectPoint(null)} />
+            samePlace={samePlace} onPick={st.selectPoint} onClose={() => st.selectPoint(null)} />
         </aside>
       </main>
     </div>

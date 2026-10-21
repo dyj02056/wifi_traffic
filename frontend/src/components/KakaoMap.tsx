@@ -21,6 +21,8 @@ interface Props {
   colorOf: (key: string) => string;
   /** 등급 단계 — 마커 안 기호(✓ ! ×)와 크기에 쓴다 */
   levelOf: (key: string) => "low" | "mid" | "high" | "";
+  /** 같은 좌표에 겹친 지점 중 대표(가장 위험한 곳)를 고를 때 쓴다 — 높을수록 위험 */
+  scoreOf: (key: string) => number | null;
   visibleOf: (key: string) => boolean;
   colorVersion: unknown;               // 바뀌면 다시 칠한다(가중치·필터 변경)
   selectedKey: string | null;
@@ -37,11 +39,25 @@ interface Props {
   onPick?: (lat: number, lng: number) => void;
 }
 
-function paint(ms: Map<string, { el: HTMLDivElement }>, colorOf: (k: string) => string,
-  levelOf: (k: string) => string, visibleOf: (k: string) => boolean) {
-  for (const [key, { el }] of ms) {
-    el.style.background = colorOf(key);
-    const level = levelOf(key);
+// 같은 좌표(한 건물의 보안·개방 SSID 등)는 마커 하나로 묶는다. 겹쳐 그리면 나중에 그린 마커가 덮어서
+// 순위·상세의 점수와 지도 색이 어긋나 보였다. 대표: 선택한 지점이 있으면 그 지점, 없으면 보이는 것 중 가장 위험한 곳
+interface Group { keys: string[]; name: string; el: HTMLDivElement; overlay: any; pos: any }
+
+function pickRep(keys: string[], p: Pick<Props, "scoreOf" | "visibleOf">, selectedKey: string | null) {
+  if (selectedKey && keys.includes(selectedKey)) return selectedKey;
+  const vis = keys.filter(p.visibleOf);
+  return (vis.length ? vis : keys).reduce((a, b) => ((p.scoreOf(b) ?? -Infinity) > (p.scoreOf(a) ?? -Infinity) ? b : a));
+}
+
+function paint(gs: Map<string, Group>, p: Props) {
+  for (const g of gs.values()) {
+    const { el } = g;
+    const key = pickRep(g.keys, p, p.selectedKey);
+    const shown = g.keys.filter(p.visibleOf).length;
+    el.dataset.key = key;
+    el.dataset.name = shown > 1 ? `${g.name} · 같은 장소 AP ${shown}대` : g.name;
+    el.style.background = p.colorOf(key);
+    const level = p.levelOf(key);
     // 등급이 바뀐 마커만 한 번 튀어 오르게 (애니메이션 다시 시작)
     if (el.dataset.level && el.dataset.level !== level) {
       el.classList.remove("kbump");
@@ -49,7 +65,7 @@ function paint(ms: Map<string, { el: HTMLDivElement }>, colorOf: (k: string) => 
       el.classList.add("kbump");
     }
     el.dataset.level = level;
-    el.classList.toggle("hidden-marker", !visibleOf(key));
+    el.classList.toggle("hidden-marker", !shown);
   }
 }
 
@@ -68,7 +84,8 @@ export function loadSdk(appKey: string) {
 export function KakaoMap(p: Props) {
   const elRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<any>(null);
-  const markers = useRef(new Map<string, { overlay: any; el: HTMLDivElement; pos: any }>());
+  const markers = useRef(new Map<string, Group>());      // 좌표 → 묶음
+  const groupOf = useRef(new Map<string, string>());      // 지점 key → 좌표
   const ring = useRef<any>(null);
   const myLoc = useRef<any>(null);
   const changeOverlays = useRef<any[]>([]);
@@ -109,12 +126,14 @@ export function KakaoMap(p: Props) {
     const k = window.kakao.maps;
     for (const { overlay } of markers.current.values()) overlay.setMap(null);
     markers.current.clear();
+    groupOf.current.clear();
     for (const pt of p.points) {
+      const gid = `${pt.lat},${pt.lng}`;
+      groupOf.current.set(pt.key, gid);
+      const had = markers.current.get(gid);
+      if (had) { had.keys.push(pt.key); continue; }
       const el = document.createElement("div");
       el.className = "kmarker";
-      el.style.background = cb.current.colorOf(pt.key);
-      el.dataset.level = cb.current.levelOf(pt.key);
-      el.dataset.name = pt.name;
       // 처음 그릴 때 하나씩 톡톡 나타나도록 시작 시간을 조금씩 흩는다
       el.style.animationDelay = `${Math.round(Math.random() * 600)}ms`;
       // 퍼지는 파동(주의·높음만 CSS에서 보임). ::before는 기호, ::after는 이름표라 따로 둔다
@@ -122,12 +141,14 @@ export function KakaoMap(p: Props) {
       pulse.className = "kpulse";
       pulse.style.animationDelay = `${Math.round(Math.random() * 1800)}ms`;
       el.append(pulse);
-      el.addEventListener("click", () => (cb.current.picking ? cb.current.onPick?.(pt.lat, pt.lng) : cb.current.onSelect(pt.key)));
+      // 누르면 지금 지도에 보이는 대표 지점을 고른다(같은 장소의 다른 AP는 상세에서 바꿔 볼 수 있다)
+      el.addEventListener("click", () => (cb.current.picking ? cb.current.onPick?.(pt.lat, pt.lng) : cb.current.onSelect(el.dataset.key!)));
       const pos = new k.LatLng(pt.lat, pt.lng);
       const overlay = new k.CustomOverlay({ content: el, position: pos, xAnchor: 0.5, yAnchor: 0.5, zIndex: 2, clickable: true });
       overlay.setMap(map);
-      markers.current.set(pt.key, { overlay, el, pos });
+      markers.current.set(gid, { keys: [pt.key], name: pt.name, el, overlay, pos });
     }
+    paint(markers.current, cb.current);
     if (!p.bbox) return;
     const [w, s, e, n] = p.bbox;
     const fit = () => {
@@ -146,10 +167,10 @@ export function KakaoMap(p: Props) {
     }
   }, [ready, p.points, p.bbox]);
 
-  // 색·필터 다시 칠하기
+  // 색·필터·선택 다시 칠하기 (선택하면 겹친 마커가 그 지점의 색으로 바뀐다)
   useEffect(() => {
-    paint(markers.current, cb.current.colorOf, cb.current.levelOf, cb.current.visibleOf);
-  }, [p.colorVersion, p.points]);
+    paint(markers.current, cb.current);
+  }, [p.colorVersion, p.points, p.visibleOf, p.selectedKey]);
 
   // 선택 지점 링
   useEffect(() => {
@@ -157,7 +178,8 @@ export function KakaoMap(p: Props) {
     if (!ready || !map) return;
     ring.current?.setMap(null);
     ring.current = null;
-    const m = p.selectedKey ? markers.current.get(p.selectedKey) : null;
+    const gid = p.selectedKey ? groupOf.current.get(p.selectedKey) : undefined;
+    const m = gid ? markers.current.get(gid) : null;
     if (!m) return;
     const el = document.createElement("div");
     el.className = "kmarker-ring";

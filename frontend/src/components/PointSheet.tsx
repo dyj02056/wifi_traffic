@@ -15,10 +15,13 @@ interface Props {
   weights: number[];
   selected: boolean[];
   current: { score: number | null; grade: string | null } | undefined;
+  /** 좌표가 똑같은 다른 AP(지도에선 마커 하나로 묶임), 위험한 순 */
+  samePlace: { key: string; score: number | null; grade: string | null }[];
+  onPick: (key: string) => void;
   onClose: () => void;
 }
 
-export function PointSheet({ detail, loading, open, rules, weights, selected, current, onClose }: Props) {
+export function PointSheet({ detail, loading, open, rules, weights, selected, current, samePlace, onPick, onClose }: Props) {
   const reduce = usePrefersReducedMotion();
   const wsum = rules.rules.reduce((a, _, i) => a + (selected[i] ? weights[i] : 0), 0);
   const g = rules.grades.find((x) => x.label === current?.grade);
@@ -45,6 +48,23 @@ export function PointSheet({ detail, loading, open, rules, weights, selected, cu
                     {g && <span className="grade-label">{g.label}</span>}
                   </div>
                 </div>
+                {samePlace.length > 0 && (
+                  <div className="same-place" role="note">
+                    <p>같은 장소에 AP가 {samePlace.length}대 더 있습니다. 선택을 풀면 지도 마커는 그중 가장 위험한 곳의 색으로 보입니다.</p>
+                    <ul>
+                      {samePlace.map((s) => {
+                        const sg = rules.grades.find((x) => x.label === s.grade);
+                        return (
+                          <li key={s.key}>
+                            <span className="dot" style={{ background: sg?.color ?? "var(--grade-none)" }} />
+                            <span><b>{s.score != null ? fmt(s.score) : "–"}</b>점 {s.grade ?? ""}</span>
+                            <button type="button" onClick={() => onPick(s.key)}>보기</button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
                 <div className="sheet-disclaimer">※ {DISCLAIMER}</div>
                 <div className="reason">현재 가중치 기준 · 기본 가중치 기준 {fmt(detail.score)}점({detail.grade})</div>
                 <section className="panel breakdown">
