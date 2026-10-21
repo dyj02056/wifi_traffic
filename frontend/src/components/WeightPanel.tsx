@@ -4,12 +4,15 @@ import * as Slider from "@radix-ui/react-slider";
 import type { RulesDoc } from "@/lib/types";
 import { useAppStore } from "@/store/useAppStore";
 
-export function WeightPanel({ rules }: { rules: RulesDoc }) {
+export function WeightPanel({ rules, onCollapse }: { rules: RulesDoc; onCollapse?: () => void }) {
   const { weights, selected, setWeight, toggleRule, resetWeights } = useAppStore();
   if (!weights.length) return null;
   return (
     <section className="panel">
-      <h2>위험요인 선택·가중치 <button type="button" onClick={resetWeights}>기본값으로</button></h2>
+      <h2 className="map-head">위험요인 선택·가중치
+        {onCollapse && <button type="button" className="collapse-btn" onClick={onCollapse} aria-label="위험요인 선택·가중치 접기" title="접기">◂</button>}
+      </h2>
+      <div className="panel-tools"><button type="button" onClick={resetWeights}>↺ 기본값으로</button></div>
       <div className="weight-panel">
         {rules.rules.map((r, i) => (
           <div key={r.id} className={`rule ${selected[i] ? "" : "off"}`}>
