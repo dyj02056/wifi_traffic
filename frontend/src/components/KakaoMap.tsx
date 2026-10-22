@@ -34,7 +34,7 @@ interface Props {
   colorOf: (key: string) => string;
   /** 등급 단계 — 마커 안 기호(✓ ! ×)와 크기에 쓴다 */
   levelOf: (key: string) => "low" | "mid" | "high" | "";
-  /** 같은 좌표에 겹친 지점 중 대표(가장 위험한 곳)를 고를 때 쓴다 — 높을수록 위험 */
+  /** 같은 좌표에 겹친 지점 중 대표(점수가 가장 낮은 곳)를 고를 때 쓴다 — 높을수록 위험 */
   scoreOf: (key: string) => number | null;
   /** 등급 필터에 걸려 숨겨야 하면 false */
   visibleOf: (key: string) => boolean;
@@ -56,14 +56,14 @@ interface Props {
 }
 
 // 같은 좌표(한 건물의 보안·개방 SSID 등)는 마커 하나로 묶는다. 겹쳐 그리면 나중에 그린 마커가 덮어서
-// 순위·상세의 점수와 지도 색이 어긋나 보였다. 대표: 선택한 지점이 있으면 그 지점, 없으면 보이는 것 중 가장 위험한 곳
+// 순위·상세의 점수와 지도 색이 어긋나 보였다. 대표: 선택한 지점이 있으면 그 지점, 없으면 보이는 것 중 점수가 가장 낮은 곳
 interface Group { keys: string[]; name: string; el: HTMLDivElement; score: HTMLElement; overlay: any; pos: any }
 
 // 묶음(같은 좌표의 지점들) 중 마커에 대표로 보여 줄 지점을 고른다
 function pickRep(keys: string[], p: Pick<Props, "scoreOf" | "visibleOf">, selectedKey: string | null) {
   if (selectedKey && keys.includes(selectedKey)) return selectedKey;
   const vis = keys.filter(p.visibleOf);
-  return (vis.length ? vis : keys).reduce((a, b) => ((p.scoreOf(b) ?? -Infinity) > (p.scoreOf(a) ?? -Infinity) ? b : a));
+  return (vis.length ? vis : keys).reduce((a, b) => ((p.scoreOf(b) ?? Infinity) < (p.scoreOf(a) ?? Infinity) ? b : a));
 }
 
 // 모든 마커의 색·등급 기호·이름표 점수·숨김 여부를 지금 값으로 다시 칠한다(마커를 새로 만들지 않아 빠르다)
@@ -74,7 +74,7 @@ function paint(gs: Map<string, Group>, p: Props) {
     const vis = g.keys.filter(p.visibleOf);
     const shown = vis.length;
     el.dataset.key = key;
-    // 이름표: 이름 + 그 자리에서 가장 높은 점수(그 점수의 등급 색)
+    // 이름표: 이름 + 그 자리에서 가장 낮은 점수(그 점수의 등급 색)
     const top = pickRep(g.keys, p, null);
     const ts = p.scoreOf(top);
     g.score.textContent = ts != null ? fmt(ts) : "";

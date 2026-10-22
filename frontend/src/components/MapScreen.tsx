@@ -170,7 +170,7 @@ export function MapScreen() {
     if (!sel || !pts) return [];
     return pts.filter((p) => p.key !== sel.key && p.lat === sel.lat && p.lng === sel.lng)
       .map((p) => ({ key: p.key, score: scores.get(p.key)?.score ?? null, grade: scores.get(p.key)?.grade ?? null }))
-      .sort((a, b) => (b.score ?? -Infinity) - (a.score ?? -Infinity));
+      .sort((a, b) => (a.score ?? Infinity) - (b.score ?? Infinity));
   }, [st.selectedKey, pts, scores]);
   const visibleOf = useCallback((key: string) => {
     const s = scores.get(key);

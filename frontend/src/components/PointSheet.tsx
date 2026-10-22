@@ -27,7 +27,7 @@ interface Props {
   selected: boolean[];
   /** 현재 가중치로 다시 계산한 이 지점의 점수·등급 */
   current: { score: number | null; grade: string | null } | undefined;
-  /** 좌표가 똑같은 다른 AP(지도에선 마커 하나로 묶임), 위험한 순 */
+  /** 좌표가 똑같은 다른 AP(지도에선 마커 하나로 묶임), 점수 낮은 순 */
   samePlace: { key: string; score: number | null; grade: string | null }[];
   onPick: (key: string) => void;
   onClose: () => void;
@@ -63,7 +63,7 @@ export function PointSheet({ detail, loading, open, rules, weights, selected, cu
                 </div>
                 {samePlace.length > 0 && (
                   <div className="same-place" role="note">
-                    <p>같은 장소에 AP가 {samePlace.length}대 더 있습니다. 선택을 풀면 지도 마커는 그중 가장 위험한 곳의 색으로 보입니다.</p>
+                    <p>같은 장소에 AP가 {samePlace.length}대 더 있습니다. 선택을 풀면 지도 마커는 그중 점수가 가장 낮은 곳의 색으로 보입니다.</p>
                     <ul>
                       {samePlace.map((s) => {
                         const sg = rules.grades.find((x) => x.label === s.grade);
